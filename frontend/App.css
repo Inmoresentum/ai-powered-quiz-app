@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.custom-stuff  vaadin-text-field::part(label) {
+    color: #ff9900;
+}
+.custom-stuff  vaadin-text-field::part(input-field) {
+    border-radius: 25px;
+}
