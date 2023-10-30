@@ -1,8 +1,8 @@
-import {Button} from '@hilla/react-components/Button.js';
 import {Notification} from '@hilla/react-components/Notification.js';
 import {TextField} from '@hilla/react-components/TextField.js';
 import {HelloWorldService} from 'Frontend/generated/endpoints.js';
 import {useState} from 'react';
+import {Button} from "@/components/ui/button";
 
 export default function HelloWorldView() {
     const [name, setName] = useState('');
