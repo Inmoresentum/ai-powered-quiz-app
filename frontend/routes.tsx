@@ -12,7 +12,7 @@ export const routes = protectRoutes([
     element: <MainLayout />,
     handle: { title: 'Main' },
     children: [
-      { path: '/', element: <HelloWorldView />, handle: { title: 'QuizBotIQ', requiresLogin: false } },
+      { path: '/', element: <HelloWorldView />, handle: { title: 'QuizBotIQ', requiresLogin: true } },
       { path: '/about', element: <AboutView />, handle: { title: 'About', requiresLogin: true } },
     ],
   },

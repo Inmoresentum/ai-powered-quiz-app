@@ -9,7 +9,7 @@ export default function HelloWorldView() {
 
     return (
         <>
-            <section className="flex items-baseline custom-stuff">
+            <section className="flex items-baseline">
                 <TextField className="p-4"
                            label="Your name"
                            onValueChanged={(e) => {
@@ -26,7 +26,7 @@ export default function HelloWorldView() {
                 </Button>
             </section>
 
-            <TextField className="p-4"
+            <TextField className="p-4 w-1/4"
                        label="Your name"
                        onValueChanged={(e) => {
                            setName(e.detail.value);

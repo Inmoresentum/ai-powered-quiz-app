@@ -27,10 +27,12 @@
     "classnames": "^2.3.2",
     "clsx": "^2.0.0",
     "construct-style-sheets-polyfill": "3.1.0",
+    "framer-motion": "^10.16.4",
     "lit": "2.8.0",
     "lucide-react": "^0.290.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-query": "^3.39.3",
     "react-router-dom": "^6.4.2",
     "tailwind-merge": "^2.0.0",
     "tailwindcss-animate": "^1.0.7"
@@ -89,7 +91,9 @@
     "clsx": "$clsx",
     "lucide-react": "$lucide-react",
     "tailwind-merge": "$tailwind-merge",
-    "tailwindcss-animate": "$tailwindcss-animate"
+    "tailwindcss-animate": "$tailwindcss-animate",
+    "framer-motion": "$framer-motion",
+    "react-query": "$react-query"
   },
   "vaadin": {
     "dependencies": {
@@ -132,6 +136,6 @@
       "workbox-core": "7.0.0",
       "workbox-precaching": "7.0.0"
     },
-    "hash": "ddedc9ead6cf2aaaa292ee66ebd192e4bb4427f9dd37994236a4494ede5e1a8b"
+    "hash": "27751a3f420d9ca443e83e5d12bbab362b77deefed2fb4992f6c9489f52b3ee3"
   }
 }

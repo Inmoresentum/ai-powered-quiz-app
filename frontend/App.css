@@ -210,3 +210,18 @@
         @apply max-container relative flex w-full  flex-col justify-between gap-32 overflow-hidden bg-green-90 bg-pattern bg-cover bg-center bg-no-repeat px-6 py-12 text-white sm:flex-row sm:gap-12 sm:py-24 lg:px-20 xl:max-h-[598px] 2xl:rounded-5xl;
     }
 }
+
+
+.wavy-footer {
+    background: #000000; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #434343, #000000); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #434343, #000000); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+
+    --mask: radial-gradient(52.20px at 50% 65.00px, #000 99%, #0000 101%) calc(50% - 100px) 0/200px 51% repeat-x,
+    radial-gradient(52.20px at 50% -15px, #0000 99%, #000 101%) 50% 50px/200px calc(51% - 50px) repeat-x,
+    radial-gradient(52.20px at 50% calc(100% - 65.00px), #000 99%, #0000 101%) calc(50% - 100px) 100%/200px 51% repeat-x,
+    radial-gradient(52.20px at 50% calc(100% + 15.00px), #0000 99%, #000 101%) 50% calc(100% - 50px)/200px calc(51% - 50px) repeat-x;
+    -webkit-mask: var(--mask);
+    mask: var(--mask);
+}

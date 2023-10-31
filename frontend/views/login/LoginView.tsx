@@ -3,6 +3,8 @@ import {useAuth} from 'Frontend/util/auth.js';
 import {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {Button} from "@/components/ui/button";
+import {TextField} from "@hilla/react-components/TextField.js";
+import {PasswordField} from "@hilla/react-components/PasswordField";
 
 const loginI18n: LoginI18n = {
     ...new LoginOverlayElement().i18n,
@@ -10,29 +12,26 @@ const loginI18n: LoginI18n = {
 };
 
 export default function LoginView() {
-    const {login} = useAuth();
-    const [hasError, setError] = useState<boolean>();
+    const [username, setUsername] = useState<string>("")
+    const [password, setPassword] = useState<string>("")
     const navigate = useNavigate();
-
+    const {login} = useAuth();
     return (
         <>
-            <LoginOverlay
-                opened
-                error={hasError}
-                noForgotPassword
-                i18n={loginI18n}
-                onLogin={async ({detail: {username, password}}) => {
-                    const {defaultUrl, error, redirectUrl} = await login(username, password);
-
-                    if (error) {
-                        setError(true);
-                    } else {
-                        const url = redirectUrl ?? defaultUrl ?? '/';
-                        const path = new URL(url, document.baseURI).pathname;
-                        navigate(path);
+            <div className="flex items-center justify-center flex-col w-full h-full">
+                <TextField onChange={e => setUsername(e.target.value)} className="w-1/4"/>
+                <PasswordField onChange={e => setPassword(e.target.value)} className="w-1/4"/>
+                <Button onClick={async event => {
+                    console.log("Trying to login " + event.detail)
+                    const {error, errorMessage, errorTitle} = await login(username, password);
+                    console.log(error)
+                    console.log(errorTitle)
+                    console.log(errorMessage)
+                    if (!error) {
+                        navigate("/")
                     }
-                }}
-            />
+                }}>Login</Button>
+            </div>
         </>
     );
 }
