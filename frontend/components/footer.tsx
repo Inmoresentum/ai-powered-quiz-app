@@ -1,4 +1,4 @@
-import {Dribbble, Facebook, Github, Image, Instagram, Twitter} from "lucide-react";
+import {Dribbble, Facebook, Github,  Instagram, Twitter} from "lucide-react";
 import {NavLink} from "react-router-dom";
 
 export default function Footer() {
@@ -71,8 +71,8 @@ export default function Footer() {
                         <h6 className='font-medium text-gray-400'>Legal</h6>
                         <ul>
                             <li className='py-2 text-sm'>Claim</li>
-                            <li className='py-2 text-sm'><a href="http://localhost:3000/privacyandpolicy">Policy</a></li>
-                            <li className='py-2 text-sm'><a href="http://localhost:3000/termsandservices">Terms</a></li>
+                            <li className='py-2 text-sm'><a href="#">Policy</a></li>
+                            <li className='py-2 text-sm'><a href="#">Terms</a></li>
                         </ul>
                     </div>
                 </div>
