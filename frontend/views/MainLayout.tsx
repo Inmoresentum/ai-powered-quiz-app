@@ -21,13 +21,13 @@ export default function MainLayout() {
     return (
         <>
 
-<div className="flex flex-col justify-between min-h-screen">
-            <Navbar/>
-            <Suspense fallback={<Placeholder/>}>
-                <Outlet/>
-            </Suspense>
-            <Footer/>
-</div>
+            <div className="flex flex-col justify-between min-h-screen">
+                <Navbar/>
+                <Suspense fallback={<Placeholder/>}>
+                    <Outlet/>
+                </Suspense>
+                <Footer/>
+            </div>
         </>
     );
 }
