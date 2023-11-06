@@ -1,4 +1,4 @@
-import {Dribbble, Facebook, Github,  Instagram, Twitter} from "lucide-react";
+import {Dribbble, Facebook, Github, Instagram, Twitter} from "lucide-react";
 import {NavLink} from "react-router-dom";
 
 export default function Footer() {
@@ -19,22 +19,31 @@ export default function Footer() {
                             <h1 className="px-2 text-white shadow-2xl hover:shadow-green-500 hover:text-indigo-600 ease-in-out duration-300">QuizBotIQ</h1>
                         </NavLink>
                     </div>
-                    <p className='py-4'>Thank you for choosing our quiz platform! We're dedicated to making learning engaging and enjoyable. Explore our diverse range of quizzes to challenge your mind and expand your knowledge. Join our community of curious learners, share your insights, and connect with fellow enthusiasts. Your feedback is invaluable in shaping a better experience for everyone. Start your learning journey today and embark on an adventure of discovery!</p>
+                    <p className='py-4'>Thank you for choosing our quiz platform! We're dedicated to making learning
+                        engaging and enjoyable. Explore our diverse range of quizzes to challenge your mind and expand
+                        your knowledge. Join our community of curious learners, share your insights, and connect with
+                        fellow enthusiasts. Your feedback is invaluable in shaping a better experience for everyone.
+                        Start your learning journey today and embark on an adventure of discovery!</p>
                     <div className='flex justify-between md:w-[75%] my-6 mr-6'>
                         <a href="https://www.facebook.com/">
-                            <Facebook size={30} className="hover:cursor-pointer hover:text-orange-600 hover:scale-110 transition-all duration-500"/>
+                            <Facebook size={30}
+                                      className="hover:cursor-pointer hover:text-orange-600 hover:scale-110 transition-all duration-500"/>
                         </a>
                         <a href="https://www.instagram.com/">
-                            <Instagram size={30} className="hover:cursor-pointer hover:text-pink-500 hover:scale-110 transition-all duration-500"/>
+                            <Instagram size={30}
+                                       className="hover:cursor-pointer hover:text-pink-500 hover:scale-110 transition-all duration-500"/>
                         </a>
                         <a href="https://twitter.com/">
-                            <Twitter size={30} className="hover:cursor-pointer hover:text-blue-600 hover:scale-110 transition-all duration-500"/>
+                            <Twitter size={30}
+                                     className="hover:cursor-pointer hover:text-blue-600 hover:scale-110 transition-all duration-500"/>
                         </a>
                         <a href="https://github.com/">
-                            <Github size={30} className="hover:cursor-pointer hover:text-teal-600 hover:scale-110 transition-all duration-500"/>
+                            <Github size={30}
+                                    className="hover:cursor-pointer hover:text-teal-600 hover:scale-110 transition-all duration-500"/>
                         </a>
                         <a href="https://dribbble.com/">
-                            <Dribbble size={30} className="hover:cursor-pointer hover:text-yellow-300 hover:scale-110 transition-all duration-500"/>
+                            <Dribbble size={30}
+                                      className="hover:cursor-pointer hover:text-yellow-300 hover:scale-110 transition-all duration-500"/>
                         </a>
                     </div>
                 </div>
