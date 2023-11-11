@@ -1,6 +1,6 @@
 package com.example.application.services;
 
-import com.example.application.data.User;
+import com.example.application.entities.User;
 import com.example.application.security.AuthenticatedUser;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 import dev.hilla.Endpoint;
