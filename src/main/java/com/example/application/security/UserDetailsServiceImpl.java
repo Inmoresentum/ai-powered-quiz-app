@@ -33,6 +33,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         else if (!user.isAccountVerified()) {
             throw new UsernameNotFoundException("Account is not verified. Please verify the account.");
         }
+        else if (!user.isDeactivatedByAdmin()) {
+            throw new UsernameNotFoundException("The Account is disabled.");
+        }
         else {
             return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getHashedPassword(),
                     getAuthorities(user));
