@@ -2,7 +2,9 @@ package com.example.application.endpoints;
 
 import com.example.application.entities.user.User;
 import com.example.application.repositories.UserRepository;
+
 import java.util.Optional;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -40,5 +42,4 @@ public class UserService {
     public int count() {
         return (int) repository.count();
     }
-
 }
