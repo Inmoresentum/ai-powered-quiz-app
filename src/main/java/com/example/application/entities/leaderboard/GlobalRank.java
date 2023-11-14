@@ -1,0 +1,8 @@
+package com.example.application.entities.leaderboard;
+
+public enum GlobalRank {
+    BEGINNER, NOVICE, AMATEUR, APPRENTICE, LEARNER,
+    AVERAGE, COMPETENT, PROFICIENT, SKILLED, EXPERT,
+    VETERAN, MASTER, GRANDMASTER, SAGE, GENIUS,
+    BRILLIANT, PHENOMENAL, LEGENDARY, IMMORTAL
+}

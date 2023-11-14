@@ -1,6 +1,6 @@
 package com.example.application.security;
 
-import com.example.application.entities.User;
+import com.example.application.entities.user.User;
 import com.example.application.repositories.UserRepository;
 import com.vaadin.flow.spring.security.AuthenticationContext;
 import java.util.Optional;

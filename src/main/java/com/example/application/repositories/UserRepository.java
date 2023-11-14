@@ -1,7 +1,7 @@
 package com.example.application.repositories;
 
 
-import com.example.application.entities.User;
+import com.example.application.entities.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 

@@ -1,6 +1,6 @@
-package com.example.application.services;
+package com.example.application.endpoints;
 
-import com.example.application.entities.User;
+import com.example.application.entities.user.User;
 import com.example.application.repositories.UserRepository;
 import java.util.Optional;
 import org.springframework.data.domain.Page;

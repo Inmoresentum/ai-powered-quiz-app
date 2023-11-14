@@ -12,12 +12,6 @@ const navLinkClasses = ({isActive}: any) => {
 
 export default function MainLayout() {
     const currentTitle = useRouteMetadata()?.title ?? 'My App';
-    const {state, logout} = useAuth();
-    const profilePictureUrl =
-        state.user &&
-        `data:image;base64,${btoa(
-            state.user.profilePicture.reduce((str, n) => str + String.fromCharCode((n + 256) % 256), '')
-        )}`;
     return (
         <>
 
