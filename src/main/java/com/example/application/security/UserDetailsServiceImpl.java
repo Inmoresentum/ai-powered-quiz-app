@@ -2,6 +2,7 @@ package com.example.application.security;
 
 import com.example.application.entities.user.User;
 import com.example.application.repositories.UserRepository;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,16 +30,14 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         User user = userRepository.findByUsername(username);
         if (user == null) {
             throw new UsernameNotFoundException("No user present with username: " + username);
-        }
-        else if (!user.isAccountVerified()) {
-            throw new UsernameNotFoundException("Account is not verified. Please verify the account.");
-        }
-        else if (!user.isDeactivatedByAdmin()) {
+        } else if (!user.isAccountVerified()) {
+            throw new UsernameNotFoundException("Account is not verified username: " + username);
+        } else if (user.isDeactivatedByAdmin()) {
             throw new UsernameNotFoundException("The Account is disabled.");
-        }
-        else {
-            return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getHashedPassword(),
-                    getAuthorities(user));
+        } else {
+            return new org.springframework.security.core
+                    .userdetails.User(user.getUsername(),
+                    user.getHashedPassword(), getAuthorities(user));
         }
     }
 
