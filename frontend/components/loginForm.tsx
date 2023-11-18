@@ -37,7 +37,7 @@ export default function LoginForm() {
 
     return (
         <>
-            <div className="text-center text-m font-bold text-red-800 m-2">
+            <div className="text-center text-m font-bold text-red-800 m-2 animate-bounce">
                 {notSuccessfulLoginMessage}
             </div>
             <form className="max-w-md mx-auto" onSubmit={handleSubmit(onSubmit)}>
