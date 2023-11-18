@@ -4,6 +4,7 @@ import com.example.application.entities.user.User;
 import com.example.application.repositories.UserRepository;
 import com.example.application.requestbody.LoginRequestBody;
 import com.example.application.security.AuthenticatedUser;
+import com.example.application.service.UserService;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 import dev.hilla.Endpoint;
 
@@ -20,20 +21,17 @@ import org.apache.logging.log4j.Level;
 public class UserEndpoint {
 
     private final AuthenticatedUser authenticatedUser;
-    private final UserRepository userRepository;
-
+    private final UserService userService;
     public Optional<User> getAuthenticatedUser() {
         return authenticatedUser.get();
     }
 
     public Boolean isNotAccountVerified(String username) {
-        var user = userRepository.findByUsername(username);
-        return user != null && !user.isAccountVerified();
+        return userService.isNotAccountVerified(username);
     }
 
     public Boolean isDisabledByAdmin(String username) {
-        var user = userRepository.findByUsername(username);
-        return user != null && user.isDeactivatedByAdmin();
+        return userService.isDisabledByAdmin(username);
     }
 
     public void generateUserLoginFormValidations(LoginRequestBody requestBody) {

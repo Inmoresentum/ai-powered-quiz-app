@@ -44,7 +44,7 @@ public class SecurityConfiguration extends VaadinWebSecurity {
                 .requestMatchers(new AntPathRequestMatcher("/test")).permitAll());
 
         http.authorizeHttpRequests(authorize -> authorize
-                .requestMatchers(new AntPathRequestMatcher("/auth/account/verify")).permitAll());
+                .requestMatchers(new AntPathRequestMatcher("/auth/**")).permitAll());
 
         super.configure(http);
 
