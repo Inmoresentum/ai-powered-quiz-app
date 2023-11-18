@@ -41,6 +41,9 @@ export default function LoginForm() {
                 {notSuccessfulLoginMessage}
             </div>
             <form className="max-w-md mx-auto" onSubmit={handleSubmit(onSubmit)}>
+                <label htmlFor="username" className="text-lg px-4 font-medium mb-2 text-gray-800">
+                    Username
+                </label>
                 <div className="relative mb-6">
                     <div className="relative">
                     <span className="absolute left-3 top-3 text-gray-600">
