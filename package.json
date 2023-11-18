@@ -100,7 +100,8 @@
     "react-query": "$react-query",
     "@hookform/resolvers": "$@hookform/resolvers",
     "react-hook-form": "$react-hook-form",
-    "zod": "$zod"
+    "zod": "$zod",
+    "react-helmet-async": "$react-helmet-async"
   },
   "vaadin": {
     "dependencies": {
@@ -143,6 +144,6 @@
       "workbox-core": "7.0.0",
       "workbox-precaching": "7.0.0"
     },
-    "hash": "3dd5f2ed9b44aae83753bd617406ee86f0bfddd8924f76056637a757b4fab7ed"
+    "hash": "a63354c4e248146c56100d2ef39540b4f22ee77f6a696970f1f31ef8c74e78ab"
   }
 }

@@ -1,7 +1,7 @@
 import {useRef, useState} from 'react';
 import {motion} from "framer-motion";
 import LoginForm from "@/components/loginForm";
-
+import {Helmet} from "react-helmet-async"
 
 export default function LoginView() {
 
@@ -10,6 +10,12 @@ export default function LoginView() {
     return (
         <>
             <section className="login-page-section">
+                <Helmet>
+                    <title>
+                        Login
+                    </title>
+                    <meta name="description" content="Login Pagge for Our Platform"/>
+                </Helmet>
                 <div className="box" ref={dragAbleConstraints}>
                     {/*Mainly for decoration purpose*/}
                     <div className="square" style={{"--i": 0} as any}></div>
