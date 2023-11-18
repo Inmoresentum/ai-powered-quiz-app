@@ -2,10 +2,10 @@ package com.example.application.endpoints;
 
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 import dev.hilla.BrowserCallable;
+import dev.hilla.Endpoint;
 import org.springframework.stereotype.Service;
 
-@BrowserCallable
-@AnonymousAllowed
+@Endpoint
 @Service
 public class HelloWorldService {
 

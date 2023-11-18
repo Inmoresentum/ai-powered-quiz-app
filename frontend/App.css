@@ -373,3 +373,8 @@
 }
 
 /* end of login page custom css style */
+/*vaadin-text-field::part(input-field) {*/
+/*    border-radius: 35px;*/
+/*    background: white;*/
+/*    opacity: 30%;*/
+/*}*/
