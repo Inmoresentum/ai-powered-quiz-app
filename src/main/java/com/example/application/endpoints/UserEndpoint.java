@@ -2,6 +2,7 @@ package com.example.application.endpoints;
 
 import com.example.application.entities.user.User;
 import com.example.application.repositories.UserRepository;
+import com.example.application.requestbody.AccountRegistrationRequestBody;
 import com.example.application.requestbody.LoginRequestBody;
 import com.example.application.security.AuthenticatedUser;
 import com.example.application.service.UserService;
@@ -10,6 +11,7 @@ import dev.hilla.Endpoint;
 
 import java.util.Optional;
 
+import jakarta.validation.constraints.Email;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.apache.logging.log4j.Level;
@@ -22,6 +24,7 @@ public class UserEndpoint {
 
     private final AuthenticatedUser authenticatedUser;
     private final UserService userService;
+
     public Optional<User> getAuthenticatedUser() {
         return authenticatedUser.get();
     }
@@ -32,6 +35,17 @@ public class UserEndpoint {
 
     public Boolean isDisabledByAdmin(String username) {
         return userService.isDisabledByAdmin(username);
+    }
+
+    public Boolean userExistsByEmail(String email) {
+        return userService.userExistsByEmail(email);
+    }
+
+    public Boolean userExistsByUsername(String username) {
+        return userService.userExistsByUsername(username);
+    }
+    public void registerUser(AccountRegistrationRequestBody accountRegistrationRequestBody) {
+        // Add the saving logic here later
     }
 
     public void generateUserLoginFormValidations(LoginRequestBody requestBody) {

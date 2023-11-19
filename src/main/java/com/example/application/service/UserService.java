@@ -32,6 +32,7 @@ public class UserService {
         var user = userRepository.findByUsername(username);
         return user != null && user.isDeactivatedByAdmin();
     }
+
     public User update(User entity) {
         return userRepository.save(entity);
     }
@@ -50,5 +51,12 @@ public class UserService {
 
     public int count() {
         return (int) userRepository.count();
+    }
+
+    public Boolean userExistsByEmail(String email) {
+        return userRepository.existsByEmail(email);
+    }
+    public Boolean userExistsByUsername(String username) {
+        return userRepository.existsByUsername(username);
     }
 }

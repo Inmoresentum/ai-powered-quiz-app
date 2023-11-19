@@ -5,6 +5,7 @@ import MainLayout from 'Frontend/views/MainLayout.js';
 import {lazy} from 'react';
 import {createBrowserRouter, RouteObject} from 'react-router-dom';
 import AccountVerification from "@/views/verification/account/AccountVerification";
+import RegistrationView from "@/views/registration/RegistrationView";
 
 const AboutView = lazy(async () => import('Frontend/views/about/AboutView.js'));
 
@@ -18,8 +19,12 @@ export const routes = protectRoutes([
         ],
     },
     {path: "/login", element: <LoginView/>, handle: {title: "Login"}},
-    {path: "/auth/register", element: <LoginView/>, handle: {title: "Login", requiresLogin: false}},
-    {path: "/auth/account/verify", element: <AccountVerification/>, handle: {title: "Verify Account", requiresLogin: false}},
+    {path: "/auth/register", element: <RegistrationView/>, handle: {title: "Register An Account", requiresLogin: false}},
+    {
+        path: "/auth/account/verify",
+        element: <AccountVerification/>,
+        handle: {title: "Verify Account", requiresLogin: false}
+    },
 ]) as RouteObject[];
 
 export default createBrowserRouter(routes);
