@@ -10,8 +10,8 @@ public class MinAgeConstraintValidator implements ConstraintValidator<MinAge, Lo
     private int minAge;
 
     @Override
-    public void initialize(MinAge annotation) {
-        this.minAge = annotation.minAge();
+    public void initialize(MinAge constraintAnnotation) {
+        this.minAge = constraintAnnotation.minAge();
     }
 
     @Override
@@ -21,6 +21,6 @@ public class MinAgeConstraintValidator implements ConstraintValidator<MinAge, Lo
         }
 
         LocalDate minimumAgeDate = LocalDate.now().minusYears(minAge);
-        return dateOfBirth.isBefore(minimumAgeDate);
+        return !dateOfBirth.isBefore(minimumAgeDate);
     }
 }
