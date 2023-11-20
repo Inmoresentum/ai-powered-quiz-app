@@ -2,9 +2,7 @@ package com.example.application.requestbody;
 
 import com.example.application.custombeanvalidator.MinAge;
 import com.example.application.entities.user.Gender;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 
 import java.time.LocalDate;
 
@@ -26,10 +24,12 @@ public class AccountRegistrationRequestBody {
     public String email;
     public String profilePictureUlr;
     public String phoneNumber;
-    @MinAge(minAge = 13)
+    @NotNull
+    @Past
     public LocalDate dateOfBirth;
     public String userBio;
     public String address;
+    @NotBlank
     @NotNull
     public Gender gender;
 }
