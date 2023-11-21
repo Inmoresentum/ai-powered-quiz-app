@@ -1,17 +1,15 @@
 package com.example.application.endpoints;
 
 import com.example.application.entities.user.User;
-import com.example.application.repositories.UserRepository;
 import com.example.application.requestbody.AccountRegistrationRequestBody;
 import com.example.application.requestbody.LoginRequestBody;
 import com.example.application.security.AuthenticatedUser;
-import com.example.application.service.UserService;
+import com.example.application.service.user.UserService;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 import dev.hilla.Endpoint;
 
 import java.util.Optional;
 
-import jakarta.validation.constraints.Email;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.apache.logging.log4j.Level;
