@@ -5,7 +5,7 @@ import {TextField} from "@hilla/react-components/TextField.js";
 import {EmailField} from "@hilla/react-components/EmailField";
 import {DatePicker} from "@hilla/react-components/DatePicker";
 import {PasswordField} from "@hilla/react-components/PasswordField";
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import AccountRegistrationRequestBody
     from "@/generated/com/example/application/requestbody/AccountRegistrationRequestBody";
 import {TextArea} from "@hilla/react-components/TextArea";
@@ -56,7 +56,7 @@ export default function AccountRegistrationForm() {
     }, []);
 
     const [profileImage, setProfileImage] = useState<any>()
-
+    const imageInputField = useRef<HTMLInputElement | null>(null);
     useEffect(() => {
         return () => {
             if (profileImage) {
@@ -82,57 +82,66 @@ export default function AccountRegistrationForm() {
 
     return (
         <>
-            <TextField className="w-full px-6 py-4" label="Username" placeholder="Enter a username that you like"
-                       {...field(model.username)}>
-
+            <TextField className="w-full px-6 py-4 md:hover:-translate-y-2 duration-300 ease-linear"
+                       label="Username" placeholder="Enter a username that you like"
+                       {...field(model.username)}
+                style={{'--vaadin-input-field-border-radius': '20px'} as React.CSSProperties}
+            >
             </TextField>
 
-            <TextField className="w-full px-6 py-4" label="Full Name" placeholder="Enter your full name"
+            <TextField className="w-full px-6 py-4 md:hover:-translate-y-2 duration-300 ease-linear" label="Full Name" placeholder="Enter your full name"
+                       style={{'--vaadin-input-field-border-radius': '20px'} as React.CSSProperties}
                        {...field(model.name)}>
 
             </TextField>
 
-            <TextArea className="w-full px-6 py-4" label="Address" placeholder="Please enter your Address"
+            <TextArea className="w-full px-6 py-4 md:hover:-translate-y-2 duration-300 ease-linear" label="Address" placeholder="Please enter your Address"
+                      style={{'--vaadin-input-field-border-radius': '20px'} as React.CSSProperties}
                       {...field(model.address)}>
 
             </TextArea>
 
-            <EmailField className="w-full px-6 py-4" label="Email" placeholder="Please enter your email address"
+            <EmailField className="w-full px-6 py-4 md:hover:-translate-y-2 duration-300 ease-linear" label="Email" placeholder="Please enter your email address"
+                        style={{'--vaadin-input-field-border-radius': '20px'} as React.CSSProperties}
                         {...field(model.email)}>
 
             </EmailField>
 
-            <DatePicker className="w-full px-6 py-4" label="Date Of Birth" placeholder="Enter your date of birth"
+            <DatePicker className="w-full px-6 py-4 md:hover:-translate-y-2 duration-300 ease-linear" label="Date Of Birth" placeholder="Enter your date of birth"
                         {...field(model.dateOfBirth)}
                         style={{'--vaadin-input-field-border-radius': '10px'} as React.CSSProperties}/>
 
-            <PasswordField className="w-full px-6 py-4 m-2"
+            <PasswordField className="w-full px-6 py-4 md:hover:-translate-y-2 duration-300 ease-linear"
                            label="Enter a Password"
                            placeholder="Please enter a strong and complicated password"
                            clearButtonVisible={true}
+                           style={{'--vaadin-input-field-border-radius': '20px'} as React.CSSProperties}
                            {...field(model.password)}/>
 
-            <PasswordField className="w-full px-6 py-4" label="Confirm Password"
+            <PasswordField className="w-full px-6 py-4 md:hover:-translate-y-2 duration-300 ease-linear" label="Confirm Password"
                            clearButtonVisible={true}
                            placeholder="Enter your password again"
+                           style={{'--vaadin-input-field-border-radius': '20px'} as React.CSSProperties}
                            {...field(model.confirmPassword)}/>
 
-            <ComboBox className="w-full px-6 py-4" label="Choose your gender"
+            <ComboBox className="w-full px-6 py-4 md:hover:-translate-y-2 duration-300 ease-linear" label="Choose your gender"
+                      style={{'--vaadin-input-field-border-radius': '20px'} as React.CSSProperties}
                       placeholder="Please choose your gender" items={items} {...field(model.gender)}/>
 
-            <TextArea className="w-full px-6 py-4" label="BIO" placeholder="Tell the world something about yourself"
+            <TextArea className="w-full px-6 py-4 md:hover:-translate-y-2 duration-300 ease-linear" label="BIO" placeholder="Tell the world something about yourself"
+                      style={{'--vaadin-input-field-border-radius': '20px'} as React.CSSProperties}
                       {...field(model.userBio)}>
             </TextArea>
 
-            <div className="w-full px-6 py-4">
+            <div className="w-full px-6 py-4 md:hover:-translate-y-2 duration-300 ease-linear">
                 <label
                     className="block text-gray-700 font-medium mb-2"
-                    htmlFor="user-profile"
-                >
+                    htmlFor="user-profile">
                     Profile Image
                 </label>
                 <input
-                    className="w-full p-2 border border-gray-300 rounded-md"
+                    ref={imageInputField}
+                    className="w-full p-2 border border-gray-300 rounded-md bg-gray-10 hover:ring-1"
                     type="file"
                     accept="image/*"
                     id="user-profile"
@@ -146,11 +155,14 @@ export default function AccountRegistrationForm() {
                 />
                 {profileImage && (
                     <>
-                        <img src={profileImage} className="w-full h-52 rounded-2xl p-2"/>
+                        <img src={profileImage} className="w-full h-52 rounded-2xl p-2" alt=""/>
                         <div className="flex items-center justify-center">
                             <Button className="uppercase hover:bg-red-400 duration-300 ease-linear p-2"
-                                    onClick={event => {
+                                    onClick={() => {
                                         setProfileImage(null);
+                                        if (imageInputField.current !== null) {
+                                            imageInputField.current.value = "";
+                                        }
                                     }}>
                                 clear image
                             </Button>
@@ -159,7 +171,9 @@ export default function AccountRegistrationForm() {
                 )}
             </div>
 
-            <Button onClick={submit}>Submit</Button>
+            <Button className="m-4 p-2 hover:bg-green-500 duration-500
+             ease-linear hover:rounded-full hover:-translate-y-1 hover:shadow-xl hover:drop-shadow-xl hover:shadow-green-600 hover:text-black"
+                    onClick={submit}>Submit</Button>
         </>
     );
 }
