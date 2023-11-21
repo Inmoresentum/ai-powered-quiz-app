@@ -17,11 +17,11 @@ public class FileStorageSecurityConfiguration {
     @Order(1)
     SecurityFilterChain fileStorageConfig(HttpSecurity http) throws Exception {
         return http
-                .securityMatcher(AntPathRequestMatcher.antMatcher("/api/**"))
+                .securityMatcher(AntPathRequestMatcher.antMatcher("/api/v2/storage/**"))
                 .authorizeHttpRequests( auth -> {
-                    auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/**")).permitAll();
+                    auth.requestMatchers(AntPathRequestMatcher.antMatcher("/api/v2/storage/**")).permitAll();
                 })
-                .csrf(csrf -> csrf.ignoringRequestMatchers(AntPathRequestMatcher.antMatcher("/api/**")))
+                .csrf(csrf -> csrf.ignoringRequestMatchers(AntPathRequestMatcher.antMatcher("/api/v2/storage/**")))
                 .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))
                 .build();
 
