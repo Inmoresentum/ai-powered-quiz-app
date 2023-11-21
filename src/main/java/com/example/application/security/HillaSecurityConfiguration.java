@@ -18,7 +18,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @EnableWebSecurity
 @Configuration
-public class SecurityConfiguration extends VaadinWebSecurity {
+public class HillaSecurityConfiguration extends VaadinWebSecurity {
 
     // The secret is stored in /config/secrets/application.properties by default.
     // Never commit the secret into version control; each environment should have
@@ -39,9 +39,6 @@ public class SecurityConfiguration extends VaadinWebSecurity {
         // Icons from the line-awesome addon
         http.authorizeHttpRequests(authorize -> authorize
                 .requestMatchers(new AntPathRequestMatcher("/line-awesome/**/*.svg")).permitAll());
-
-        http.authorizeHttpRequests(authorize -> authorize
-                .requestMatchers(new AntPathRequestMatcher("/test")).permitAll());
 
         http.authorizeHttpRequests(authorize -> authorize
                 .requestMatchers(new AntPathRequestMatcher("/auth/**")).permitAll());
