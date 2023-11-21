@@ -179,7 +179,7 @@ export default function AccountRegistrationForm() {
                 )}
             </div>
 
-            <Button className="m-4 p-2 hover:bg-green-500 duration-500
+            <Button className="m-4 p-2 font-mono font-bold hover:bg-green-500 duration-500
              ease-linear hover:rounded-full hover:-translate-y-1 hover:shadow-xl hover:drop-shadow-xl hover:shadow-green-600 hover:text-black"
                     onClick={submit}>Submit</Button>
 

@@ -8,7 +8,7 @@ export default function RegistrationView() {
                 <div
                     className="bg-gray-200 min-w-[250px] rounded-2xl md:min-w-[450px] flex flex-col shadow-xl
                      items-center justify-center hover:shadow-2xl duration-300 ease-linear hover:bg-gray-100 m-20">
-                    <NavLink to={"/"} className="flex flex-row items-center justify-center">
+                    <NavLink to="/" className="flex flex-row items-center justify-center">
                         <img
                             src="images/ai_quiz_logo.png"
                             alt="icons/icon.png"
