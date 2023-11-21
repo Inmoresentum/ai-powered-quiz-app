@@ -24,6 +24,7 @@
     "@vaadin/bundles": "24.2.1",
     "@vaadin/common-frontend": "0.0.18",
     "@vaadin/router": "1.7.5",
+    "axios": "^1.6.2",
     "class-variance-authority": "^0.7.0",
     "classnames": "^2.3.2",
     "clsx": "^2.0.0",
@@ -103,7 +104,8 @@
     "react-hook-form": "$react-hook-form",
     "zod": "$zod",
     "react-helmet-async": "$react-helmet-async",
-    "date-fns": "$date-fns"
+    "date-fns": "$date-fns",
+    "axios": "$axios"
   },
   "vaadin": {
     "dependencies": {
@@ -146,6 +148,6 @@
       "workbox-core": "7.0.0",
       "workbox-precaching": "7.0.0"
     },
-    "hash": "ec1dd3ca398f85f1fd7bff7555fe3325652eddc33a9c0280e33f2769b096afb0"
+    "hash": "8e5c499614010ec7b059a402041b71f23a8a3cfbc9b7fe6aebac25c087c0a575"
   }
 }

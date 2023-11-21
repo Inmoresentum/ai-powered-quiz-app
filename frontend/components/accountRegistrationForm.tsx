@@ -14,11 +14,15 @@ import {UserEndpoint} from "@/generated/endpoints";
 import Gender from "@/generated/com/example/application/entities/user/Gender";
 import {ComboBox} from "@hilla/react-components/ComboBox";
 import {NavLink} from "react-router-dom";
+import {UploadUserImage} from "@/custom-apis/FileStorageApis"
 
 export default function AccountRegistrationForm() {
-    const {model, field, addValidator, submit} = useForm(AccountRegistrationRequestBodyModel, {
+    const {model, field , addValidator, submit, invalid, clear} = useForm(AccountRegistrationRequestBodyModel, {
         onSubmit: async (e) => {
-            console.log(e);
+            if (profileImage) {
+                e.profilePictureUlr = await UploadUserImage(profileImage);
+                await UserEndpoint.registerUser(e);
+            }
         }
     });
 
@@ -56,15 +60,16 @@ export default function AccountRegistrationForm() {
         });
     }, []);
 
-    const [profileImage, setProfileImage] = useState<any>()
+    const [profileImagePreview, setProfileImagePreview] = useState<null | string>()
+    const [profileImage, setProfileImage] = useState<File>()
     const imageInputField = useRef<HTMLInputElement | null>(null);
     useEffect(() => {
         return () => {
-            if (profileImage) {
-                URL.revokeObjectURL(profileImage);
+            if (profileImagePreview) {
+                URL.revokeObjectURL(profileImagePreview);
             }
         };
-    }, [profileImage]);
+    }, [profileImagePreview]);
 
     const items = [
         {
@@ -154,20 +159,22 @@ export default function AccountRegistrationForm() {
                     accept="image/*"
                     id="user-profile"
                     onChange={e => {
-                        setProfileImage(null);
+                        setProfileImagePreview(null);
                         if (e.target.files) {
                             const file = e.target.files[0];
-                            setProfileImage(URL.createObjectURL(file));
+                            setProfileImage(file);
+                            setProfileImagePreview(URL.createObjectURL(file));
                         }
                     }}
                 />
-                {profileImage && (
+                {profileImagePreview && (
                     <>
-                        <img src={profileImage} className="w-full h-52 rounded-2xl p-2" alt=""/>
+                        <img src={profileImagePreview} className="w-full h-52 rounded-2xl p-2" alt=""/>
                         <div className="flex items-center justify-center">
                             <Button className="uppercase hover:bg-red-400 duration-300 ease-linear p-2"
                                     onClick={() => {
-                                        setProfileImage(null);
+                                        setProfileImagePreview(null);
+                                        setProfileImage(undefined);
                                         if (imageInputField.current !== null) {
                                             imageInputField.current.value = "";
                                         }

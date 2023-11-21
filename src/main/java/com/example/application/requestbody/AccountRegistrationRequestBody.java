@@ -1,11 +1,12 @@
 package com.example.application.requestbody;
 
-import com.example.application.custombeanvalidator.MinAge;
 import com.example.application.entities.user.Gender;
 import jakarta.validation.constraints.*;
+import lombok.Data;
 
 import java.time.LocalDate;
 
+@Data
 public class AccountRegistrationRequestBody {
     @NotNull(message = "Username can't be empty")
     @Size(min = 3, message = "Username must need be at least 3 char long")
