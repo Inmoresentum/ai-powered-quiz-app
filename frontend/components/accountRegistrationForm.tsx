@@ -13,6 +13,7 @@ import {Button} from "@/components/ui/button";
 import {UserEndpoint} from "@/generated/endpoints";
 import Gender from "@/generated/com/example/application/entities/user/Gender";
 import {ComboBox} from "@hilla/react-components/ComboBox";
+import {NavLink} from "react-router-dom";
 
 export default function AccountRegistrationForm() {
     const {model, field, addValidator, submit} = useForm(AccountRegistrationRequestBodyModel, {
@@ -85,29 +86,33 @@ export default function AccountRegistrationForm() {
             <TextField className="w-full px-6 py-4 md:hover:-translate-y-2 duration-300 ease-linear"
                        label="Username" placeholder="Enter a username that you like"
                        {...field(model.username)}
-                style={{'--vaadin-input-field-border-radius': '20px'} as React.CSSProperties}
+                       style={{'--vaadin-input-field-border-radius': '20px'} as React.CSSProperties}
             >
             </TextField>
 
-            <TextField className="w-full px-6 py-4 md:hover:-translate-y-2 duration-300 ease-linear" label="Full Name" placeholder="Enter your full name"
+            <TextField className="w-full px-6 py-4 md:hover:-translate-y-2 duration-300 ease-linear" label="Full Name"
+                       placeholder="Enter your full name"
                        style={{'--vaadin-input-field-border-radius': '20px'} as React.CSSProperties}
                        {...field(model.name)}>
 
             </TextField>
 
-            <TextArea className="w-full px-6 py-4 md:hover:-translate-y-2 duration-300 ease-linear" label="Address" placeholder="Please enter your Address"
+            <TextArea className="w-full px-6 py-4 md:hover:-translate-y-2 duration-300 ease-linear" label="Address"
+                      placeholder="Please enter your Address"
                       style={{'--vaadin-input-field-border-radius': '20px'} as React.CSSProperties}
                       {...field(model.address)}>
 
             </TextArea>
 
-            <EmailField className="w-full px-6 py-4 md:hover:-translate-y-2 duration-300 ease-linear" label="Email" placeholder="Please enter your email address"
+            <EmailField className="w-full px-6 py-4 md:hover:-translate-y-2 duration-300 ease-linear" label="Email"
+                        placeholder="Please enter your email address"
                         style={{'--vaadin-input-field-border-radius': '20px'} as React.CSSProperties}
                         {...field(model.email)}>
 
             </EmailField>
 
-            <DatePicker className="w-full px-6 py-4 md:hover:-translate-y-2 duration-300 ease-linear" label="Date Of Birth" placeholder="Enter your date of birth"
+            <DatePicker className="w-full px-6 py-4 md:hover:-translate-y-2 duration-300 ease-linear"
+                        label="Date Of Birth" placeholder="Enter your date of birth"
                         {...field(model.dateOfBirth)}
                         style={{'--vaadin-input-field-border-radius': '10px'} as React.CSSProperties}/>
 
@@ -118,17 +123,20 @@ export default function AccountRegistrationForm() {
                            style={{'--vaadin-input-field-border-radius': '20px'} as React.CSSProperties}
                            {...field(model.password)}/>
 
-            <PasswordField className="w-full px-6 py-4 md:hover:-translate-y-2 duration-300 ease-linear" label="Confirm Password"
+            <PasswordField className="w-full px-6 py-4 md:hover:-translate-y-2 duration-300 ease-linear"
+                           label="Confirm Password"
                            clearButtonVisible={true}
                            placeholder="Enter your password again"
                            style={{'--vaadin-input-field-border-radius': '20px'} as React.CSSProperties}
                            {...field(model.confirmPassword)}/>
 
-            <ComboBox className="w-full px-6 py-4 md:hover:-translate-y-2 duration-300 ease-linear" label="Choose your gender"
+            <ComboBox className="w-full px-6 py-4 md:hover:-translate-y-2 duration-300 ease-linear"
+                      label="Choose your gender"
                       style={{'--vaadin-input-field-border-radius': '20px'} as React.CSSProperties}
                       placeholder="Please choose your gender" items={items} {...field(model.gender)}/>
 
-            <TextArea className="w-full px-6 py-4 md:hover:-translate-y-2 duration-300 ease-linear" label="BIO" placeholder="Tell the world something about yourself"
+            <TextArea className="w-full px-6 py-4 md:hover:-translate-y-2 duration-300 ease-linear" label="BIO"
+                      placeholder="Tell the world something about yourself"
                       style={{'--vaadin-input-field-border-radius': '20px'} as React.CSSProperties}
                       {...field(model.userBio)}>
             </TextArea>
@@ -174,6 +182,14 @@ export default function AccountRegistrationForm() {
             <Button className="m-4 p-2 hover:bg-green-500 duration-500
              ease-linear hover:rounded-full hover:-translate-y-1 hover:shadow-xl hover:drop-shadow-xl hover:shadow-green-600 hover:text-black"
                     onClick={submit}>Submit</Button>
+
+            <div className="flex justify-between mt-4 mb-8">
+                <div className="font-mono text-blue-500 font-bold">Already Have An account?</div>
+                <NavLink
+                    className="px-2 font-bold font-mono text-amber-500 hover:text-pink-500
+                     ease-linear duration-300  underline-offset-0 uppercase hover:-translate-y-0.5"
+                    to="/login"> Login </NavLink>
+            </div>
         </>
     );
 }
