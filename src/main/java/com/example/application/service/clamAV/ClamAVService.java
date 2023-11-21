@@ -1,5 +1,6 @@
 package com.example.application.service.clamAV;
 
+import lombok.extern.log4j.Log4j2;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
@@ -7,6 +8,7 @@ import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 
 @Service
+@Log4j2
 public class ClamAVService {
     private final WebClient webClient;
 
@@ -28,7 +30,7 @@ public class ClamAVService {
             System.out.println(result != null && result.contains("OK"));
             return result != null && result.contains("OK");
         } catch (Exception e) {
-            e.printStackTrace();
+            // Todo: add some log statements for better debug purpose
             return false;
         }
 
