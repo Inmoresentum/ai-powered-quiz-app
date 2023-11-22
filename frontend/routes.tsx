@@ -26,7 +26,7 @@ export const routes = protectRoutes([
         handle: {title: "Register An Account", requiresLogin: false}
     },
     {
-        path: "/auth/account/verify",
+        path: "/auth/verify/account/activate",
         element: <AccountVerification/>,
         handle: {title: "Verify Account", requiresLogin: false}
     },

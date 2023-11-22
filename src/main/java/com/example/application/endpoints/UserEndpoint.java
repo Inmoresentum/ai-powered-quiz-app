@@ -42,8 +42,9 @@ public class UserEndpoint {
     public Boolean userExistsByUsername(String username) {
         return userService.userExistsByUsername(username);
     }
+
     public void registerUser(AccountRegistrationRequestBody accountRegistrationRequestBody) {
-        System.out.println(accountRegistrationRequestBody);
+        userService.registerUser(accountRegistrationRequestBody);
     }
 
     public void generateUserLoginFormValidations(LoginRequestBody requestBody) {
