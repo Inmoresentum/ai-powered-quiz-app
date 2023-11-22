@@ -21,6 +21,7 @@
     "@hookform/resolvers": "^3.3.2",
     "@polymer/polymer": "3.5.1",
     "@radix-ui/react-slot": "^1.0.2",
+    "@radix-ui/react-tooltip": "^1.0.7",
     "@vaadin/bundles": "24.2.1",
     "@vaadin/common-frontend": "0.0.18",
     "@vaadin/router": "1.7.5",

@@ -16,10 +16,11 @@ import {ComboBox} from "@hilla/react-components/ComboBox";
 import {NavLink} from "react-router-dom";
 import {UploadUserImage} from "@/custom-apis/FileStorageApis"
 import {Loader2} from "lucide-react";
+import {Tooltip, TooltipContent, TooltipProvider, TooltipTrigger} from "@/components/ui/tooltip";
 
 export default function AccountRegistrationForm() {
     const [isFormSubmitting, setIsFormSubmitting] = useState<boolean>(false);
-    const {model, field, addValidator, submit, invalid, clear} = useForm(AccountRegistrationRequestBodyModel, {
+    const {model, field, addValidator, submit, clear, dirty} = useForm(AccountRegistrationRequestBodyModel, {
         onSubmit: async (accountRegistrationBody) => {
             if (profileImage) {
                 console.log("I have an image and I am trying to upload it to the server");
@@ -100,19 +101,33 @@ export default function AccountRegistrationForm() {
             <TextField className="w-full px-6 py-4 md:hover:-translate-y-2 duration-300 ease-linear"
                        label="Username" placeholder="Enter a username that you like"
                        {...field(model.username)}
+                       clearButtonVisible={true}
                        style={{'--vaadin-input-field-border-radius': '20px'} as React.CSSProperties}
             >
             </TextField>
 
             <TextField className="w-full px-6 py-4 md:hover:-translate-y-2 duration-300 ease-linear" label="Full Name"
                        placeholder="Enter your full name"
+                       clearButtonVisible={true}
                        style={{'--vaadin-input-field-border-radius': '20px'} as React.CSSProperties}
                        {...field(model.name)}>
 
             </TextField>
 
+            <TextField className="w-full px-6 py-4 md:hover:-translate-y-2 duration-300 ease-linear"
+                       label="Phone Number"
+                       placeholder="Enter your Phone Number"
+                       clearButtonVisible={true}
+                       style={{'--vaadin-input-field-border-radius': '20px'} as React.CSSProperties}
+                       helperText="It's optional"
+                       allowedCharPattern="[0-9()+-]"
+                       {...field(model.phoneNumber)}>
+
+            </TextField>
+
             <TextArea className="w-full px-6 py-4 md:hover:-translate-y-2 duration-300 ease-linear" label="Address"
                       placeholder="Please enter your Address"
+                      clearButtonVisible={true}
                       style={{'--vaadin-input-field-border-radius': '20px'} as React.CSSProperties}
                       {...field(model.address)}>
 
@@ -120,6 +135,7 @@ export default function AccountRegistrationForm() {
 
             <EmailField className="w-full px-6 py-4 md:hover:-translate-y-2 duration-300 ease-linear" label="Email"
                         placeholder="Please enter your email address"
+                        clearButtonVisible={true}
                         style={{'--vaadin-input-field-border-radius': '20px'} as React.CSSProperties}
                         {...field(model.email)}>
 
@@ -127,6 +143,7 @@ export default function AccountRegistrationForm() {
 
             <DatePicker className="w-full px-6 py-4 md:hover:-translate-y-2 duration-300 ease-linear"
                         label="Date Of Birth" placeholder="Enter your date of birth"
+                        clearButtonVisible={true}
                         {...field(model.dateOfBirth)}
                         style={{'--vaadin-input-field-border-radius': '10px'} as React.CSSProperties}/>
 
@@ -146,11 +163,13 @@ export default function AccountRegistrationForm() {
 
             <ComboBox className="w-full px-6 py-4 md:hover:-translate-y-2 duration-300 ease-linear"
                       label="Choose your gender"
+                      clearButtonVisible={true}
                       style={{'--vaadin-input-field-border-radius': '20px'} as React.CSSProperties}
                       placeholder="Please choose your gender" items={items} {...field(model.gender)}/>
 
             <TextArea className="w-full px-6 py-4 md:hover:-translate-y-2 duration-300 ease-linear" label="BIO"
                       placeholder="Tell the world something about yourself"
+                      clearButtonVisible={true}
                       style={{'--vaadin-input-field-border-radius': '20px'} as React.CSSProperties}
                       {...field(model.userBio)}>
             </TextArea>
@@ -194,18 +213,37 @@ export default function AccountRegistrationForm() {
                     </>
                 )}
             </div>
+            <div className="flex flex-row w-full justify-end px-3">
+                <TooltipProvider>
+                    <Tooltip>
+                        <TooltipTrigger asChild={true}>
+                            <Button className="m-4 p-2 font-mono bg-gray-20 font-bold hover:bg-red-500 duration-500
+             ease-linear rounded-full hover:-translate-y-1 hover:shadow-xl hover:drop-shadow-xl hover:shadow-red-600 hover:text-black"
+                                    onClick={clear}
+                                    disabled={!dirty}
+                                    variant="secondary"
+                            >
+                                CLEAR
+                            </Button>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                            <p className="text-blue-500 font-medium">Clear the Form</p>
+                        </TooltipContent>
+                    </Tooltip>
+                </TooltipProvider>
 
-            <Button className="m-4 p-2 font-mono font-bold hover:bg-green-500 duration-500
-             ease-linear hover:rounded-full hover:-translate-y-1 hover:shadow-xl hover:drop-shadow-xl hover:shadow-green-600 hover:text-black"
-                    onClick={submit}
-                    disabled={isFormSubmitting}
-            >{isFormSubmitting ? (
-                <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin"/>
-                    Please wait
-                </>
-            ) : "Submit"}
-            </Button>
+                <Button className="m-4 font-mono font-bold hover:bg-green-500 duration-500 flex-grow
+             ease-linear rounded-full hover:-translate-y-1 hover:shadow-xl hover:drop-shadow-xl hover:shadow-green-600 hover:text-black"
+                        onClick={submit}
+                        disabled={isFormSubmitting}
+                >{isFormSubmitting ? (
+                    <>
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin"/>
+                        Please wait
+                    </>
+                ) : "Submit"}
+                </Button>
+            </div>
 
             <div className="flex justify-between mt-4 mb-8">
                 <div className="font-mono text-blue-500 font-bold">Already Have An account?</div>
