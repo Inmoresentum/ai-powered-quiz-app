@@ -26,7 +26,6 @@ import org.apache.logging.log4j.Level;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -139,7 +138,7 @@ public class UserService {
         return email.split("@")[1].equals("g.bracu.ac.bd") ? Set.of(Role.ADMIN) : Set.of(Role.USER);
     }
 
-    public void verifyUser(String token) {
+    public void verifyUserAccount(String token) {
         var optionalUserVerificationToken =
                 accountVerificationTokenRepository.findByToken(token);
         if (optionalUserVerificationToken.isEmpty()) {

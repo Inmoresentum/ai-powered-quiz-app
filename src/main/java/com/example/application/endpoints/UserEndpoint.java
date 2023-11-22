@@ -47,6 +47,10 @@ public class UserEndpoint {
         userService.registerUser(accountRegistrationRequestBody);
     }
 
+    public void verifyUserAccount(String token) {
+        userService.verifyUserAccount(token);
+    }
+
     public void generateUserLoginFormValidations(LoginRequestBody requestBody) {
         log.log(Level.DEBUG, "Generating the validations");
     }
