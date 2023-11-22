@@ -17,6 +17,7 @@ import {NavLink} from "react-router-dom";
 import {UploadUserImage} from "@/custom-apis/FileStorageApis"
 import {Loader2} from "lucide-react";
 import {Tooltip, TooltipContent, TooltipProvider, TooltipTrigger} from "@/components/ui/tooltip";
+import {Separator} from "@/components/ui/separator";
 
 export default function AccountRegistrationForm() {
     const [isFormSubmitting, setIsFormSubmitting] = useState<boolean>(false);
@@ -182,7 +183,7 @@ export default function AccountRegistrationForm() {
                 </label>
                 <input
                     ref={imageInputField}
-                    className="w-full p-2 border border-gray-300 rounded-md bg-gray-10 hover:ring-1"
+                    className="w-full p-2 h-[70px] border border-gray-300 rounded-md bg-gray-10 hover:ring-1"
                     type="file"
                     accept="image/*"
                     id="user-profile"
@@ -197,9 +198,10 @@ export default function AccountRegistrationForm() {
                 />
                 {profileImagePreview && (
                     <>
-                        <img src={profileImagePreview} className="w-full h-52 rounded-2xl p-2" alt=""/>
+                        <img src={profileImagePreview} className="w-full h-52 rounded-2xl p-2 hover:scale-105 duration-300 ease-in" alt=""/>
                         <div className="flex items-center justify-center">
-                            <Button className="uppercase hover:bg-red-400 duration-300 ease-linear p-2"
+                            <Button className="uppercase hover:bg-red-400 duration-300 ease-linear p-2 w-full rounded-full font-mono
+                            hover:shadow-xl hover:drop-shadow-xl hover:shadow-red-600 hover:text-black"
                                     onClick={() => {
                                         setProfileImagePreview(null);
                                         setProfileImage(undefined);
@@ -213,6 +215,8 @@ export default function AccountRegistrationForm() {
                     </>
                 )}
             </div>
+
+
             <div className="flex flex-row w-full justify-end px-3">
                 <TooltipProvider>
                     <Tooltip>
@@ -223,7 +227,7 @@ export default function AccountRegistrationForm() {
                                     disabled={!dirty}
                                     variant="secondary"
                             >
-                                CLEAR
+                                CLEAR FORM
                             </Button>
                         </TooltipTrigger>
                         <TooltipContent>
@@ -232,7 +236,7 @@ export default function AccountRegistrationForm() {
                     </Tooltip>
                 </TooltipProvider>
 
-                <Button className="m-4 font-mono font-bold hover:bg-green-500 duration-500 flex-grow
+                <Button className="m-4 font-mono font-bold hover:bg-green-500 duration-500 flex-grow bg-blue-400 shadow-xl
              ease-linear rounded-full hover:-translate-y-1 hover:shadow-xl hover:drop-shadow-xl hover:shadow-green-600 hover:text-black"
                         onClick={submit}
                         disabled={isFormSubmitting}
@@ -244,6 +248,8 @@ export default function AccountRegistrationForm() {
                 ) : "Submit"}
                 </Button>
             </div>
+
+            <Separator className="my-0.5 bg-teal-400 h-[2px] shadow-xl rounded-full" />
 
             <div className="flex justify-between mt-4 mb-8">
                 <div className="font-mono text-blue-500 font-bold">Already Have An account?</div>

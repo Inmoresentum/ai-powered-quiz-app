@@ -20,6 +20,7 @@
     "@hilla/react-form": "2.3.3",
     "@hookform/resolvers": "^3.3.2",
     "@polymer/polymer": "3.5.1",
+    "@radix-ui/react-separator": "^1.0.3",
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-tooltip": "^1.0.7",
     "@vaadin/bundles": "24.2.1",
@@ -106,7 +107,9 @@
     "zod": "$zod",
     "react-helmet-async": "$react-helmet-async",
     "date-fns": "$date-fns",
-    "axios": "$axios"
+    "axios": "$axios",
+    "@radix-ui/react-separator": "$@radix-ui/react-separator",
+    "@radix-ui/react-tooltip": "$@radix-ui/react-tooltip"
   },
   "vaadin": {
     "dependencies": {
@@ -149,6 +152,6 @@
       "workbox-core": "7.0.0",
       "workbox-precaching": "7.0.0"
     },
-    "hash": "8e5c499614010ec7b059a402041b71f23a8a3cfbc9b7fe6aebac25c087c0a575"
+    "hash": "18d89194c8b8be40b6fe9d062015451d01f0b00bb811c54a765f24e051f1f676"
   }
 }
