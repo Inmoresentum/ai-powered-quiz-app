@@ -19,7 +19,10 @@ import {Loader2} from "lucide-react";
 import {Tooltip, TooltipContent, TooltipProvider, TooltipTrigger} from "@/components/ui/tooltip";
 import {Separator} from "@/components/ui/separator";
 
-export default function AccountRegistrationForm() {
+type AccountRegistrationFormProps = {
+    onSuccessfulFormSubmit: () => void;
+};
+export default function AccountRegistrationForm({onSuccessfulFormSubmit}: AccountRegistrationFormProps) {
     const [isFormSubmitting, setIsFormSubmitting] = useState<boolean>(false);
     const {model, field, addValidator, submit, clear, dirty} = useForm(AccountRegistrationRequestBodyModel, {
         onSubmit: async (accountRegistrationBody) => {
@@ -34,6 +37,7 @@ export default function AccountRegistrationForm() {
             console.log(accountRegistrationBody);
             await UserEndpoint.registerUser(accountRegistrationBody);
             setIsFormSubmitting(false);
+            onSuccessfulFormSubmit();
         }
     });
 
@@ -198,7 +202,8 @@ export default function AccountRegistrationForm() {
                 />
                 {profileImagePreview && (
                     <>
-                        <img src={profileImagePreview} className="w-full h-52 rounded-2xl p-2 hover:scale-105 duration-300 ease-in" alt=""/>
+                        <img src={profileImagePreview}
+                             className="w-full h-52 rounded-2xl p-2 hover:scale-105 duration-300 ease-in" alt=""/>
                         <div className="flex items-center justify-center">
                             <Button className="uppercase hover:bg-red-400 duration-300 ease-linear p-2 w-full rounded-full font-mono
                             hover:shadow-xl hover:drop-shadow-xl hover:shadow-red-600 hover:text-black"
@@ -249,7 +254,7 @@ export default function AccountRegistrationForm() {
                 </Button>
             </div>
 
-            <Separator className="my-0.5 bg-teal-400 h-[2px] shadow-xl rounded-full" />
+            <Separator className="my-0.5 bg-teal-400 h-[2px] shadow-xl rounded-full"/>
 
             <div className="flex justify-between mt-4 mb-8">
                 <div className="font-mono text-blue-500 font-bold">Already Have An account?</div>
