@@ -2,6 +2,7 @@ import {Link} from "react-router-dom";
 import AccountRegistrationForm from "@/components/accountRegistrationForm";
 import {Separator} from "@/components/ui/separator";
 import React, {useState, useCallback} from 'react';
+import {Helmet} from "react-helmet-async";
 
 export default function RegistrationView() {
     const [formSubmissionSuccessful, setFormSubmissionSuccessful] = useState(false);
@@ -12,6 +13,11 @@ export default function RegistrationView() {
 
     return (
         <div className="flex items-center justify-center ">
+            <Helmet>
+                <title>Account Registration</title>
+                <meta name="description"
+                      content="Create An account with us"/>
+            </Helmet>
             {!formSubmissionSuccessful ? (
                 <div
                     className={`bg-gray-200 min-w-full rounded-2xl md:min-w-[450px] lg:md:min-w-[550px] flex flex-col shadow-xl items-center justify-center hover:shadow-2xl drop-shadow-2xl duration-300 ease-linear hover:bg-gray-100 md:m-20`}>
