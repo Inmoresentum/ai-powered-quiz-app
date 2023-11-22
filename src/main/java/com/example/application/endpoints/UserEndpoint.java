@@ -43,7 +43,7 @@ public class UserEndpoint {
         return userService.userExistsByUsername(username);
     }
     public void registerUser(AccountRegistrationRequestBody accountRegistrationRequestBody) {
-        // Add the saving logic here later
+        System.out.println(accountRegistrationRequestBody);
     }
 
     public void generateUserLoginFormValidations(LoginRequestBody requestBody) {

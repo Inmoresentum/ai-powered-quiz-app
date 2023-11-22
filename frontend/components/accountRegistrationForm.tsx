@@ -15,14 +15,23 @@ import Gender from "@/generated/com/example/application/entities/user/Gender";
 import {ComboBox} from "@hilla/react-components/ComboBox";
 import {NavLink} from "react-router-dom";
 import {UploadUserImage} from "@/custom-apis/FileStorageApis"
+import {Loader2} from "lucide-react";
 
 export default function AccountRegistrationForm() {
-    const {model, field , addValidator, submit, invalid, clear} = useForm(AccountRegistrationRequestBodyModel, {
-        onSubmit: async (e) => {
+    const [isFormSubmitting, setIsFormSubmitting] = useState<boolean>(false);
+    const {model, field, addValidator, submit, invalid, clear} = useForm(AccountRegistrationRequestBodyModel, {
+        onSubmit: async (accountRegistrationBody) => {
             if (profileImage) {
-                e.profilePictureUlr = await UploadUserImage(profileImage);
-                await UserEndpoint.registerUser(e);
+                console.log("I have an image and I am trying to upload it to the server");
+                setIsFormSubmitting(true);
+                accountRegistrationBody.profilePictureUlr = await UploadUserImage(profileImage);
+                console.log(accountRegistrationBody.profilePictureUlr);
+                console.log("I am kinda done....");
             }
+            console.log("Now I am tyring to account registration request body");
+            console.log(accountRegistrationBody);
+            await UserEndpoint.registerUser(accountRegistrationBody);
+            setIsFormSubmitting(false);
         }
     });
 
@@ -188,7 +197,15 @@ export default function AccountRegistrationForm() {
 
             <Button className="m-4 p-2 font-mono font-bold hover:bg-green-500 duration-500
              ease-linear hover:rounded-full hover:-translate-y-1 hover:shadow-xl hover:drop-shadow-xl hover:shadow-green-600 hover:text-black"
-                    onClick={submit}>Submit</Button>
+                    onClick={submit}
+                    disabled={isFormSubmitting}
+            >{isFormSubmitting ? (
+                <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin"/>
+                    Please wait
+                </>
+            ) : "Submit"}
+            </Button>
 
             <div className="flex justify-between mt-4 mb-8">
                 <div className="font-mono text-blue-500 font-bold">Already Have An account?</div>
