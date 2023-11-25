@@ -1,9 +1,9 @@
-import {Link, useSearchParams} from "react-router-dom";
-import {Helmet} from "react-helmet-async";
+import {useSearchParams} from "react-router-dom";
 import {UserEndpoint} from "@/generated/endpoints";
 import {useMutation} from "react-query";
 import {EndpointError} from "@hilla/frontend";
-import {useEffect} from "react";
+import React, {useEffect} from "react";
+import VerificationMessageDisplay from "@/components/VerificationMessageDisplay";
 
 export default function AccountVerification() {
     const [searchParams] = useSearchParams();
@@ -19,74 +19,41 @@ export default function AccountVerification() {
     })
 
     console.log("verificationToken " + verificationToken)
+
     useEffect(() => {
         if (verificationToken)
             mutation.mutate(verificationToken!!)
     }, []);
+
     if (!verificationToken) {
         return (
-            <div className="flex flex-col items-center justify-center h-screen">
-                <Helmet>
-                    <title>Account Verification</title>
-                    <meta name="description"
-                          content="Here the users can verify their account after login"/>
-                </Helmet>
-                <div className="bg-gray-50 m-2 text-rose-500 rounded-full text-4xl p-3">
-                    <div className="regular-64 text-red-500 uppercase underline">
-                        This is an invalid link! The Token is missing!!
-                    </div>
-                </div>
-            </div>
+            <VerificationMessageDisplay message="Verification Token is missing" isError={true}/>
         );
     } else {
-        if (mutation.isLoading) return <div>Loading</div>
+        // todo: I  will try to add a nice loading spinner here
+        if (mutation.isLoading) {
+            return (
+                <div className="flex justify-center items-center min-h-screen">
+                    <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-purple-500"></div>
+                </div>
+            );
+        }
+
         if (mutation.isSuccess) {
             return (
-                <div className="flex flex-col items-center justify-center h-screen">
-                    <Helmet>
-                        <title>Account Verification</title>
-                        <meta name="description"
-                              content="Here the users can verify their account after login"/>
-                    </Helmet>
-                    <div className="bg-gray-50 m-2 text-rose-500 rounded-full text-4xl p-3">
-                        <div className="regular-64 text-green-500 uppercase">
-                            account verification is successful! {" "} <Link to="/login">Login</Link>
-                        </div>
-                    </div>
-                </div>
+                <VerificationMessageDisplay message="account verification is successful!" isError={false}/>
             );
         }
         if (mutation.isError && mutation.error instanceof EndpointError) {
             const errorMessage = (mutation.error as EndpointError).message;
             return (
-                <div className="flex flex-col items-center justify-center h-screen">
-                    <Helmet>
-                        <title>Account Verification</title>
-                        <meta name="description"
-                              content="Here the users can verify their account after login"/>
-                    </Helmet>
-                    <div className="bg-gray-50 m-2 text-rose-500 rounded-full text-4xl p-3">
-                        <div className="regular-64 text-red-500 uppercase">
-                            {errorMessage}
-                        </div>
-                    </div>
-                </div>
+                <VerificationMessageDisplay message={errorMessage} isError={true}/>
             );
         }
 
         return (
-            <div className="flex flex-col items-center justify-center h-screen">
-                <Helmet>
-                    <title>Account Verification</title>
-                    <meta name="description"
-                          content="Here the users can verify their account after login"/>
-                </Helmet>
-                <div className="bg-gray-50 m-2 text-rose-500 rounded-full text-4xl p-3">
-                    <div className="regular-64 text-red-500 uppercase">
-                        Something went wrong
-                    </div>
-                </div>
-            </div>
+            <VerificationMessageDisplay message="Something went wrong" isError={true}/>
         );
     }
 }
+
