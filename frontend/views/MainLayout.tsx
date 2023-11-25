@@ -1,5 +1,4 @@
 import Placeholder from 'Frontend/components/placeholder/Placeholder.js';
-import {useAuth} from 'Frontend/util/auth.js';
 import {useRouteMetadata} from 'Frontend/util/routing.js';
 import {Suspense} from 'react';
 import {Outlet} from 'react-router-dom';
@@ -14,7 +13,6 @@ export default function MainLayout() {
     const currentTitle = useRouteMetadata()?.title ?? 'My App';
     return (
         <>
-
             <div className="flex flex-col justify-between min-h-screen">
                 <Navbar/>
                 <Suspense fallback={<Placeholder/>}>
