@@ -7,6 +7,8 @@ import {createBrowserRouter, RouteObject} from 'react-router-dom';
 import AccountVerification from "@/views/verification/account/AccountVerification";
 import RegistrationView from "@/views/registration/RegistrationView";
 import NotFoundPage from "@/views/404NotFound/NotFound";
+import ForgotPasswordView from "@/views/forgotpass/forgotpasswordd";
+import ForgotPasswordVerificationView from "@/views/ForgotPasswordTokenVerificationView/ForgotPasswordVerificationView";
 
 const AboutView = lazy(async () => import('Frontend/views/about/AboutView.js'));
 
@@ -29,6 +31,16 @@ export const routes = protectRoutes([
         path: "/auth/verify/account/activate",
         element: <AccountVerification/>,
         handle: {title: "Verify Account", requiresLogin: false}
+    },
+    {
+        path: "/auth/forgot",
+        element: <ForgotPasswordView/>,
+        handle: {title: "Forgot Account Password", requiresLogin: false}
+    },
+    {
+        path: "/auth/verify/account/forgot-password",
+        element: <ForgotPasswordVerificationView/>,
+        handle: {title: "Verify Forgotpassword Link", requiresLogin: false}
     },
 
     {

@@ -1,11 +1,13 @@
 package com.example.application.service.user;
 
+import com.example.application.entities.tokens.AccountRecoveryVerificationToken;
 import com.example.application.entities.tokens.AccountVerificationToken;
 import com.example.application.entities.user.Role;
 import com.example.application.entities.user.User;
 import com.example.application.exceptions.FileContainsHarmFulContentException;
 import com.example.application.exceptions.MinIOFileCreationException;
 import com.example.application.exceptions.MinIOFileNotFoundException;
+import com.example.application.repositories.AccountRecoveryVerificationTokenRepository;
 import com.example.application.repositories.AccountVerificationTokenRepository;
 import com.example.application.repositories.UserRepository;
 
@@ -16,6 +18,7 @@ import java.util.Set;
 import java.util.UUID;
 
 import com.example.application.requestbody.AccountRegistrationRequestBody;
+import com.example.application.requestbody.ResetPasswordRequestBody;
 import com.example.application.service.EmailService;
 import com.example.application.service.EmailUtils;
 import com.example.application.service.minio.MinioService;
@@ -42,6 +45,7 @@ public class UserService {
     private final PasswordEncoder encoder;
     private final EmailService emailService;
     private final EmailUtils emailUtils;
+    private final AccountRecoveryVerificationTokenRepository accountRecoveryVerificationTokenRepository;
 
     public Optional<User> get(Long id) {
         return userRepository.findById(id);
@@ -102,6 +106,7 @@ public class UserService {
     }
 
     public void registerUser(AccountRegistrationRequestBody accountRegistrationRequestBody) {
+        // todo: use model mapper to reduce the boilerplate codes
         var user = User.builder()
                 .username(accountRegistrationRequestBody.username)
                 .name(accountRegistrationRequestBody.name)
@@ -163,5 +168,44 @@ public class UserService {
         User user = userVerificationToken.getUser();
         user.setAccountVerified(true);
         userRepository.save(user);
+    }
+
+    public void createForgotPasswordVerificationLink(String email) {
+        final String forgotPasswordVerificationToken = UUID.randomUUID().toString();
+        final String EMAIL_VERIFICATION_URL = "http://localhost:8080/auth/verify/account/forgot-password?token=";
+        final String resetLink = EMAIL_VERIFICATION_URL.concat(forgotPasswordVerificationToken);
+        var user = userRepository.findByEmail(email);
+        if (user.isEmpty()) throw new EndpointException("No user Registered with this email");
+
+        AccountRecoveryVerificationToken verificationToken = AccountRecoveryVerificationToken
+                .builder()
+                .token(forgotPasswordVerificationToken)
+                .user(user.get())
+                .createdAt(LocalDateTime.now())
+                .expiresAt(LocalDateTime.now().plusHours(10))
+                .build();
+        accountRecoveryVerificationTokenRepository.save(verificationToken);
+
+        emailService.send(user.get().getEmail(), "Password Reset Link",
+                emailUtils.buildPasswordResetRequestEmail(user.get().getUsername(), resetLink));
+    }
+
+    public void verifyForgotPasswordVerificationToken(ResetPasswordRequestBody resetPasswordRequestBody) {
+        if (!accountRecoveryVerificationTokenRepository.existsByToken(resetPasswordRequestBody.passwordResetVerificationToken)) {
+            throw new EndpointException("The link is broken");
+        }
+        var verificationToken = accountRecoveryVerificationTokenRepository.findByToken(resetPasswordRequestBody.passwordResetVerificationToken);
+        if (verificationToken.getExpiresAt().isBefore(LocalDateTime.now())) {
+            throw new EndpointException("This is has already expired");
+        }
+
+        User user = verificationToken.getUser();
+        user.setHashedPassword(encoder.encode(resetPasswordRequestBody.newPassword));
+        userRepository.save(user);
+
+        verificationToken.setConfirmedAt(LocalDateTime.now());
+
+        emailService.send(user.getEmail(), "Password Reset Successful!",
+                emailUtils.buildPasswordChangeNotifierEmail(user.getUsername(), "http://localhost:8080/auth/forgot"));
     }
 }
