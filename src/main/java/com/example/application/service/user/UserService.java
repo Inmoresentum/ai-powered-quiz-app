@@ -199,6 +199,10 @@ public class UserService {
             throw new EndpointException("This is has already expired");
         }
 
+        if (verificationToken.getConfirmedAt() != null) {
+            throw new EndpointException("This link has already been used");
+        }
+
         User user = verificationToken.getUser();
         user.setHashedPassword(encoder.encode(resetPasswordVerificationRequestBody.newPassword));
         userRepository.save(user);
@@ -210,6 +214,8 @@ public class UserService {
     }
 
     public boolean isForgotPasswordVerificationTokenValid(String token) {
-           return accountRecoveryVerificationTokenRepository.existsByToken(token);
+        if (!accountRecoveryVerificationTokenRepository.existsByToken(token)) return false;
+        var forgotPasswordVerificationToken = accountRecoveryVerificationTokenRepository.findByToken(token);
+        return  forgotPasswordVerificationToken.getConfirmedAt() == null && LocalDateTime.now().isBefore(forgotPasswordVerificationToken.getExpiresAt());
     }
 }

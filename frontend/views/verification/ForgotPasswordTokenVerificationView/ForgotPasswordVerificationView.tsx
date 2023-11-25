@@ -57,14 +57,6 @@ export default function ForgotPasswordVerificationView() {
 
     const resetPasswordRequestMutation = useMutation({
         mutationFn: UserEndpoint.resetAccountPassword,
-
-        onSuccess: () => {
-            console.log("Password Reset Successful");
-        },
-
-        onError: () => {
-            console.log("I guess the token was invalid")
-        },
         retry: false,
     });
 
@@ -72,7 +64,6 @@ export default function ForgotPasswordVerificationView() {
     useEffect(() => {
         if (verificationToken) {
             verificationTokenMutation.mutate(verificationToken!!)
-
         }
     }, []);
 
@@ -87,8 +78,8 @@ export default function ForgotPasswordVerificationView() {
             <ScreenWideLoadingSpinner/>
         );
     }
-
-    if (verificationTokenMutation.data !== undefined && !verificationTokenMutation.data) {
+    console.log(verificationTokenMutation.data);
+    if (!verificationTokenMutation.data) {
         return (
             <VerificationMessageDisplay message="Link has expired or invalid" isError={true}/>
         );
@@ -101,7 +92,7 @@ export default function ForgotPasswordVerificationView() {
     }
 
     return (
-        <div className={`flex items-center justify-center h-screen`}>
+        <div className={`flex items-center justify-center h-screen bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-gray-200 via-gray-400 to-gray-600`}>
             <div
                 className={`bg-gray-200 min-w-full rounded-2xl md:min-w-[450px] lg:md:min-w-[550px] flex flex-col shadow-xl items-center justify-center hover:shadow-2xl drop-shadow-2xl duration-300 ease-linear hover:bg-gray-100 md:m-20 ${resetPasswordRequestMutation.isLoading ? "opacity-80" : ""}`}>
                 <Link to="/" className="flex flex-row items-center justify-center">
