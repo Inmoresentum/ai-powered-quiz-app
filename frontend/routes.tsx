@@ -8,7 +8,7 @@ import AccountVerification from "@/views/verification/account/AccountVerificatio
 import RegistrationView from "@/views/registration/RegistrationView";
 import NotFoundPage from "@/views/404NotFound/NotFound";
 import ForgotPasswordView from "@/views/forgotpass/forgotpasswordd";
-import ForgotPasswordVerificationView from "@/views/ForgotPasswordTokenVerificationView/ForgotPasswordVerificationView";
+import ForgotPasswordVerificationView from "@/views/verification/ForgotPasswordTokenVerificationView/ForgotPasswordVerificationView";
 
 const AboutView = lazy(async () => import('Frontend/views/about/AboutView.js'));
 
@@ -33,14 +33,14 @@ export const routes = protectRoutes([
         handle: {title: "Verify Account", requiresLogin: false}
     },
     {
-        path: "/auth/forgot",
+        path: "/auth/forgot/password",
         element: <ForgotPasswordView/>,
         handle: {title: "Forgot Account Password", requiresLogin: false}
     },
     {
         path: "/auth/verify/account/forgot-password",
         element: <ForgotPasswordVerificationView/>,
-        handle: {title: "Verify Forgotpassword Link", requiresLogin: false}
+        handle: {title: "Verify ForgotPassword Link", requiresLogin: false}
     },
 
     {

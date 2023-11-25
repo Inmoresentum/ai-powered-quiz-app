@@ -18,7 +18,7 @@ import java.util.Set;
 import java.util.UUID;
 
 import com.example.application.requestbody.AccountRegistrationRequestBody;
-import com.example.application.requestbody.ResetPasswordRequestBody;
+import com.example.application.requestbody.ResetPasswordVerificationRequestBody;
 import com.example.application.service.EmailService;
 import com.example.application.service.EmailUtils;
 import com.example.application.service.minio.MinioService;
@@ -190,22 +190,22 @@ public class UserService {
                 emailUtils.buildPasswordResetRequestEmail(user.get().getUsername(), resetLink));
     }
 
-    public void verifyForgotPasswordVerificationToken(ResetPasswordRequestBody resetPasswordRequestBody) {
-        if (!accountRecoveryVerificationTokenRepository.existsByToken(resetPasswordRequestBody.passwordResetVerificationToken)) {
+    public void verifyForgotPasswordVerificationToken(ResetPasswordVerificationRequestBody resetPasswordVerificationRequestBody) {
+        if (!accountRecoveryVerificationTokenRepository.existsByToken(resetPasswordVerificationRequestBody.passwordResetVerificationToken)) {
             throw new EndpointException("The link is broken");
         }
-        var verificationToken = accountRecoveryVerificationTokenRepository.findByToken(resetPasswordRequestBody.passwordResetVerificationToken);
+        var verificationToken = accountRecoveryVerificationTokenRepository.findByToken(resetPasswordVerificationRequestBody.passwordResetVerificationToken);
         if (verificationToken.getExpiresAt().isBefore(LocalDateTime.now())) {
             throw new EndpointException("This is has already expired");
         }
 
         User user = verificationToken.getUser();
-        user.setHashedPassword(encoder.encode(resetPasswordRequestBody.newPassword));
+        user.setHashedPassword(encoder.encode(resetPasswordVerificationRequestBody.newPassword));
         userRepository.save(user);
 
         verificationToken.setConfirmedAt(LocalDateTime.now());
 
         emailService.send(user.getEmail(), "Password Reset Successful!",
-                emailUtils.buildPasswordChangeNotifierEmail(user.getUsername(), "http://localhost:8080/auth/forgot"));
+                emailUtils.buildPasswordChangeNotifierEmail(user.getUsername(), "http://localhost:8080/auth/forgot/password"));
     }
 }

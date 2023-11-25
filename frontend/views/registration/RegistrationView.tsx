@@ -12,7 +12,7 @@ export default function RegistrationView() {
     }, []);
 
     return (
-        <div className="flex items-center justify-center ">
+        <div className="flex items-center content-center justify-center ">
             <Helmet>
                 <title>Account Registration</title>
                 <meta name="description"
@@ -42,7 +42,8 @@ export default function RegistrationView() {
                     <AccountRegistrationForm onSuccessfulFormSubmit={handleSuccessfulFormSubmissionStateChange}/>
                 </div>
             ) : (
-                <div className="h-screen w-screen flex flex-wrap items-center justify-center bg-gradient-to-r from-rose-100 to-teal-100 ">
+                <div
+                    className="h-screen w-screen flex flex-wrap items-center justify-center bg-gradient-to-r from-rose-100 to-teal-100 ">
                     <div
                         className="bg-gray-100 min-w-full rounded-2xl md:min-w-[450px] lg:md:min-w-[550px] flex flex-col shadow-xl items-center justify-center hover:shadow-2xl drop-shadow-2xl duration-300 ease-linear hover:bg-gray-100 md:m-20 md:hover:scale-105">
 

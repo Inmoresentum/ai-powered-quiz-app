@@ -4,6 +4,7 @@ import com.example.application.entities.user.User;
 import com.example.application.requestbody.AccountRegistrationRequestBody;
 import com.example.application.requestbody.LoginRequestBody;
 import com.example.application.requestbody.ResetPasswordRequestBody;
+import com.example.application.requestbody.ResetPasswordVerificationRequestBody;
 import com.example.application.security.AuthenticatedUser;
 import com.example.application.service.user.UserService;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
@@ -52,12 +53,12 @@ public class UserEndpoint {
         userService.verifyUserAccount(token);
     }
 
-    public void forgotPassword(String email) {
-        userService.createForgotPasswordVerificationLink(email);
+    public void forgotPassword(ResetPasswordRequestBody resetPasswordRequestBody) {
+        userService.createForgotPasswordVerificationLink(resetPasswordRequestBody.email);
     }
 
-    public void resetAccountPassword(ResetPasswordRequestBody resetPasswordRequestBody) {
-        userService.verifyForgotPasswordVerificationToken(resetPasswordRequestBody);
+    public void resetAccountPassword(ResetPasswordVerificationRequestBody resetPasswordVerificationRequestBody) {
+        userService.verifyForgotPasswordVerificationToken(resetPasswordVerificationRequestBody);
     }
 
     public void generateUserLoginFormValidations(LoginRequestBody requestBody) {
