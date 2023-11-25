@@ -4,6 +4,7 @@ import {useMutation} from "react-query";
 import {EndpointError} from "@hilla/frontend";
 import React, {useEffect} from "react";
 import VerificationMessageDisplay from "@/components/VerificationMessageDisplay";
+import ScreenWideLoadingSpinner from "@/components/screenWideLoadingSpinner";
 
 export default function AccountVerification() {
     const [searchParams] = useSearchParams();
@@ -30,12 +31,9 @@ export default function AccountVerification() {
             <VerificationMessageDisplay message="Verification Token is missing" isError={true}/>
         );
     } else {
-        // todo: I  will try to add a nice loading spinner here
         if (mutation.isLoading) {
             return (
-                <div className="flex justify-center items-center min-h-screen">
-                    <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-purple-500"></div>
-                </div>
+                <ScreenWideLoadingSpinner/>
             );
         }
 
