@@ -9,7 +9,8 @@ type verificationMessageDisplayProps = {
 }
 export default function VerificationMessageDisplay({message, isError}: verificationMessageDisplayProps) {
     return (
-        <div className="flex flex-col items-center justify-center h-screen">
+        <div
+            className="flex flex-col items-center justify-center h-screen bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-rose-400 to-orange-300">
             <Helmet>
                 <title>Account Verification</title>
                 <meta name="description"
@@ -43,7 +44,8 @@ export default function VerificationMessageDisplay({message, isError}: verificat
                     : (
                         <div
                             className="m-6 text-4xl text-green-500 uppercase bg-gray-300 w-full text-center rounded-full font-sans">
-                            account verification is successful! {" "} <Link to="/login">Login</Link>
+                            account verification is successful! {" "} <Link to="/login"
+                                                                            className="underline-offset-1 underline text-orange-500 font-bold">Login</Link>
                         </div>
                     )
                 }
