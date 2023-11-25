@@ -208,4 +208,8 @@ public class UserService {
         emailService.send(user.getEmail(), "Password Reset Successful!",
                 emailUtils.buildPasswordChangeNotifierEmail(user.getUsername(), "http://localhost:8080/auth/forgot/password"));
     }
+
+    public boolean isForgotPasswordVerificationTokenValid(String token) {
+           return accountRecoveryVerificationTokenRepository.existsByToken(token);
+    }
 }

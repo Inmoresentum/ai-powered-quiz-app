@@ -12,5 +12,5 @@ import java.util.Optional;
 public interface AccountRecoveryVerificationTokenRepository
         extends JpaRepository<AccountRecoveryVerificationToken, Long> {
     boolean existsByToken(String token);
-    AccountVerificationToken findByToken(String token);
+    AccountRecoveryVerificationToken findByToken(String token);
 }

@@ -61,6 +61,9 @@ public class UserEndpoint {
         userService.verifyForgotPasswordVerificationToken(resetPasswordVerificationRequestBody);
     }
 
+    public boolean isForgotPasswordVerificationLinkValid(String token) {
+            return userService.isForgotPasswordVerificationTokenValid(token);
+    }
     public void generateUserLoginFormValidations(LoginRequestBody requestBody) {
         log.log(Level.DEBUG, "Generating the validations");
     }

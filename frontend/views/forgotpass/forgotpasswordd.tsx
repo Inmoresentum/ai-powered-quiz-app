@@ -10,8 +10,8 @@ import ResetPasswordRequestBodyModel
 import {UserEndpoint} from "@/generated/endpoints";
 
 export default function ForgotPasswordView() {
-    const [isFormSubmitting, setIsFormSubmitting] = useState<boolean>(false)
-    const [passwordResetRequestSuccessful, setPasswordResetRequestSuccessful] = useState<boolean>(false)
+    const [isFormSubmitting, setIsFormSubmitting] = useState<boolean>(false);
+    const [passwordResetRequestSuccessful, setPasswordResetRequestSuccessful] = useState<boolean>(false);
     const {model, field, submit} = useForm(ResetPasswordRequestBodyModel, {
         onSubmit: async (passwordResetRequestBody) => {
             setIsFormSubmitting(true);
