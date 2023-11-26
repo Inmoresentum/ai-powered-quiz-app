@@ -1,7 +1,6 @@
-import {NavLink, useNavigate} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 import {Button} from "@/components/ui/button";
 import {useAuth} from "@/util/auth";
-import {ProgressBar} from "@hilla/react-components/ProgressBar.js";
 
 export default function Navbar() {
     const {state, logout} = useAuth();
@@ -35,7 +34,7 @@ export default function Navbar() {
                     <Button className="font-bold rounded-2xl shadow hover:shadow-2xl hover:bg-gray-200
                  hover:shadow-green-400 hover:ring-2 hover:ring-green-400 hover:text-gray-90 duration-300 ease-linear"
                             onClick={async () => {
-                                logout();
+                                await logout();
                             }}
                     >
                         Logout
