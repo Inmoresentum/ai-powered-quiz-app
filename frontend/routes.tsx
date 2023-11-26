@@ -1,5 +1,5 @@
 import {protectRoutes} from '@hilla/react-auth';
-import HelloWorldView from 'Frontend/views/helloworld/HelloWorldView.js';
+import HomePage from '@/views/HomePage/HomePage';
 import LoginView from 'Frontend/views/login/LoginView.js';
 import MainLayout from 'Frontend/views/MainLayout.js';
 import {lazy} from 'react';
@@ -17,7 +17,7 @@ export const routes = protectRoutes([
         element: <MainLayout/>,
         handle: {title: "Main"},
         children: [
-            {path: "/", element: <HelloWorldView/>, handle: {title: "QuizBotIQ", requiresLogin: true}},
+            {path: "/", element: <HomePage/>, handle: {title: "Home QuizBotIQ", requiresLogin: false}},
             {path: '/about', element: <AboutView/>, handle: {title: "About", requiresLogin: true}},
         ],
     },

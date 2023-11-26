@@ -43,6 +43,9 @@ public class HillaSecurityConfiguration extends VaadinWebSecurity {
         http.authorizeHttpRequests(authorize -> authorize
                 .requestMatchers(new AntPathRequestMatcher("/auth/**")).permitAll());
 
+        http.authorizeHttpRequests(authorize -> authorize
+                .requestMatchers(new AntPathRequestMatcher("/")).permitAll());
+
         super.configure(http);
 
         http.sessionManagement(customizer -> customizer.sessionCreationPolicy(SessionCreationPolicy.STATELESS));

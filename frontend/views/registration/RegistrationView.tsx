@@ -1,5 +1,5 @@
 import {Link} from "react-router-dom";
-import AccountRegistrationForm from "@/components/accountRegistrationForm";
+import AccountRegistrationForm from "@/components/auth/accountRegistrationForm";
 import {Separator} from "@/components/ui/separator";
 import React, {useState, useCallback} from 'react';
 import {Helmet} from "react-helmet-async";

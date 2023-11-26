@@ -11,7 +11,7 @@ import {PasswordField} from "@hilla/react-components/PasswordField";
 import ResetPasswordVerificationRequestBody
     from "@/generated/com/example/application/requestbody/ResetPasswordVerificationRequestBody";
 import {useMutation} from "react-query";
-import VerificationMessageDisplay from "@/components/VerificationMessageDisplay";
+import VerificationMessageDisplay from "@/components/auth/VerificationMessageDisplay";
 import {EndpointError} from "@hilla/frontend";
 import ScreenWideLoadingSpinner from "@/components/screenWideLoadingSpinner";
 

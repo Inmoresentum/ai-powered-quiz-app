@@ -3,7 +3,7 @@ import {UserEndpoint} from "@/generated/endpoints";
 import {useMutation} from "react-query";
 import {EndpointError} from "@hilla/frontend";
 import React, {useEffect} from "react";
-import VerificationMessageDisplay from "@/components/VerificationMessageDisplay";
+import VerificationMessageDisplay from "@/components/auth/VerificationMessageDisplay";
 import ScreenWideLoadingSpinner from "@/components/screenWideLoadingSpinner";
 
 export default function AccountVerification() {
