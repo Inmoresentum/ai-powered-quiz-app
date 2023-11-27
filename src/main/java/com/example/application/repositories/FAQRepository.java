@@ -8,6 +8,8 @@ import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Repository
 public interface FAQRepository extends JpaRepository<FAQ, Long> {
     @Transactional
