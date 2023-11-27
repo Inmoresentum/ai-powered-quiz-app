@@ -1,12 +1,12 @@
-import {FAQEndpoint} from "@/generated/endpoints";
 import {useQuery} from "react-query";
 import ScreenWideLoadingSpinner from "@/components/screenWideLoadingSpinner";
 import VerificationMessageDisplay from "@/components/auth/VerificationMessageDisplay";
 import Accordion from "@/components/faqs";
+import {FAQEndpoint} from "@/generated/endpoints";
 
-export default function LandingPageFAQ() {
+export default function AllFaqs() {
     // Queries
-    const query = useQuery('faqs', FAQEndpoint.findFirstTenFAQs)
+    const query = useQuery('faqs', FAQEndpoint.findAllFAQs)
     if (query.isLoading) {
         return <ScreenWideLoadingSpinner/>
     }
@@ -14,9 +14,6 @@ export default function LandingPageFAQ() {
         return <VerificationMessageDisplay message={"Something went wrong"} isError={true}/>
     }
     return (
-        <>
-            <Accordion faqs={query.data!!} showSupportButton={false}/>
-        </>
+        <Accordion faqs={query.data!!} showSupportButton={true}/>
     );
-
 }

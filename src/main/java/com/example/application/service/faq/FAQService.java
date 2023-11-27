@@ -18,4 +18,7 @@ public class FAQService {
     public List<FAQ> findFirstTenFAQs() {
         return faqRepository.findAll(PageRequest.of(0, 10)).getContent();
     }
+    public List<FAQ> findAllFAQs() {
+        return faqRepository.findAll();
+    }
 }

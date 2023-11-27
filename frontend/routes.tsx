@@ -8,7 +8,9 @@ import AccountVerification from "@/views/verification/account/AccountVerificatio
 import RegistrationView from "@/views/registration/RegistrationView";
 import NotFoundPage from "@/views/404NotFound/NotFound";
 import ForgotPasswordView from "@/views/forgotpass/forgotpasswordd";
-import ForgotPasswordVerificationView from "@/views/verification/ForgotPasswordTokenVerificationView/ForgotPasswordVerificationView";
+import ForgotPasswordVerificationView
+    from "@/views/verification/ForgotPasswordTokenVerificationView/ForgotPasswordVerificationView";
+import AllFaqs from "@/views/allfaqs/allFAQs";
 
 const AboutView = lazy(async () => import('Frontend/views/about/AboutView.js'));
 
@@ -18,6 +20,7 @@ export const routes = protectRoutes([
         handle: {title: "Main"},
         children: [
             {path: "/", element: <HomePage/>, handle: {title: "Home QuizBotIQ", requiresLogin: false}},
+            {path: "/allfaqs", element: <AllFaqs/>, handle: {title: "Home QuizBotIQ", requiresLogin: false}},
             {path: '/about', element: <AboutView/>, handle: {title: "About", requiresLogin: true}},
         ],
     },

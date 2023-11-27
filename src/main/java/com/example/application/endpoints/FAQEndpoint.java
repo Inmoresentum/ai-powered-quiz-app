@@ -11,7 +11,7 @@ import java.util.List;
 @Endpoint
 @AnonymousAllowed
 @RequiredArgsConstructor
-public class HomePageService {
+public class FAQEndpoint {
     private final FAQService faqService;
     public String sayHello(String name) {
         if (name.isEmpty()) {
@@ -23,5 +23,8 @@ public class HomePageService {
 
     public List<FAQ> findFirstTenFAQs() {
         return faqService.findFirstTenFAQs();
+    }
+    public List<FAQ> findAllFAQs() {
+        return faqService.findAllFAQs();
     }
 }
