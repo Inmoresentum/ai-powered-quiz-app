@@ -68,7 +68,6 @@ export default function Hero() {
                 >
                     Get Started
                 </Button>
-
             </div>
         </div>
     );
