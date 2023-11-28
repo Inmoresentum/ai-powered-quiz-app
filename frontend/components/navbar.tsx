@@ -31,6 +31,7 @@ export default function Navbar() {
 
     useEffect(() => {
         const handleScroll = () => {
+            // Todo: replace with a new recommended way as per description
             const currentScrollPos = window.pageYOffset;
             const visible = prevScrollPos > currentScrollPos;
             setPrevScrollPos(currentScrollPos);
