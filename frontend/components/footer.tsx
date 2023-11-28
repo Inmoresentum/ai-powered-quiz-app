@@ -1,5 +1,5 @@
 import {Dribbble, Facebook, Github, Instagram, Twitter} from "lucide-react";
-import {NavLink} from "react-router-dom";
+import {Link, NavLink} from "react-router-dom";
 
 export default function Footer() {
     return (
@@ -25,26 +25,26 @@ export default function Footer() {
                         fellow enthusiasts. Your feedback is invaluable in shaping a better experience for everyone.
                         Start your learning journey today and embark on an adventure of discovery!</p>
                     <div className='flex justify-between md:w-[75%] my-6 mr-6'>
-                        <NavLink to="https://www.facebook.com/">
+                        <Link to="https://www.facebook.com/">
                             <Facebook size={30}
                                       className="hover:cursor-pointer hover:text-orange-600 hover:scale-110 transition-all duration-500"/>
-                        </NavLink>
-                        <NavLink to="https://www.instagram.com/">
+                        </Link>
+                        <Link to="https://www.instagram.com/">
                             <Instagram size={30}
                                        className="hover:cursor-pointer hover:text-pink-500 hover:scale-110 transition-all duration-500"/>
-                        </NavLink>
-                        <NavLink to="https://twitter.com/">
+                        </Link>
+                        <Link to="https://twitter.com/">
                             <Twitter size={30}
                                      className="hover:cursor-pointer hover:text-blue-600 hover:scale-110 transition-all duration-500"/>
-                        </NavLink>
-                        <NavLink to="https://github.com/">
+                        </Link>
+                        <Link to="https://github.com/">
                             <Github size={30}
                                     className="hover:cursor-pointer hover:text-teal-600 hover:scale-110 transition-all duration-500"/>
-                        </NavLink>
-                        <NavLink to="https://dribbble.com/">
+                        </Link>
+                        <Link to="https://dribbble.com/">
                             <Dribbble size={30}
                                       className="hover:cursor-pointer hover:text-yellow-300 hover:scale-110 transition-all duration-500"/>
-                        </NavLink>
+                        </Link>
                     </div>
                 </div>
                 <div className='grid grid-cols-2 md:grid-cols-4 gap-4'>
