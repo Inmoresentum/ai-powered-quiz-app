@@ -25,26 +25,26 @@ export default function Footer() {
                         fellow enthusiasts. Your feedback is invaluable in shaping a better experience for everyone.
                         Start your learning journey today and embark on an adventure of discovery!</p>
                     <div className='flex justify-between md:w-[75%] my-6 mr-6'>
-                        <a href="https://www.facebook.com/">
+                        <NavLink to="https://www.facebook.com/">
                             <Facebook size={30}
                                       className="hover:cursor-pointer hover:text-orange-600 hover:scale-110 transition-all duration-500"/>
-                        </a>
-                        <a href="https://www.instagram.com/">
+                        </NavLink>
+                        <NavLink to="https://www.instagram.com/">
                             <Instagram size={30}
                                        className="hover:cursor-pointer hover:text-pink-500 hover:scale-110 transition-all duration-500"/>
-                        </a>
-                        <a href="https://twitter.com/">
+                        </NavLink>
+                        <NavLink to="https://twitter.com/">
                             <Twitter size={30}
                                      className="hover:cursor-pointer hover:text-blue-600 hover:scale-110 transition-all duration-500"/>
-                        </a>
-                        <a href="https://github.com/">
+                        </NavLink>
+                        <NavLink to="https://github.com/">
                             <Github size={30}
                                     className="hover:cursor-pointer hover:text-teal-600 hover:scale-110 transition-all duration-500"/>
-                        </a>
-                        <a href="https://dribbble.com/">
+                        </NavLink>
+                        <NavLink to="https://dribbble.com/">
                             <Dribbble size={30}
                                       className="hover:cursor-pointer hover:text-yellow-300 hover:scale-110 transition-all duration-500"/>
-                        </a>
+                        </NavLink>
                     </div>
                 </div>
                 <div className='grid grid-cols-2 md:grid-cols-4 gap-4'>
