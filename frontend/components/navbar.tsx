@@ -1,6 +1,7 @@
 import {NavLink, useNavigate} from "react-router-dom";
 import {Button} from "@/components/ui/button";
 import {useAuth} from "@/util/auth";
+import {MenuIcon} from "lucide-react";
 
 export default function Navbar() {
     const {state, logout} = useAuth();
@@ -49,12 +50,8 @@ export default function Navbar() {
                 }
             </div>
 
-            <img
-                src="images/menu.svg"
-                alt="menu"
-                width={32}
-                height={32}
-                className="inline-block cursor-pointer lg:hidden"
+            <MenuIcon width={32} height={24}
+                      className="inline-block cursor-pointer lg:hidden"
             />
         </nav>
     )
