@@ -45,7 +45,7 @@ public class MinioService {
         } catch (Exception e) {
             // Todo: Add a log statement
             e.printStackTrace();
-            throw new MinIOFileCreationException("unable to create this object " + objectName);
+            throw new MinIOFileCreationException("Unable to create this object " + objectName);
         } finally {
             try {
                 inputStream.close();
