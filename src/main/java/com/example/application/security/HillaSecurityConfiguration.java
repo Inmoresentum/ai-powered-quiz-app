@@ -44,6 +44,9 @@ public class HillaSecurityConfiguration extends VaadinWebSecurity {
                 .requestMatchers(new AntPathRequestMatcher("/auth/**")).permitAll());
 
         http.authorizeHttpRequests(authorize -> authorize
+                .requestMatchers(new AntPathRequestMatcher("/quiz/**")).permitAll());
+
+        http.authorizeHttpRequests(authorize -> authorize
                 .requestMatchers(new AntPathRequestMatcher("/")).permitAll());
 
         http.authorizeHttpRequests(authorize -> authorize

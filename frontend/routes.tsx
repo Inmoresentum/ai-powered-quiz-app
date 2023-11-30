@@ -11,6 +11,7 @@ import ForgotPasswordView from "@/views/forgotpass/forgotpasswordd";
 import ForgotPasswordVerificationView
     from "@/views/verification/ForgotPasswordTokenVerificationView/ForgotPasswordVerificationView";
 import AllFaqs from "@/views/allfaqs/allFAQs";
+import CreateQuiz from "@/views/quiz/createQuiz";
 
 const AboutView = lazy(async () => import('Frontend/views/about/AboutView.js'));
 
@@ -21,7 +22,8 @@ export const routes = protectRoutes([
         children: [
             {path: "/", element: <HomePage/>, handle: {title: "Home QuizBotIQ", requiresLogin: false}},
             {path: "/allfaqs", element: <AllFaqs/>, handle: {title: "Home QuizBotIQ", requiresLogin: false}},
-            {path: '/about', element: <AboutView/>, handle: {title: "About", requiresLogin: true}},
+            {path: "/quiz/create-quiz", element: <CreateQuiz/>, handle: {title: "Quiz Creation Page", requiresLogin: false}},
+            {path: '/about', element: <AboutView/>, handle: {title: "About", requiresLogin: false}},
         ],
     },
     {path: "/login", element: <LoginView/>, handle: {title: "Login"}},
