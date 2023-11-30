@@ -50,4 +50,8 @@ public class User extends AbstractEntity {
     private LocalDateTime accountCreated;
     @Column(nullable = false, name = "Privacy_Policy_And_TOS_Agreement")
     private boolean agreesWithTermsOfServicesAndPrivacyAndPolicy;
+
+    private boolean activeSubscriber = false;
+    @Enumerated(EnumType.STRING)
+    private CurrentPlan currentPlan = CurrentPlan.FREE;
 }
