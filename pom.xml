@@ -6,7 +6,7 @@
     <groupId>com.example.application</groupId>
     <artifactId>ai-powered-quiz-app</artifactId>
     <name>ai-powered-quiz-app</name>
-    <version>1.0-SNAPSHOT</version>
+    <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <properties>
