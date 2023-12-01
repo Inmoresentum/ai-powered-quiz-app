@@ -1,6 +1,6 @@
 import React from "react";
 import PricingCard from "@/components/landingpage/pricingCard";
-import {useQuery, useQueryClient} from "react-query";
+import {useQuery} from "react-query";
 import {PricingPlanEndpoint} from "@/generated/endpoints";
 import ScreenWideLoadingSpinner from "@/components/screenWideLoadingSpinner";
 
