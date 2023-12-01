@@ -19,8 +19,8 @@ import java.util.UUID;
 
 import com.example.application.requestbody.AccountRegistrationRequestBody;
 import com.example.application.requestbody.ResetPasswordVerificationRequestBody;
-import com.example.application.service.EmailService;
-import com.example.application.service.EmailUtils;
+import com.example.application.service.email.EmailService;
+import com.example.application.service.email.EmailUtils;
 import com.example.application.service.minio.MinioService;
 import dev.hilla.exception.EndpointException;
 import lombok.RequiredArgsConstructor;

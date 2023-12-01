@@ -1,4 +1,4 @@
-package com.example.application.service;
+package com.example.application.service.email;
 
 import org.springframework.stereotype.Service;
 
