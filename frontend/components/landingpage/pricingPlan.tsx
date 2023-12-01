@@ -7,7 +7,7 @@ export default function PricingPlan() {
 
         <div className="relative">
             <div className="absolute inset-0 flex flex-col">
-                <div className="flex-grow wavy-pricing-section  bg-gradient-to-r from-cyan-200 to-cyan-400"></div>
+                <div className="flex-grow wavy-pricing-section  bg-[radial-gradient(ellipse_at_bottom,_var(--tw-gradient-stops))] from-rose-400 to-orange-300"></div>
                 <div
                     className="flex-grow wavy-pricing-section bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-amber-700 via-orange-300 to-rose-800"></div>
             </div>
