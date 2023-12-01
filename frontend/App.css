@@ -233,12 +233,13 @@ body {
 
 .wavy-pricing-section {
     --mask:
-            radial-gradient(86.02px at 50% 120.00px,#000 99%,#0000 101%) calc(50% - 100px) 0/200px 51% repeat-x,
-            radial-gradient(86.02px at 50% -70px,#0000 99%,#000 101%) 50% 50px/200px calc(51% - 50px) repeat-x,
-            radial-gradient(86.02px at 50% calc(100% - 120.00px),#000 99%,#0000 101%) 50% 100%/200px 51% repeat-x,
-            radial-gradient(86.02px at 50% calc(100% + 70.00px),#0000 99%,#000 101%) calc(50% - 100px) calc(100% - 50px)/200px calc(51% - 50px) repeat-x;
+            radial-gradient(68.82px at 50% 96.00px,#000 99%,#0000 101%) calc(50% - 80px) 0/160px 51% repeat-x,
+            radial-gradient(68.82px at 50% -56px,#0000 99%,#000 101%) 50% 40px/160px calc(51% - 40px) repeat-x,
+            radial-gradient(68.82px at 50% calc(100% - 96.00px),#000 99%,#0000 101%) 50% 100%/160px 51% repeat-x,
+            radial-gradient(68.82px at 50% calc(100% + 56.00px),#0000 99%,#000 101%) calc(50% - 80px) calc(100% - 40px)/160px calc(51% - 40px) repeat-x;
     -webkit-mask: var(--mask);
     mask: var(--mask);
+
 }
 
 
