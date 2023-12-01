@@ -59,9 +59,7 @@ export default function Hero() {
                 <p className="z-10 md:text-2xl text-xl font-bold text-gray-500">
                     Monitor your learning progress with analytics to get the maximum benefits
                 </p>
-                <Button className="z-[999] bg-black w-[200px] h-12 shadow-xl rounded-full font-semibold my-6 mx-auto py-3
-                 text-white hover:bg-blue-500 hover:shadow-2xl drop-shadow-2xl hover:shadow-blue-400
-                  hover:text-black transition duration-700 ease-in-out"
+                <Button className="z-[999] bg-black w-[200px] h-12 shadow-xl rounded-full font-semibold my-6 mx-auto py-3 text-white hover:bg-blue-500 hover:shadow-2xl drop-shadow-2xl hover:shadow-blue-400 hover:text-black transition duration-700 ease-in-out"
                         onClick={() => {
                             console.log("Its here doing something");
                         }}

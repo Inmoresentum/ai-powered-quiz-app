@@ -1,10 +1,13 @@
 package com.example.application;
 
 import com.example.application.entities.faq.FAQ;
+import com.example.application.entities.paidplan.PricingPlan;
 import com.example.application.entities.user.Gender;
+import com.example.application.entities.user.PricingPlanTitle;
 import com.example.application.entities.user.Role;
 import com.example.application.entities.user.User;
 import com.example.application.repositories.FAQRepository;
+import com.example.application.repositories.PricingPlanRepository;
 import com.example.application.repositories.UserRepository;
 import com.vaadin.flow.component.page.AppShellConfigurator;
 import com.vaadin.flow.theme.Theme;
@@ -40,7 +43,7 @@ public class Application implements AppShellConfigurator {
     }
 
     @Bean
-    CommandLineRunner commandLineRunner(UserRepository userRepository, PasswordEncoder encoder, FAQRepository faqRepository) {
+    CommandLineRunner commandLineRunner(UserRepository userRepository, PasswordEncoder encoder, FAQRepository faqRepository, PricingPlanRepository pricingPlanRepository) {
         return args -> {
             var user = User.builder()
                     .accountCreated(LocalDateTime.now())
@@ -371,6 +374,38 @@ public class Application implements AppShellConfigurator {
                 faqList.add(faq50);
                 faqRepository.saveAll(faqList);
             }
+
+            var freePlan = PricingPlan.builder()
+                    .mostPopular(false)
+                    .title(PricingPlanTitle.FREE)
+                    .description("Some Description")
+                    .price(0.0)
+                    .currency("usd")
+                    .frequency("/monthly")
+                    .features(List.of("Play 10 Quizzes a day", "Create 5 Quizzes per day", "Limited Quiz Builder Access*", "Limited Chat-Bot Access*", "Max Allocated Storage 500 MB"))
+                    .build();
+
+            var basicPlan = PricingPlan.builder()
+                    .mostPopular(true)
+                    .title(PricingPlanTitle.BASIC)
+                    .description("Some Description")
+                    .price(9.99)
+                    .currency("usd")
+                    .frequency("/monthly")
+                    .features(List.of("Play 30 Quizzes a day", "Create 15 Quizzes per day", "Access Quiz Builder 10 times a day", "Ask 35 Questions to Chat-Bot daily", "Max Allocated Storage 5 GB", "Higher Priority to AI services"))
+                    .features(List.of("Play Unlimited Quizzes a day", "Create 100 Quizzes per day", "Access Quiz Builder 30 times a day", "Ask 100 Questions to Chat-Bot daily", "Max Allocated Storage 15 GB", "Highest Priority to AI services on demand"))
+                    .build();
+
+            var proPlan = PricingPlan.builder()
+                    .mostPopular(false)
+                    .title(PricingPlanTitle.PRO)
+                    .description("Some Description")
+                    .price(24.0)
+                    .currency("usd")
+                    .frequency("/monthly")
+                    .features(List.of("Play Unlimited Quizzes a day", "Create 100 Quizzes per day", "Access Quiz Builder 50 times a day", "Ask 100 Questions to Chat-Bot daily", "Max Allocated Storage 15 GB", "Highest Priority to AI services on demand", "Access to Exclusive beta features"))
+                    .build();
+            pricingPlanRepository.saveAll(List.of(freePlan, basicPlan, proPlan));
         };
     }
 }

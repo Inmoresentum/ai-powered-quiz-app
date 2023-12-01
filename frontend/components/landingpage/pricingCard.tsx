@@ -1,12 +1,13 @@
 import React from "react";
-import {useMotionValue, motion, useMotionTemplate} from "framer-motion";
-import {MockPricingPlanData} from "@/components/landingpage/mockPricingPlanData";
+import {motion, useMotionTemplate, useMotionValue} from "framer-motion";
 import {CheckCheck} from "lucide-react";
 import {Link} from "react-router-dom";
+import PricingPlan from "@/generated/com/example/application/entities/paidplan/PricingPlan";
+import PricingPlanTitle from "@/generated/com/example/application/entities/user/PricingPlanTitle";
 
 
-type whatever = { plan: typeof MockPricingPlanData[0] };
-export default function PricingCard({plan}: whatever) {
+type TPricingPlan = { plan: PricingPlan };
+export default function PricingCard({plan}: TPricingPlan) {
     let mouseX = useMotionValue(0);
     let mouseY = useMotionValue(0);
 
@@ -57,7 +58,7 @@ export default function PricingCard({plan}: whatever) {
             </div>
             {/*features*/}
             <ul className="mt-6 space-y-4 flex-grow">
-                {plan.features.map(feature => (
+                {plan.features?.map(feature => (
                     <li key={feature} className="text-sm text-slate-700 leading-6 flex">
                         <CheckCheck className="h-5 w-5 text-cyan-500 shrink-0"/>
                         <span className="ml-3">
@@ -69,7 +70,7 @@ export default function PricingCard({plan}: whatever) {
             {/*action stuff*/}
             <Link to="#"
                   className={`mt-8 block rounded-full px-6 py-4 text-center text-sm font-semibold leading-4  no-underline ${plan.mostPopular ? "bg-cyan-500 hover:bg-cyan-600 text-white" : "bg-cyan-50 hover:bg-cyan-200 text-cyan-400 hover:text-slate-700"}`}>
-                {plan.cta}
+                {plan.title === PricingPlanTitle.FREE ? "Create An Account" : "Subscribe Now"}
             </Link>
         </div>
     );
