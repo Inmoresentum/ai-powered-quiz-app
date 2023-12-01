@@ -1,7 +1,7 @@
 import {z} from "zod";
 
-const MAX_FILE_SIZE = 500000;
-const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/jpg", "image/png", "image/webp",];
+const MAX_FILE_SIZE: number = 500000;
+const ACCEPTED_IMAGE_TYPES: string[] = ["image/jpeg", "image/jpg", "image/png", "image/webp",];
 
 const schema = z.object({
     quizTitle: z.string()
@@ -36,6 +36,7 @@ const schema = z.object({
         })
     ).nonempty({message: "At least one question is required"})
 });
+
 export default function CreateQuiz() {
 
     return (
@@ -43,7 +44,8 @@ export default function CreateQuiz() {
             <div className="flex items-center justify-center">
                 <h1>
                     This where the form will go as you can tell by that
-                </h1></div>
+                </h1>
+            </div>
         </>
     );
 }

@@ -53,5 +53,5 @@ public class User extends AbstractEntity {
 
     private boolean activeSubscriber = false;
     @Enumerated(EnumType.STRING)
-    private CurrentPlan currentPlan = CurrentPlan.FREE;
+    private PricingPlanTitle pricingPlanTitle = PricingPlanTitle.FREE;
 }

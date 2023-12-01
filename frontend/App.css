@@ -231,6 +231,17 @@ body {
     mask: var(--mask);
 }
 
+.wavy-pricing-section {
+    --mask:
+            radial-gradient(86.02px at 50% 120.00px,#000 99%,#0000 101%) calc(50% - 100px) 0/200px 51% repeat-x,
+            radial-gradient(86.02px at 50% -70px,#0000 99%,#000 101%) 50% 50px/200px calc(51% - 50px) repeat-x,
+            radial-gradient(86.02px at 50% calc(100% - 120.00px),#000 99%,#0000 101%) 50% 100%/200px 51% repeat-x,
+            radial-gradient(86.02px at 50% calc(100% + 70.00px),#0000 99%,#000 101%) calc(50% - 100px) calc(100% - 50px)/200px calc(51% - 50px) repeat-x;
+    -webkit-mask: var(--mask);
+    mask: var(--mask);
+}
+
+
 /* end of landing page stuff */
 
 

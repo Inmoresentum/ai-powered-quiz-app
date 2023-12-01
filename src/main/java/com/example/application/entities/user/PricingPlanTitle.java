@@ -1,5 +1,5 @@
 package com.example.application.entities.user;
 
-public enum CurrentPlan {
+public enum PricingPlanTitle {
     FREE, BASIC, PRO
 }
