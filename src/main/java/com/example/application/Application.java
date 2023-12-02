@@ -9,6 +9,7 @@ import com.example.application.entities.user.User;
 import com.example.application.repositories.FAQRepository;
 import com.example.application.repositories.PricingPlanRepository;
 import com.example.application.repositories.UserRepository;
+import com.example.application.service.stripe.StripePaymentService;
 import com.vaadin.flow.component.page.AppShellConfigurator;
 import com.vaadin.flow.theme.Theme;
 
@@ -43,7 +44,7 @@ public class Application implements AppShellConfigurator {
     }
 
     @Bean
-    CommandLineRunner commandLineRunner(UserRepository userRepository, PasswordEncoder encoder, FAQRepository faqRepository, PricingPlanRepository pricingPlanRepository) {
+    CommandLineRunner commandLineRunner(UserRepository userRepository, PasswordEncoder encoder, FAQRepository faqRepository, PricingPlanRepository pricingPlanRepository, StripePaymentService stripePaymentService) {
         return args -> {
             var user = User.builder()
                     .accountCreated(LocalDateTime.now())
@@ -393,7 +394,6 @@ public class Application implements AppShellConfigurator {
                     .currency("usd")
                     .frequency("/monthly")
                     .features(List.of("Play 30 Quizzes a day", "Create 15 Quizzes per day", "Access Quiz Builder 10 times a day", "Ask 35 Questions to Chat-Bot daily", "Max Allocated Storage 5 GB", "Higher Priority to AI services"))
-                    .features(List.of("Play Unlimited Quizzes a day", "Create 100 Quizzes per day", "Access Quiz Builder 30 times a day", "Ask 100 Questions to Chat-Bot daily", "Max Allocated Storage 15 GB", "Highest Priority to AI services on demand"))
                     .build();
 
             var proPlan = PricingPlan.builder()
@@ -403,9 +403,10 @@ public class Application implements AppShellConfigurator {
                     .price(24.0)
                     .currency("usd")
                     .frequency("/monthly")
-                    .features(List.of("Play Unlimited Quizzes a day", "Create 100 Quizzes per day", "Access Quiz Builder 50 times a day", "Ask 100 Questions to Chat-Bot daily", "Max Allocated Storage 15 GB", "Highest Priority to AI services on demand", "Access to Exclusive beta features"))
+                .features(List.of("Play Unlimited Quizzes a day", "Create 100 Quizzes per day", "Access Quiz Builder 50 times a day", "Ask 100 Questions to Chat-Bot daily", "Max Allocated Storage 15 GB", "Highest Priority to AI services on demand", "Access to Exclusive beta features"))
                     .build();
             pricingPlanRepository.saveAll(List.of(freePlan, basicPlan, proPlan));
+            System.out.println(stripePaymentService.createACheckOutSession());
         };
     }
 }
