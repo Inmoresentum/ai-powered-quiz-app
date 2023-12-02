@@ -5,7 +5,9 @@ import com.stripe.model.Customer;
 import com.stripe.model.CustomerSearchResult;
 import com.stripe.param.CustomerCreateParams;
 import com.stripe.param.CustomerSearchParams;
+import org.springframework.stereotype.Service;
 
+@Service
 public class StripeCustomerService {
 
     public static Customer findCustomerByEmail(String email) throws StripeException {
