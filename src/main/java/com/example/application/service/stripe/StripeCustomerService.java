@@ -31,21 +31,17 @@ public class StripeCustomerService {
 
         CustomerSearchResult result = Customer.search(params);
 
-        Customer customer;
 
-        // If no existing customer was found, create a new record
         if (result.getData().isEmpty()) {
-
             CustomerCreateParams customerCreateParams = CustomerCreateParams.builder()
                     .setName(name)
                     .setEmail(email)
                     .build();
 
-            customer = Customer.create(customerCreateParams);
+            return Customer.create(customerCreateParams);
         } else {
-            customer = result.getData().get(0);
+            return result.getData().get(0);
         }
 
-        return customer;
     }
 }
