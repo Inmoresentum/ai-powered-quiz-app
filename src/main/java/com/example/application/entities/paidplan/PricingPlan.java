@@ -49,6 +49,7 @@ public class PricingPlan {
     List<String> features;
     @NotNull
     private boolean mostPopular;
+    private String stripePriceKey;
 
     @Override
     public final boolean equals(Object o) {

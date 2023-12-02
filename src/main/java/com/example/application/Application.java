@@ -392,6 +392,7 @@ public class Application implements AppShellConfigurator {
                     .description("Some Description")
                     .price(9.99)
                     .currency("usd")
+                    .stripePriceKey("price_1OJ1QoADj7iOq9PbgwsuMKZd")
                     .frequency("/monthly")
                     .features(List.of("Play 30 Quizzes a day", "Create 15 Quizzes per day", "Access Quiz Builder 10 times a day", "Ask 35 Questions to Chat-Bot daily", "Max Allocated Storage 5 GB", "Higher Priority to AI services"))
                     .build();
@@ -402,6 +403,7 @@ public class Application implements AppShellConfigurator {
                     .description("Some Description")
                     .price(24.0)
                     .currency("usd")
+                    .stripePriceKey("price_1OJ1TQADj7iOq9PbKDZKcur0")
                     .frequency("/monthly")
                 .features(List.of("Play Unlimited Quizzes a day", "Create 100 Quizzes per day", "Access Quiz Builder 50 times a day", "Ask 100 Questions to Chat-Bot daily", "Max Allocated Storage 15 GB", "Highest Priority to AI services on demand", "Access to Exclusive beta features"))
                     .build();
