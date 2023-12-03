@@ -389,10 +389,10 @@ public class Application implements AppShellConfigurator {
             var basicPlan = PricingPlan.builder()
                     .mostPopular(true)
                     .title(PricingPlanTitle.BASIC)
-                    .description("Some Description")
+                    .description("Gives you a starting perks")
                     .price(9.99)
                     .currency("usd")
-                    .stripePriceKey("price_1OJ1QoADj7iOq9PbgwsuMKZd")
+                    .stripePriceKey("price_1OJ3IzADj7iOq9PbY5D1Y14C")
                     .frequency("/monthly")
                     .features(List.of("Play 30 Quizzes a day", "Create 15 Quizzes per day", "Access Quiz Builder 10 times a day", "Ask 35 Questions to Chat-Bot daily", "Max Allocated Storage 5 GB", "Higher Priority to AI services"))
                     .build();
@@ -400,7 +400,7 @@ public class Application implements AppShellConfigurator {
             var proPlan = PricingPlan.builder()
                     .mostPopular(false)
                     .title(PricingPlanTitle.PRO)
-                    .description("Some Description")
+                    .description("Gives you a boost")
                     .price(24.0)
                     .currency("usd")
                     .stripePriceKey("price_1OJ1TQADj7iOq9PbKDZKcur0")
@@ -408,7 +408,7 @@ public class Application implements AppShellConfigurator {
                 .features(List.of("Play Unlimited Quizzes a day", "Create 100 Quizzes per day", "Access Quiz Builder 50 times a day", "Ask 100 Questions to Chat-Bot daily", "Max Allocated Storage 15 GB", "Highest Priority to AI services on demand", "Access to Exclusive beta features"))
                     .build();
             pricingPlanRepository.saveAll(List.of(freePlan, basicPlan, proPlan));
-            System.out.println(stripePaymentService.createACheckOutSession());
+            System.out.println(stripePaymentService.createACheckOutSession(basicPlan.getStripePriceKey()));
         };
     }
 }
