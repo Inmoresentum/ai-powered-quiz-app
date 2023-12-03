@@ -1,5 +1,14 @@
 import React from "react";
-import {useForm, useFieldArray} from "react-hook-form";
+import {
+    useForm,
+    useFieldArray,
+    Control,
+    UseFieldArrayRemove,
+    FieldErrorsImpl,
+    DeepRequired,
+    GlobalError,
+    UseFormWatch, FieldArrayWithId, UseFormRegister, FieldValues,
+} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {z} from "zod";
 import {Button} from "@/components/ui/button";
@@ -40,7 +49,7 @@ const CreateQuiz: React.FC = () => {
             quizSynopsis: "",
             quizTags: "SCIENCE",
             difficulty: "EASY",
-            questions: [{questionType: "text", answers: ["This is a demo option"], answerType: "single", correctAnswers: [], correctMessage: "", wrongMessage: "", explanation: "", points: 0.0, title: ""}]
+            questions: [{answers: [], answerType: "single", correctAnswers: [], correctMessage: "", wrongMessage: "", explanation: "", points: 0.0, title: ""}]
         }
     });
 
@@ -147,116 +156,8 @@ const CreateQuiz: React.FC = () => {
                 </div>
 
                 {questionFields.map((questionField, questionIndex) => {
-                    const {fields: answerFields, append: appendAnswer, remove: removeAnswer} = useFieldArray({
-                        control,
-                        name: `questions.${questionIndex}.answers`
-                    });
-                    return (
-                        <div key={questionField.id + questionIndex} className="flex flex-col space-y-4 m-2 p-2">
-                            <label>Question Title</label>
-                            <input {...register(`questions.${questionIndex}.title`)} placeholder="Question Title"
-                                   className="border p-2 rounded"/>
-                            {errors.questions && errors.questions[questionIndex]?.title?.message &&
-                                <p className="text-red-500">{errors.questions[questionIndex]?.title?.message}</p>}
-
-                            <label className="font-bold">Question Type</label>
-                            <select {...register(`questions.${questionIndex}.questionType`)}>
-                                <option value="text">Text</option>
-                                <option value="image">Image</option>
-                            </select>
-                            {errors.questions?.[questionIndex]?.type &&
-                                <p>{errors.questions[questionIndex]?.questionType?.message}</p>}
-
-                            <label>Answer Type</label>
-                            <select {...register(`questions.${questionIndex}.answerType`)}>
-                                <option value="single">Single Choice</option>
-                                <option value="multiple">Multiple Choice</option>
-                            </select>
-                            {errors.questions?.[questionIndex]?.answerType &&
-                                <p>{errors.questions[questionIndex]?.answerType?.message}</p>}
-
-                            <label>Answers</label>
-                            {answerFields.map((answerField, answerIndex) => (
-                                <div key={answerField + questionIndex + answerIndex}
-                                     className="flex items-center space-x-4">
-                                    {watch(`questions.${questionIndex}.questionType`) === "text" ? (
-                                        <input {...register(`questions.${questionIndex}.answers.${answerIndex}`)}
-                                               placeholder="Answer" className="border p-2 rounded"/>
-                                    ) : (
-                                        <input {...register(`questions.${questionIndex}.answers.${answerIndex}`)}
-                                               type="file"
-                                               className="border p-2 rounded"/>
-                                    )}
-                                    <Button type="button" disabled={answerIndex === 0}
-                                            onClick={() => removeAnswer(answerIndex)}
-                                            className="bg-red-500 text-white p-2 rounded">Remove Answer
-                                    </Button>
-                                </div>
-                            ))}
-                            {errors.questions?.[questionIndex]?.answers &&
-                                <p className="text-red-500">{errors.questions[questionIndex]?.answers?.message}</p>}
-                            <Button type="button" onClick={() => {
-                                console.log("I am clicking append answers and its not working");
-                                appendAnswer(" ")
-                            }}
-                                    className="bg-blue-500 text-white p-2 rounded">
-                                Add Answer
-                            </Button>
-
-                            {errors.questions?.[questionIndex]?.answers &&
-                                <p>{errors.questions[questionIndex]?.answers?.message}</p>}
-
-                            <label>Correct Answer</label>
-                            {watch(`questions.${questionIndex}.answerType`) === "single" ? (
-                                <select {...register(`questions.${questionIndex}.correctAnswer`)}
-                                        className="border p-2 rounded">
-                                    {answerFields.map((_, answerIndex) => (
-                                        <option key={answerIndex}
-                                                value={answerIndex}>{`Answer ${answerIndex + 1}`}</option>
-                                    ))}
-                                </select>
-                            ) : (
-                                answerFields.map((_, answerIndex) => (
-                                    <div key={answerIndex} className="flex items-center space-x-4">
-                                        <input {...register(`questions.${questionIndex}.correctAnswers.${answerIndex}`)}
-                                               type="checkbox"/>
-                                        <label>{`Answer ${answerIndex + 1}`}</label>
-                                    </div>
-                                ))
-                            )}
-                            {errors.questions?.[questionIndex]?.correctAnswers &&
-                                <p className="text-red-500">{errors.questions[questionIndex]?.correctAnswers?.message}</p>}
-
-                            <label>Correct Message</label>
-                            <input {...register(`questions.${questionIndex}.correctMessage`)}
-                                   placeholder="Correct Message"/>
-                            {errors.questions?.[questionIndex]?.correctMessage &&
-                                <p>{errors.questions[questionIndex]?.correctMessage?.message}</p>}
-
-                            <label>Wrong Message</label>
-                            <input {...register(`questions.${questionIndex}.wrongMessage`)}
-                                   placeholder="Wrong Message"/>
-                            {errors.questions?.[questionIndex]?.wrongMessage &&
-                                <p>{errors.questions[questionIndex]?.wrongMessage?.message}</p>}
-
-                            <label>Explanation</label>
-                            <input {...register(`questions.${questionIndex}.explanation`)} placeholder="Explanation"/>
-                            {errors.questions?.[questionIndex]?.explanation &&
-                                <p>{errors.questions[questionIndex]?.explanation?.message}</p>}
-
-                            <label>Points</label>
-                            <input {...register(`questions.${questionIndex}.points`, {
-                                setValueAs: value => parseFloat(value)
-                            })}
-                                   type="number" placeholder="Points"/>
-                            {errors.questions?.[questionIndex]?.points &&
-                                <p>{errors.questions[questionIndex]?.points?.message}</p>}
-
-                            <Button type="button" disabled={questionIndex === 0} onClick={() => {
-                                removeQuestion(questionIndex)
-                            }}>Remove Question</Button>
-                        </div>
-                    );
+                    return <Question control={control} questionField={questionField} questionIndex={questionIndex}
+                                     removeQuestion={removeQuestion} errors={errors} register={register} watch={watch}/>
                 })}
 
                 <Button type="button" onClick={() => appendQuestion({
@@ -281,3 +182,128 @@ const CreateQuiz: React.FC = () => {
 };
 
 export default CreateQuiz;
+
+type QuestionProp = {
+    control: Control<QuizCreatorSchemaType, any>,
+    questionIndex: number
+    questionField:  FieldArrayWithId<{} | ((formValues: QuizCreatorSchemaType) => QuizCreatorSchemaType) | QuizCreatorSchemaType, string, "id">,
+    register: UseFormRegister<FieldValues>
+    errors: Partial<FieldErrorsImpl<DeepRequired<QuizCreatorSchemaType>>> & {
+        root?: Record<string, GlobalError> & GlobalError
+    },
+    watch: UseFormWatch<QuizCreatorSchemaType>,
+    removeQuestion: UseFieldArrayRemove,
+}
+
+export function Question({control, questionIndex, questionField, register, errors, watch, removeQuestion}: QuestionProp) {
+    const {fields: answerFields, append: appendAnswer, remove: removeAnswer} = useFieldArray({
+        control,
+        name: `questions.${questionIndex}.answers`
+    });
+    return (
+        <div key={questionField.id + questionIndex + "sometop"} className="flex flex-col space-y-4">
+            <label>Question Title</label>
+            <input {...register(`questions.${questionIndex}.title`)} placeholder="Question Title"
+                   className="border p-2 rounded"/>
+            {errors.questions && errors.questions[questionIndex]?.title?.message &&
+                <p className="text-red-500">{errors.questions[questionIndex]?.title?.message}</p>}
+
+            <label className="font-bold">Question Type</label>
+            <select {...register(`questions.${questionIndex}.questionType`)}>
+                <option value="text">Text</option>
+                <option value="image">Image</option>
+            </select>
+            {errors.questions?.[questionIndex]?.type &&
+                <p>{errors.questions[questionIndex]?.questionType?.message}</p>}
+
+            <label>Answer Type</label>
+            <select {...register(`questions.${questionIndex}.answerType`)}>
+                <option value="single">Single Choice</option>
+                <option value="multiple">Multiple Choice</option>
+            </select>
+            {errors.questions?.[questionIndex]?.answerType &&
+                <p>{errors.questions[questionIndex]?.answerType?.message}</p>}
+
+            <label>Answers</label>
+            {answerFields.map((answerField, answerIndex) => (
+                <div key={answerField + questionIndex + answerIndex}
+                     className="flex items-center space-x-4">
+                    {watch(`questions.${questionIndex}.questionType`) === "text" ? (
+                        <input {...register(`questions.${questionIndex}.answers.${answerIndex}`)}
+                               placeholder="Answer" className="border p-2 rounded"/>
+                    ) : (
+                        <input {...register(`questions.${questionIndex}.answers.${answerIndex}`)}
+                               type="file"
+                               className="border p-2 rounded"/>
+                    )}
+                    <Button type="button" disabled={answerIndex === 0}
+                            onClick={() => removeAnswer(answerIndex)}
+                            className="bg-red-500 text-white p-2 rounded">Remove Answer
+                    </Button>
+                </div>
+            ))}
+            {errors.questions?.[questionIndex]?.answers &&
+                <p className="text-red-500">{errors.questions[questionIndex]?.answers?.message}</p>}
+            <Button type="button" onClick={() => {
+                console.log("I am clicking append answers and its not working");
+                appendAnswer(" ")
+            }}
+                    className="bg-blue-500 text-white p-2 rounded">
+                Add Answer
+            </Button>
+
+            {errors.questions?.[questionIndex]?.answers &&
+                <p>{errors.questions[questionIndex]?.answers?.message}</p>}
+
+            <label>Correct Answer</label>
+            {watch(`questions.${questionIndex}.answerType`) === "single" ? (
+                <select {...register(`questions.${questionIndex}.correctAnswer`)}
+                        className="border p-2 rounded">
+                    {answerFields.map((_, answerIndex) => (
+                        <option key={answerIndex}
+                                value={answerIndex}>{`Answer ${answerIndex + 1}`}</option>
+                    ))}
+                </select>
+            ) : (
+                answerFields.map((_, answerIndex) => (
+                    <div key={answerIndex} className="flex items-center space-x-4">
+                        <input {...register(`questions.${questionIndex}.correctAnswers.${answerIndex}`)}
+                               type="checkbox"/>
+                        <label>{`Answer ${answerIndex + 1}`}</label>
+                    </div>
+                ))
+            )}
+            {errors.questions?.[questionIndex]?.correctAnswers &&
+                <p className="text-red-500">{errors.questions[questionIndex]?.correctAnswers?.message}</p>}
+
+            <label>Correct Message</label>
+            <input {...register(`questions.${questionIndex}.correctMessage`)}
+                   placeholder="Correct Message"/>
+            {errors.questions?.[questionIndex]?.correctMessage &&
+                <p>{errors.questions[questionIndex]?.correctMessage?.message}</p>}
+
+            <label>Wrong Message</label>
+            <input {...register(`questions.${questionIndex}.wrongMessage`)}
+                   placeholder="Wrong Message"/>
+            {errors.questions?.[questionIndex]?.wrongMessage &&
+                <p>{errors.questions[questionIndex]?.wrongMessage?.message}</p>}
+
+            <label>Explanation</label>
+            <input {...register(`questions.${questionIndex}.explanation`)} placeholder="Explanation"/>
+            {errors.questions?.[questionIndex]?.explanation &&
+                <p>{errors.questions[questionIndex]?.explanation?.message}</p>}
+
+            <label>Points</label>
+            <input {...register(`questions.${questionIndex}.points`, {
+                setValueAs: value => parseFloat(value)
+            })}
+                   type="number" placeholder="Points"/>
+            {errors.questions?.[questionIndex]?.points &&
+                <p>{errors.questions[questionIndex]?.points?.message}</p>}
+
+            <Button type="button" disabled={questionIndex === 0} onClick={() => {
+                removeQuestion(questionIndex)
+            }}>Remove Question</Button>
+        </div>
+    );
+}
