@@ -157,7 +157,7 @@ const CreateQuiz: React.FC = () => {
 
                 {questionFields.map((questionField, questionIndex) => {
                     // @ts-ignore
-                    return <Question control={control} questionField={questionField} questionIndex={questionIndex} removeQuestion={removeQuestion} errors={errors} register={register} watch={watch}/>
+                    return <Question key={questionIndex + Math.random() + "ignorealkdjfksdjf"} control={control} questionField={questionField} questionIndex={questionIndex} removeQuestion={removeQuestion} errors={errors} register={register} watch={watch}/>
                 })}
 
                 <Button type="button" onClick={() => appendQuestion({
@@ -171,11 +171,11 @@ const CreateQuiz: React.FC = () => {
                     wrongMessage: "",
                     explanation: "",
                     points: 0
-                })} className="w-full">
+                })} className="mt-2 rounded-full bg-green-500">
                     Add Question
                 </Button>
 
-                <Button type="submit" className="mt-2">Submit</Button>
+                <Button type="submit" className="mt-2 rounded-full">Submit</Button>
             </form>
         </div>
     );
@@ -301,7 +301,7 @@ export function Question({control, questionIndex, questionField, register, error
             {errors.questions?.[questionIndex]?.points &&
                 <p>{errors.questions[questionIndex]?.points?.message}</p>}
 
-            <Button type="button" disabled={questionIndex === 0} onClick={() => {
+            <Button className="rounded-full bg-red-400" type="button" disabled={questionIndex === 0} onClick={() => {
                 removeQuestion(questionIndex)
             }}>Remove Question</Button>
         </div>
