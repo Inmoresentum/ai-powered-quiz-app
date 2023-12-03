@@ -22,6 +22,7 @@ export const routes = protectRoutes([
         children: [
             {path: "/", element: <HomePage/>, handle: {title: "Home QuizBotIQ", requiresLogin: false}},
             {path: "/allfaqs", element: <AllFaqs/>, handle: {title: "Home QuizBotIQ", requiresLogin: false}},
+            // todo: Make so only logged in in  users can access "/quiz/create-quiz" this
             {path: "/quiz/create-quiz", element: <CreateQuiz/>, handle: {title: "Quiz Creation Page", requiresLogin: false}},
             {path: '/about', element: <AboutView/>, handle: {title: "About", requiresLogin: false}},
         ],

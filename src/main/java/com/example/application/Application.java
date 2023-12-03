@@ -408,7 +408,6 @@ public class Application implements AppShellConfigurator {
                 .features(List.of("Play Unlimited Quizzes a day", "Create 100 Quizzes per day", "Access Quiz Builder 50 times a day", "Ask 100 Questions to Chat-Bot daily", "Max Allocated Storage 15 GB", "Highest Priority to AI services on demand", "Access to Exclusive beta features"))
                     .build();
             pricingPlanRepository.saveAll(List.of(freePlan, basicPlan, proPlan));
-            System.out.println(stripePaymentService.createACheckOutSession(basicPlan.getStripePriceKey()));
         };
     }
 }
