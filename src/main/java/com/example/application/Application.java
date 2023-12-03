@@ -382,6 +382,7 @@ public class Application implements AppShellConfigurator {
                     .description("Some Description")
                     .price(0.0)
                     .currency("usd")
+                    .stripePriceKey("N/A")
                     .frequency("/monthly")
                     .features(List.of("Play 10 Quizzes a day", "Create 5 Quizzes per day", "Limited Quiz Builder Access*", "Limited Chat-Bot Access*", "Max Allocated Storage 500 MB"))
                     .build();
