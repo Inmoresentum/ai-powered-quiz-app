@@ -156,8 +156,8 @@ const CreateQuiz: React.FC = () => {
                 </div>
 
                 {questionFields.map((questionField, questionIndex) => {
-                    return <Question control={control} questionField={questionField} questionIndex={questionIndex}
-                                     removeQuestion={removeQuestion} errors={errors} register={register} watch={watch}/>
+                    // @ts-ignore
+                    return <Question control={control} questionField={questionField} questionIndex={questionIndex} removeQuestion={removeQuestion} errors={errors} register={register} watch={watch}/>
                 })}
 
                 <Button type="button" onClick={() => appendQuestion({
