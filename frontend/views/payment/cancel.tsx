@@ -8,9 +8,9 @@ export default function PaymentCancel() {
         <div
             className="flex flex-col items-center justify-center h-screen bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-rose-400 to-orange-300">
             <Helmet>
-                <title>Account Verification</title>
+                <title>Payment Cancelled</title>
                 <meta name="description"
-                      content="Here the users can verify their account after login"/>
+                      content="This is componenet is for displaying message for payment xD"/>
             </Helmet>
 
             <div
