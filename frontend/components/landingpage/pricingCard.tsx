@@ -1,13 +1,17 @@
 import React from "react";
 import {motion, useMotionTemplate, useMotionValue} from "framer-motion";
 import {CheckCheck} from "lucide-react";
-import {Link} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import PricingPlan from "@/generated/com/example/application/entities/paidplan/PricingPlan";
 import PricingPlanTitle from "@/generated/com/example/application/entities/user/PricingPlanTitle";
+import {useAuth} from "@/util/auth";
+import {PricingPlanEndpoint} from "@/generated/endpoints";
 
 
 type TPricingPlan = { plan: PricingPlan };
 export default function PricingCard({plan}: TPricingPlan) {
+    const navigator = useNavigate();
+    const {state} = useAuth();
     let mouseX = useMotionValue(0);
     let mouseY = useMotionValue(0);
 
@@ -32,7 +36,7 @@ export default function PricingCard({plan}: TPricingPlan) {
                     background: useMotionTemplate`
         radial-gradient(
           330px circle at ${mouseX}px ${mouseY}px,
-          rgba(14, 165, 233, 0.40),
+          rgba(14, 165, 239, 0.35),
           transparent 80%
         )
       `,
@@ -68,10 +72,16 @@ export default function PricingCard({plan}: TPricingPlan) {
                 ))}
             </ul>
             {/*action stuff*/}
-            <Link to="#"
-                  className={`mt-8 block rounded-full px-6 py-4 text-center text-sm font-semibold leading-4  no-underline ${plan.mostPopular ? "bg-cyan-500 hover:bg-cyan-600 text-white" : "bg-cyan-50 hover:bg-cyan-200 text-cyan-400 hover:text-slate-700"}`}>
+            <button
+                onClick={async () => {
+                    if (!state.loading && !state.user) navigator("/login");
+                    if (state.user && plan.title == PricingPlanTitle.FREE) alert("You are already subscribed to Free plan");
+                    const url = await PricingPlanEndpoint.generateSubscriptionUrl(plan.title!!)
+                    if (url !== "") window.location.href = url;
+                }}
+                className={`mt-8 block rounded-full px-6 py-4 text-center text-sm font-semibold leading-4  no-underline ${plan.mostPopular ? "bg-cyan-500 hover:bg-cyan-600 text-white" : "bg-cyan-50 hover:bg-cyan-200 text-cyan-400 hover:text-slate-700"}`}>
                 {plan.title === PricingPlanTitle.FREE ? "Create An Account" : "Subscribe Now"}
-            </Link>
+            </button>
         </div>
     );
 }

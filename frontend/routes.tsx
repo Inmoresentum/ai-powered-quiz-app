@@ -17,6 +17,8 @@ import AdminDashboardLayout from "@/views/admin/adminDashboardLayout";
 import UserOperations from "@/views/admin/userOperations/userOperations";
 import SystemActivity from "@/views/admin/activity/systemActivity";
 import QuizOperations from "@/views/admin/quizOperations/quizOperations";
+import PaymentSuccess from "@/views/payment/success";
+import PaymentCancel from "@/views/payment/cancel";
 
 const AboutView = lazy(async () => import('Frontend/views/about/AboutView.js'));
 
@@ -84,6 +86,18 @@ export const routes = protectRoutes([
         path: "/auth/verify/account/forgot-password",
         element: <ForgotPasswordVerificationView/>,
         handle: {title: "Verify ForgotPassword Link", requiresLogin: false}
+    },
+
+    {
+        path: "/payment/success",
+        element: <PaymentSuccess/>,
+        handle: {title: "Payment is successful", requiresLogin: true}
+    },
+
+    {
+        path: "/payment/cancel",
+        element: <PaymentCancel/>,
+        handle: {title: "Payment is successful", requiresLogin: true}
     },
 
     {

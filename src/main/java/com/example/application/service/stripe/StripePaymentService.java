@@ -29,7 +29,7 @@ public class StripePaymentService {
                         .setCustomerEmail(customer.getEmail())
                         .setMode(SessionCreateParams.Mode.SUBSCRIPTION)
                         .setSuccessUrl("http://localhost:8080/payment/success")
-                        .setCancelUrl("http://localhost:8080/payment/failure")
+                        .setCancelUrl("http://localhost:8080/payment/cancel")
                         .build();
         Session session = Session.create(params);
         return session.getUrl();

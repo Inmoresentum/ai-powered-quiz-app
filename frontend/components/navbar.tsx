@@ -1,12 +1,12 @@
 import {NavLink, useNavigate} from "react-router-dom";
 // @ts-ignore
-import { HashLink } from "react-router-hash-link";
+import {HashLink} from "react-router-hash-link";
 import {Button} from "@/components/ui/button";
 import {useAuth} from "@/util/auth";
-import {MenuIcon} from "lucide-react";
+import {MenuIcon, X} from "lucide-react";
 import {useEffect, useState} from "react";
-import {X} from 'lucide-react'
 import {motion} from "framer-motion";
+import Role from "@/generated/com/example/application/entities/user/Role";
 
 export default function Navbar() {
     const {state, logout} = useAuth();
@@ -47,7 +47,8 @@ export default function Navbar() {
     console.log(state);
 
     return (
-        <nav className={`flexBetween max-container padding-container relative z-30 py-5 w-full ${visible ? "sticky top-0" : "hidden lg:sticky lg:top-0"} bg-white bg-opacity-65 backdrop-filter backdrop-blur-lg rounded-l-full rounded-r-full lg:p-4`}>
+        <nav
+            className={`flexBetween max-container padding-container relative z-30 py-5 w-full ${visible ? "sticky top-0" : "hidden lg:sticky lg:top-0"} bg-white bg-opacity-65 backdrop-filter backdrop-blur-lg rounded-l-full rounded-r-full lg:p-4`}>
             <NavLink to="/" className="flex justify-center items-center font-bold uppercase text-xl z-50">
                 <img src="images/ai_quiz_logo.png" alt="logo" width={56} height={29}
                      className="hover:scale-105 duration-300 ease-linear animate-pulse"/>
@@ -56,21 +57,24 @@ export default function Navbar() {
 
             <ul className="hidden h-full gap-12 lg:flex">
                 <HashLink to="/#pricing-section" smooth
-                         className="regular-16 text-gray-50 flexCenter cursor-pointer pb-1.5 transition-all hover:font-bold">
+                          className="regular-16 text-gray-50 flexCenter cursor-pointer pb-1.5 transition-all hover:font-bold">
                     Pricing
                 </HashLink>
                 <NavLink to="/"
                          className="regular-16 text-gray-50 flexCenter cursor-pointer pb-1.5 transition-all hover:font-bold">
-                    Second Menu
+                    Quizzes
                 </NavLink>
                 <NavLink to="/"
                          className="regular-16 text-gray-50 flexCenter cursor-pointer pb-1.5 transition-all hover:font-bold">
-                    Third Menu
+                    Leader Board
                 </NavLink>
-                <NavLink to="/"
-                         className="regular-16 text-gray-50 flexCenter cursor-pointer pb-1.5 transition-all hover:font-bold">
-                    Forth Menu
-                </NavLink>
+                {
+                    state.user?.roles?.includes(Role.ADMIN) &&
+                    <NavLink to="/admin/system-stats"
+                             className="regular-16 text-gray-50 flexCenter cursor-pointer pb-1.5 transition-all hover:font-bold">
+                        Admin Dashboard
+                    </NavLink>
+                }
             </ul>
 
             <div className="lg:flexCenter hidden">
