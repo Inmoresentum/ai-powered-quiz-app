@@ -33,7 +33,7 @@ export default function AdminNavbar() {
                     FAQ
                 </div>
             </NavLink>
-            <NavLink to={"/dashboard/admin/activity"} className={({isActive}) => {
+            <NavLink to={"/admin/quizzes"} className={({isActive}) => {
                 if (isActive) return "bg-purple-800 text-white p-3 m-1 rounded-lg inline-block hover:opacity-75 duration-300 ease-linear";
                 else return "bg-gray-300 text-black p-3 m-1 rounded-lg inline-block hover:bg-rose-600 hover:text-white duration-300 ease-in";
             }}>

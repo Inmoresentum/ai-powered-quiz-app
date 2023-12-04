@@ -11,11 +11,12 @@ import ForgotPasswordView from "@/views/forgotpass/forgotpasswordd";
 import ForgotPasswordVerificationView
     from "@/views/verification/ForgotPasswordTokenVerificationView/ForgotPasswordVerificationView";
 import AllFaqs from "@/views/allfaqs/allFAQs";
-import CreateQuiz from "@/views/quiz/createQuiz";
+import CreateQuiz from "@/views/quiz/creators/createQuiz";
 import FaqOperations from "@/views/admin/faqOperations/faqOperations";
 import AdminDashboardLayout from "@/views/admin/adminDashboardLayout";
 import UserOperations from "@/views/admin/userOperations/userOperations";
 import SystemActivity from "@/views/admin/activity/systemActivity";
+import QuizOperations from "@/views/admin/quizOperations/quizOperations";
 
 const AboutView = lazy(async () => import('Frontend/views/about/AboutView.js'));
 
@@ -36,20 +37,28 @@ export const routes = protectRoutes([
                 element: <AdminDashboardLayout/>, handle: {requiresLogin: true, rolesAllowed: ["ADMIN"]},
                 children: [
                     {
-                        path: "/admin/faq-ops", element:
-                            <FaqOperations/>, handle: {title: "FAQ Operations", requiresLogin: true, rolesAllowed: ["ADMIN"]}
+                        path: "/admin/faq-ops",
+                        element:
+                            <FaqOperations/>,
+                        handle: {title: "FAQ Operations", requiresLogin: true, rolesAllowed: ["ADMIN"]}
                     },
                     {
-                        path: "/admin/user-ops", element:
-                            <UserOperations/>, handle: {title: "User Operations", requiresLogin: true, rolesAllowed: ["ADMIN"]}
+                        path: "/admin/user-ops",
+                        element:
+                            <UserOperations/>,
+                        handle: {title: "User Operations", requiresLogin: true, rolesAllowed: ["ADMIN"]}
                     },
                     {
-                        path: "/admin/system-stats", element:
-                            <SystemActivity/>, handle: {title: "System Stats", requiresLogin: true, rolesAllowed: ["ADMIN"]}
+                        path: "/admin/system-stats",
+                        element:
+                            <SystemActivity/>,
+                        handle: {title: "System Stats", requiresLogin: true, rolesAllowed: ["ADMIN"]}
                     },
                     {
-                        path: "/admin/quizzes", element:
-                            <SystemActivity/>, handle: {title: "System Stats", requiresLogin: true, rolesAllowed: ["ADMIN"]}
+                        path: "/admin/quizzes",
+                        element:
+                            <QuizOperations/>,
+                        handle: {title: "Quizzes", requiresLogin: true, rolesAllowed: ["ADMIN"]}
                     },
                 ]
             },
