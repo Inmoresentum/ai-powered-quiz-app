@@ -116,7 +116,8 @@
     "@radix-ui/react-tooltip": "$@radix-ui/react-tooltip",
     "react-type-animation": "$react-type-animation",
     "react-router-hash-link": "$react-router-hash-link",
-    "react-confetti": "$react-confetti"
+    "react-confetti": "$react-confetti",
+    "react-cookie-consent": "$react-cookie-consent"
   },
   "vaadin": {
     "dependencies": {
@@ -159,6 +160,6 @@
       "workbox-core": "7.0.0",
       "workbox-precaching": "7.0.0"
     },
-    "hash": "1d30512af8b42b6d4472bec41b7341a03d10648d22698109e98007748ce72c4f"
+    "hash": "405e3e0216e994f1ea77a63426b1ace2a63f2dd1917e715c443f58ec06232837"
   }
 }

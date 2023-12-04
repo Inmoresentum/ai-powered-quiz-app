@@ -2,10 +2,12 @@ package com.example.application.entities.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 
+import javax.annotation.Nullable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Set;
@@ -18,7 +20,9 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 public class User extends AbstractEntity {
+    @NotNull
     private String username;
+    @NotNull
     private String name;
     @JsonIgnore
     private String hashedPassword;
@@ -29,17 +33,21 @@ public class User extends AbstractEntity {
     @Column(nullable = false, unique = true)
     private String email;
     @Column(name = "profile_pic_url")
+    @Nullable
     private String profilePictureUlr;
     @Size(min = 4, max = 34)
     private String phoneNumber;
     @Column(name = "date_of_birth")
+    @Nullable
     private LocalDate dateOfBirth;
     private boolean accountVerified = false;
     private boolean deactivatedByAdmin = false;
     @Column(columnDefinition = "TEXT")
+    @Nullable
     private String userBio;
 
     @Column(name = "user_address")
+    @Nullable
     private String address;
 
     @Column(name = "user_gender")

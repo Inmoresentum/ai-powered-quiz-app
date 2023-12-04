@@ -28,6 +28,5 @@ public class FAQ {
     @Size(min = 5, max = 5560)
     private String answers;
     @Version
-    @JsonIgnore
     private Integer version;
 }
