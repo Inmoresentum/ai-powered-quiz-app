@@ -12,7 +12,8 @@ import ForgotPasswordVerificationView
     from "@/views/verification/ForgotPasswordTokenVerificationView/ForgotPasswordVerificationView";
 import AllFaqs from "@/views/allfaqs/allFAQs";
 import CreateQuiz from "@/views/quiz/createQuiz";
-import AdminPageLayout from "@/views/admin/adminPageLayout";
+import FaqOperations from "@/views/admin/faqOperations/faqOperations";
+import AdminDashboardLayout from "@/views/admin/adminDashboardLayout";
 
 const AboutView = lazy(async () => import('Frontend/views/about/AboutView.js'));
 
@@ -24,9 +25,20 @@ export const routes = protectRoutes([
             {path: "/", element: <HomePage/>, handle: {title: "Home QuizBotIQ", requiresLogin: false}},
             {path: "/allfaqs", element: <AllFaqs/>, handle: {title: "Home QuizBotIQ", requiresLogin: false}},
             // todo: Make so only logged in in  users can access "/quiz/create-quiz" this
-            {path: "/quiz/create-quiz", element: <CreateQuiz/>, handle: {title: "Quiz Creation Page", requiresLogin: false}},
+            {
+                path: "/quiz/create-quiz", element:
+                    <CreateQuiz/>, handle: {title: "Quiz Creation Page", requiresLogin: false}
+            },
             {path: '/about', element: <AboutView/>, handle: {title: "About", requiresLogin: false}},
-            {path: '/admin', element: <AdminPageLayout/>, handle: {title: "Admin Dashboard", requiresLogin: true, rolesAllowed: ["ADMIN"]}},
+            {
+                element: <AdminDashboardLayout/>, handle: {requiresLogin: true, rolesAllowed: ["ADMIN"]},
+                children: [
+                    {
+                        path: "/admin/faq-ops", element:
+                            <FaqOperations/>, handle: {title: "FAQ Operations", requiresLogin: true, rolesAllowed: ["ADMIN"]}
+                    }
+                ]
+            },
         ],
     },
     {path: "/login", element: <LoginView/>, handle: {title: "Login"}},

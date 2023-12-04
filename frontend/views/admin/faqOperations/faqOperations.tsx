@@ -4,7 +4,7 @@ import FAQModel from "@/generated/com/example/application/entities/faq/FAQModel"
 import React from "react";
 import {TextArea} from "@hilla/react-components/TextArea";
 
-export default function AdminPageLayout() {
+export default function FaqOperations() {
     return (
         <div className="flex items-center justify-center h-[1080px] w-full">
             <AutoCrud service={FAQAdminEndpoint} model={FAQModel} className="grow h-full"
