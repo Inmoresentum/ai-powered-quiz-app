@@ -5,7 +5,7 @@ import MainLayout from 'Frontend/views/MainLayout.js';
 import {lazy} from 'react';
 import {createBrowserRouter, RouteObject} from 'react-router-dom';
 import AccountVerification from "@/views/verification/account/AccountVerification";
-import RegistrationView from "@/views/registration/RegistrationView";
+import RegistrationView from "@/views/registration/registrationView";
 import NotFoundPage from "@/views/404NotFound/NotFound";
 import ForgotPasswordView from "@/views/forgotpass/forgotpasswordd";
 import ForgotPasswordVerificationView
@@ -14,6 +14,8 @@ import AllFaqs from "@/views/allfaqs/allFAQs";
 import CreateQuiz from "@/views/quiz/createQuiz";
 import FaqOperations from "@/views/admin/faqOperations/faqOperations";
 import AdminDashboardLayout from "@/views/admin/adminDashboardLayout";
+import UserOperations from "@/views/admin/userOperations/userOperations";
+import SystemActivity from "@/views/admin/activity/systemActivity";
 
 const AboutView = lazy(async () => import('Frontend/views/about/AboutView.js'));
 
@@ -36,7 +38,19 @@ export const routes = protectRoutes([
                     {
                         path: "/admin/faq-ops", element:
                             <FaqOperations/>, handle: {title: "FAQ Operations", requiresLogin: true, rolesAllowed: ["ADMIN"]}
-                    }
+                    },
+                    {
+                        path: "/admin/user-ops", element:
+                            <UserOperations/>, handle: {title: "User Operations", requiresLogin: true, rolesAllowed: ["ADMIN"]}
+                    },
+                    {
+                        path: "/admin/system-stats", element:
+                            <SystemActivity/>, handle: {title: "System Stats", requiresLogin: true, rolesAllowed: ["ADMIN"]}
+                    },
+                    {
+                        path: "/admin/quizzes", element:
+                            <SystemActivity/>, handle: {title: "System Stats", requiresLogin: true, rolesAllowed: ["ADMIN"]}
+                    },
                 ]
             },
         ],
