@@ -1,4 +1,6 @@
 import {NavLink, useNavigate} from "react-router-dom";
+// @ts-ignore
+import { HashLink } from "react-router-hash-link";
 import {Button} from "@/components/ui/button";
 import {useAuth} from "@/util/auth";
 import {MenuIcon} from "lucide-react";
@@ -53,18 +55,22 @@ export default function Navbar() {
             </NavLink>
 
             <ul className="hidden h-full gap-12 lg:flex">
-                <NavLink to="/about"
-                         className="regular-16 text-gray-50 flexCenter cursor-pointer pb-1.5 transition-all hover:font-bold">First
-                    Menu</NavLink>
+                <HashLink to="/#pricing-section" smooth
+                         className="regular-16 text-gray-50 flexCenter cursor-pointer pb-1.5 transition-all hover:font-bold">
+                    Pricing
+                </HashLink>
                 <NavLink to="/"
-                         className="regular-16 text-gray-50 flexCenter cursor-pointer pb-1.5 transition-all hover:font-bold">Second
-                    Menu</NavLink>
+                         className="regular-16 text-gray-50 flexCenter cursor-pointer pb-1.5 transition-all hover:font-bold">
+                    Second Menu
+                </NavLink>
                 <NavLink to="/"
-                         className="regular-16 text-gray-50 flexCenter cursor-pointer pb-1.5 transition-all hover:font-bold">Third
-                    Menu</NavLink>
+                         className="regular-16 text-gray-50 flexCenter cursor-pointer pb-1.5 transition-all hover:font-bold">
+                    Third Menu
+                </NavLink>
                 <NavLink to="/"
-                         className="regular-16 text-gray-50 flexCenter cursor-pointer pb-1.5 transition-all hover:font-bold">Forth
-                    Menu</NavLink>
+                         className="regular-16 text-gray-50 flexCenter cursor-pointer pb-1.5 transition-all hover:font-bold">
+                    Forth Menu
+                </NavLink>
             </ul>
 
             <div className="lg:flexCenter hidden">

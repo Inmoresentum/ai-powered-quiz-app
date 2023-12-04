@@ -41,6 +41,7 @@
     "react-hook-form": "^7.48.2",
     "react-query": "^3.39.3",
     "react-router-dom": "^6.4.2",
+    "react-router-hash-link": "^2.4.3",
     "react-type-animation": "^3.2.0",
     "tailwind-merge": "^2.0.0",
     "tailwindcss-animate": "^1.0.7",
@@ -111,7 +112,8 @@
     "axios": "$axios",
     "@radix-ui/react-separator": "$@radix-ui/react-separator",
     "@radix-ui/react-tooltip": "$@radix-ui/react-tooltip",
-    "react-type-animation": "$react-type-animation"
+    "react-type-animation": "$react-type-animation",
+    "react-router-hash-link": "$react-router-hash-link"
   },
   "vaadin": {
     "dependencies": {
@@ -154,6 +156,6 @@
       "workbox-core": "7.0.0",
       "workbox-precaching": "7.0.0"
     },
-    "hash": "807193f144a6747f8564d2064f4cbedbb1de53f41b4641ef0e849d50e70ed0ae"
+    "hash": "a2e4cead176b673fa5ff62234ba29af4065cbabf723fc01362a01b4868a1adb5"
   }
 }

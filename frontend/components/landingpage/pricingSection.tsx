@@ -3,7 +3,7 @@ import PricingPlan from "@/components/landingpage/pricingPlan";
 export default function PricingSection() {
     return (
         <>
-            <div className="bg-gray-100 wavy-pricing-section shadow-xl">
+            <div id="pricing-section" className="bg-gray-100 wavy-pricing-section shadow-xl">
                 <div className="mx-auto max-w-7xl px-4 pt-24 sm:px-6 lg:px-8">
                     <h2 className="text-3xl font-extrabold text-black sm:text-5xl sm:leading-tight sm:tracking-tight">
                         Pricing Plans for everyone
