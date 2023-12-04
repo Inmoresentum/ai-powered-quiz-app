@@ -157,7 +157,7 @@ const CreateQuiz: React.FC = () => {
 
                 {questionFields.map((questionField, questionIndex) => {
                     // @ts-ignore
-                    return <Question key={questionIndex + Math.random() + "ignorealkdjfksdjf"} control={control} questionField={questionField} questionIndex={questionIndex} removeQuestion={removeQuestion} errors={errors} register={register} watch={watch}/>
+                    return <Question key={questionIndex + Math.random() + "oki-dokie"} control={control} questionField={questionField} questionIndex={questionIndex} removeQuestion={removeQuestion} errors={errors} register={register} watch={watch}/>
                 })}
 
                 <Button type="button" onClick={() => appendQuestion({
