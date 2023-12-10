@@ -209,6 +209,7 @@ export function Question({control, questionIndex, questionField, register, error
                 <p className="text-red-500">{errors.questions[questionIndex]?.title?.message}</p>}
 
             <label className="font-bold">Question Type</label>
+
             <select {...register(`questions.${questionIndex}.questionType`)}>
                 <option value="text">Text</option>
                 <option value="image">Image</option>
@@ -217,6 +218,7 @@ export function Question({control, questionIndex, questionField, register, error
                 <p>{errors.questions[questionIndex]?.questionType?.message}</p>}
 
             <label>Answer Type</label>
+
             <select {...register(`questions.${questionIndex}.answerType`)}>
                 <option value="single">Single Choice</option>
                 <option value="multiple">Multiple Choice</option>
@@ -282,13 +284,13 @@ export function Question({control, questionIndex, questionField, register, error
             {errors.questions?.[questionIndex]?.correctMessage &&
                 <p>{errors.questions[questionIndex]?.correctMessage?.message}</p>}
 
-            <label>Wrong Message</label>
+            <label>Message For Wrong Answer</label>
             <input {...register(`questions.${questionIndex}.wrongMessage`)}
                    placeholder="Wrong Message"/>
             {errors.questions?.[questionIndex]?.wrongMessage &&
                 <p>{errors.questions[questionIndex]?.wrongMessage?.message}</p>}
 
-            <label>Explanation</label>
+            <label>Explanations</label>
             <input {...register(`questions.${questionIndex}.explanation`)} placeholder="Explanation"/>
             {errors.questions?.[questionIndex]?.explanation &&
                 <p>{errors.questions[questionIndex]?.explanation?.message}</p>}
