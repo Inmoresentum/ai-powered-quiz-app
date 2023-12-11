@@ -44,7 +44,6 @@ export default function Navbar() {
             window.removeEventListener("scroll", handleScroll);
         };
     }, [prevScrollPos]);
-    console.log(state);
 
     return (
         <nav
