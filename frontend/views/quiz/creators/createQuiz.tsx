@@ -1,25 +1,36 @@
 import React, {useState} from "react";
 import {
-    useForm,
-    useFieldArray,
     Control,
-    UseFieldArrayRemove,
-    FieldErrorsImpl,
     DeepRequired,
+    FieldArrayWithId,
+    FieldErrorsImpl,
+    FieldValues,
     GlobalError,
-    UseFormWatch, FieldArrayWithId, UseFormRegister, FieldValues,
+    useFieldArray,
+    UseFieldArrayRemove,
+    useForm,
+    UseFormRegister,
+    UseFormWatch,
 } from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {z} from "zod";
 import {Button} from "@/components/ui/button";
 import {Loader2} from "lucide-react";
+import QuizCreateRequestBody from "@/generated/com/example/application/requestbody/QuizCreateRequestBody";
+import QuizTag from "@/generated/com/example/application/entities/quiz/QuizTag";
+import Difficulty from "@/generated/com/example/application/entities/quiz/Difficulty";
+import QuestionCreatedRequestBody from "@/generated/com/example/application/requestbody/QuestionCreatedRequestBody";
+import AnswerSelectionType from "@/generated/com/example/application/entities/quiz/AnswerSelectionType";
+import QuestionType from "@/generated/com/example/application/entities/quiz/QuestionType";
+import {UploadQuizImage} from "@/custom-apis-service/FileStorageApis";
+import {QuizEndpoint} from "@/generated/endpoints";
 
 const questionSchema = z.object({
     title: z.string().min(1, {message: "Question title is required"}),
     questionType: z.string().min(1, {message: "Question type is required"}),
     answers: z.array(z.any()).min(1, {message: "At least one answer is required"}),
     answerType: z.string().min(1, {message: "Answer type is required"}),
-    correctAnswer: z.any(),
+    correctAnswer: z.string(),
     correctAnswers: z.array(z.boolean()),
     correctMessage: z.string().min(1, {message: "Message for correct answer is required"}),
     wrongMessage: z.string().min(1, {message: "Message for wrong answer is required"}),
@@ -41,6 +52,55 @@ const quizCreatorSchema = z.object({
 });
 
 type QuizCreatorSchemaType = z.infer<typeof quizCreatorSchema>;
+
+
+function getQuizTag(value: string): QuizTag | undefined {
+    switch(value) {
+        case "SCIENCE": return QuizTag.SCIENCE;
+        case "ARTS": return QuizTag.ARTS;
+        case "DRAW": return QuizTag.DRAW;
+        case "MATH": return QuizTag.MATH;
+        case "HISTORY": return QuizTag.HISTORY;
+        case "GEOGRAPHY": return QuizTag.GEOGRAPHY;
+        case "LITERATURE": return QuizTag.LITERATURE;
+        case "MUSIC": return QuizTag.MUSIC;
+        case "MOVIES": return QuizTag.MOVIES;
+        case "SPORTS": return QuizTag.SPORTS;
+        case "TECHNOLOGY": return QuizTag.TECHNOLOGY;
+        case "GENERAL_KNOWLEDGE": return QuizTag.GENERAL_KNOWLEDGE;
+        case "TRIVIA": return QuizTag.TRIVIA;
+        case "ANIMALS": return QuizTag.ANIMALS;
+        case "NATURE": return QuizTag.NATURE;
+        case "FOOD_AND_COOKING": return QuizTag.FOOD_AND_COOKING;
+        case "HEALTH_AND_FITNESS": return QuizTag.HEALTH_AND_FITNESS;
+        case "POLITICS": return QuizTag.POLITICS;
+        case "MYTHOLOGY": return QuizTag.MYTHOLOGY;
+        case "LANGUAGE": return QuizTag.LANGUAGE;
+        case "IQ_TEST": return QuizTag.IQ_TEST;
+        case "BRAIN_TEASERS": return QuizTag.BRAIN_TEASERS;
+        case "LOGIC_PUZZLES": return QuizTag.LOGIC_PUZZLES;
+        case "PERSONALITY_TEST": return QuizTag.PERSONALITY_TEST;
+        case "POP_CULTURE": return QuizTag.POP_CULTURE;
+        case "CELEBRITIES": return QuizTag.CELEBRITIES;
+        case "CODING": return QuizTag.CODING;
+        case "PROGRAMMING": return QuizTag.PROGRAMMING;
+        case "FRONTEND": return QuizTag.FRONTEND;
+        case "BACKEND": return QuizTag.BACKEND;
+        default: return undefined;
+    }
+}
+
+function getQuizDifficulty(value: string): undefined | Difficulty {
+    switch(value) {
+        case "EASY": return Difficulty.EASY;
+        case "NORMAL": return Difficulty.NORMAL;
+        case "MODERATE": return Difficulty.MODERATE;
+        case "HARD": return Difficulty.HARD;
+        case "CRAZY": return Difficulty.CRAZY;
+        default: return undefined;
+    }
+}
+
 
 const CreateQuiz: React.FC = () => {
     const {
@@ -82,11 +142,62 @@ const CreateQuiz: React.FC = () => {
         name: "questions"
     });
 
-    const onSubmit = async (data: QuizCreatorSchemaType) => {
+    const onSubmit = async (formData: QuizCreatorSchemaType) => {
+        console.log(formData);
         setIsFormSubmitting(true);
-        await new Promise(resolve => setTimeout(resolve, 10000));
+        const quizCreateRequestBody: QuizCreateRequestBody = {}
+        quizCreateRequestBody.quizTitle = formData.quizTitle;
+        quizCreateRequestBody.quizSynopsis =  formData.quizSynopsis;
+        quizCreateRequestBody.quizProfileImage = await UploadQuizImage(formData.quizProfileImage[0]);
+        quizCreateRequestBody.quizTags = getQuizTag(formData.quizTags);
+        quizCreateRequestBody.difficulty = getQuizDifficulty(formData.difficulty);
+
+       const questionCreatedRequestBody: QuestionCreatedRequestBody[] = [];
+        formData.questions.map((value ) => {
+            const curQuestion: QuestionCreatedRequestBody = {
+                points: value.points,
+                answerType:  value.answerType === "single" ? AnswerSelectionType.SINGLE : AnswerSelectionType.MULTIPLE,
+                explanation: value.explanation,
+                type: value.questionType === "image" ? QuestionType.PHOTO : QuestionType.TEXT,
+                title: value.title,
+                correctMessage: value.correctMessage,
+                wrongMessage: value.wrongMessage
+            };
+            if (value.questionType === "text") {
+                curQuestion.answers = value.answers;
+            }
+            else {
+                const answersAsImageUrl: string[] = [];
+                value.answers.map(async image => {
+                    const imageUrl = await UploadQuizImage(image[0]);
+                    answersAsImageUrl.push(imageUrl)
+                });
+                console.log(answersAsImageUrl);
+                curQuestion.answers = answersAsImageUrl;
+                console.log(curQuestion.answers);
+            }
+            if (value.answerType === "single") {
+                console.log("Correct Answer " + value.correctAnswer)
+                const correctAnswer: number[] = [];
+                correctAnswer.push(parseInt(value.correctAnswer) + 1);
+                curQuestion.correctAnswers = correctAnswer;
+            }
+            else {
+                const indexesOfCorrectAnswers: number[] = [];
+                value.correctAnswers.map((isCorrect, index) => {
+                   if (isCorrect) indexesOfCorrectAnswers.push(index +  1);
+                });
+                curQuestion.correctAnswers = indexesOfCorrectAnswers;
+            }
+            questionCreatedRequestBody.push(curQuestion);
+            console.log(questionCreatedRequestBody);
+        })
+
+        quizCreateRequestBody.questions = questionCreatedRequestBody;
+        console.log("Checking stuff as you can see xD");
+        console.log(quizCreateRequestBody);
+        await QuizEndpoint.createQuiz(quizCreateRequestBody);
         setIsFormSubmitting(false);
-        console.log(data);
     };
 
     return (
@@ -130,6 +241,34 @@ const CreateQuiz: React.FC = () => {
                         <option value="">Select a tag</option>
                         <option value="SCIENCE">SCIENCE</option>
                         <option value="ARTS">ARTS</option>
+                        <option value="DRAW">DRAW</option>
+                        <option value="MATH">MATH</option>
+                        <option value="HISTORY">HISTORY</option>
+                        <option value="GEOGRAPHY">GEOGRAPHY</option>
+                        <option value="LITERATURE">LITERATURE</option>
+                        <option value="MUSIC">MUSIC</option>
+                        <option value="MOVIES">MOVIES</option>
+                        <option value="SPORTS">SPORTS</option>
+                        <option value="TECHNOLOGY">TECHNOLOGY</option>
+                        <option value="GENERAL_KNOWLEDGE">GENERAL_KNOWLEDGE</option>
+                        <option value="TRIVIA">TRIVIA</option>
+                        <option value="ANIMALS">ANIMALS</option>
+                        <option value="NATURE">NATURE</option>
+                        <option value="FOOD_AND_COOKING">FOOD_AND_COOKING</option>
+                        <option value="HEALTH_AND_FITNESS">HEALTH_AND_FITNESS</option>
+                        <option value="POLITICS">POLITICS</option>
+                        <option value="MYTHOLOGY">MYTHOLOGY</option>
+                        <option value="LANGUAGE">LANGUAGE</option>
+                        <option value="IQ_TEST">IQ_TEST</option>
+                        <option value="BRAIN_TEASERS">BRAIN_TEASERS</option>
+                        <option value="LOGIC_PUZZLES">LOGIC_PUZZLES</option>
+                        <option value="PERSONALITY_TEST">PERSONALITY_TEST</option>
+                        <option value="POP_CULTURE">POP_CULTURE</option>
+                        <option value="CELEBRITIES">CELEBRITIES</option>
+                        <option value="CODING">CODING</option>
+                        <option value="PROGRAMMING">PROGRAMMING</option>
+                        <option value="FRONTEND">FRONTEND</option>
+                        <option value="BACKEND">BACKEND</option>
                         {/* TODO: add option according to the backend */}
                     </select>
                 </div>
@@ -163,7 +302,7 @@ const CreateQuiz: React.FC = () => {
                     questionType: "",
                     answers: [""],
                     answerType: "",
-                    correctAnswer: null,
+                    correctAnswer: "",
                     correctAnswers: [],
                     correctMessage: "",
                     wrongMessage: "",
@@ -192,7 +331,6 @@ const CreateQuiz: React.FC = () => {
                     </>
                 ) : "Submit"}
                 </Button>
-
             </form>
         </div>
     );

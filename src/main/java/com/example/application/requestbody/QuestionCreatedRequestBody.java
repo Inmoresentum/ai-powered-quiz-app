@@ -16,23 +16,28 @@ public class QuestionCreatedRequestBody {
     @Size(min = 1, max = 256)
     private String title;
     @NotNull
+    @NotEmpty
     private QuestionType type;
     @NotNull
     @NotEmpty
     private List<String> answers;
     @NotNull
+    @NotEmpty
     private AnswerSelectionType answerType;
     @NotEmpty
     @NotNull
     private List<Integer> correctAnswers;
     @NotNull
     @NotEmpty
+    @Size(min = 1)
     private String correctMessage;
     @NotNull
     @NotEmpty
+    @Size(min = 1)
     private String wrongMessage;
     @NotNull
     @NotEmpty
+    @Size(min = 1)
     private String explanation;
     @NotNull
     @NotEmpty
