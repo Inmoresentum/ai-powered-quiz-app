@@ -120,7 +120,9 @@
     "react-type-animation": "$react-type-animation",
     "react-router-hash-link": "$react-router-hash-link",
     "react-confetti": "$react-confetti",
-    "react-cookie-consent": "$react-cookie-consent"
+    "react-cookie-consent": "$react-cookie-consent",
+    "dompurify": "$dompurify",
+    "snarkdown": "$snarkdown"
   },
   "vaadin": {
     "dependencies": {
@@ -163,6 +165,6 @@
       "workbox-core": "7.0.0",
       "workbox-precaching": "7.0.0"
     },
-    "hash": "405e3e0216e994f1ea77a63426b1ace2a63f2dd1917e715c443f58ec06232837"
+    "hash": "a14c7463459a3937e54575e173e235494044b968a267ec9225b75e16f3ae4ca2"
   }
 }
