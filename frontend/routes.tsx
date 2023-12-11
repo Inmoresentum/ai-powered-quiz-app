@@ -19,6 +19,7 @@ import SystemActivity from "@/views/admin/activity/systemActivity";
 import QuizOperations from "@/views/admin/quizOperations/quizOperations";
 import PaymentSuccess from "@/views/payment/success";
 import PaymentCancel from "@/views/payment/cancel";
+import QuizPlayer from "@/views/quiz/play/quizPlayer";
 
 const AboutView = lazy(async () => import('Frontend/views/about/AboutView.js'));
 
@@ -33,6 +34,10 @@ export const routes = protectRoutes([
             {
                 path: "/quiz/create-quiz", element:
                     <CreateQuiz/>, handle: {title: "Quiz Creation Page", requiresLogin: false}
+            },
+            {
+                path: "/quiz/play", element:
+                    <QuizPlayer/>, handle: {title: "Dynamic Title", requiresLogin: false}
             },
             {path: '/about', element: <AboutView/>, handle: {title: "About", requiresLogin: false}},
             {
