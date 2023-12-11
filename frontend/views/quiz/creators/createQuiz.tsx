@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {
     useForm,
     useFieldArray,
@@ -48,7 +48,7 @@ const CreateQuiz: React.FC = () => {
         handleSubmit,
         control,
         watch,
-        formState: {errors, isSubmitting, isSubmitSuccessful}
+        formState: {errors, isSubmitting, isSubmitSuccessful, isLoading}
     } = useForm<QuizCreatorSchemaType>({
         resolver: zodResolver(quizCreatorSchema),
         defaultValues: {
@@ -70,7 +70,7 @@ const CreateQuiz: React.FC = () => {
     });
 
     const quizProfileImageFile = watch("quizProfileImage");
-
+    const [isFormSubmitting, setIsFormSubmitting] = useState(false);
     let quizProfileImageURL: null | string;
     try {
         quizProfileImageURL = quizProfileImageFile ? URL.createObjectURL(quizProfileImageFile[0]) : null;
@@ -82,7 +82,10 @@ const CreateQuiz: React.FC = () => {
         name: "questions"
     });
 
-    const onSubmit = (data: QuizCreatorSchemaType) => {
+    const onSubmit = async (data: QuizCreatorSchemaType) => {
+        setIsFormSubmitting(true);
+        await new Promise(resolve => setTimeout(resolve, 10000));
+        setIsFormSubmitting(false);
         console.log(data);
     };
 
@@ -181,8 +184,8 @@ const CreateQuiz: React.FC = () => {
                 <Button className="mt-4 font-extrabold hover:bg-green-500 duration-500 flex-grow bg-blue-400 shadow-xl
              ease-linear rounded-full hover:-translate-y-1 hover:shadow-xl hover:drop-shadow-xl hover:shadow-green-600 hover:text-black"
                         type="submit"
-                        disabled={isSubmitting}
-                >{isSubmitting ? (
+                        disabled={isFormSubmitting}
+                >{isFormSubmitting ? (
                     <>
                         <Loader2 className="mr-2 h-4 w-4 animate-spin"/>
                         Please wait
@@ -270,7 +273,7 @@ export function Question({
                     <option value="multiple">Multiple Choice</option>
                 </select>
                 {errors.questions?.[questionIndex]?.answerType &&
-                    <p>{errors.questions[questionIndex]?.answerType?.message}</p>}
+                    <p className="text-red-500">{errors.questions[questionIndex]?.answerType?.message}</p>}
 
             </div>
 
@@ -281,26 +284,39 @@ export function Question({
                     <div key={answerField + questionIndex + answerIndex}
                          className="flex items-center space-x-4">
                         {watch(`questions.${questionIndex}.questionType`) === "text" ? (
-                            <input
-                                className="w-full p-2 border border-gray-300 rounded-md mb-4"
-                                {...register(`questions.${questionIndex}.answers.${answerIndex}`)}
-                                placeholder="Answer"/>
-                        ) : (
                             <>
                                 <input
                                     className="w-full p-2 border border-gray-300 rounded-md mb-4"
                                     {...register(`questions.${questionIndex}.answers.${answerIndex}`)}
-                                    type="file"
-                                    accept="image/*" // Accept only image files
-                                />
+                                    placeholder="Answer"/>
+                                <Button type="button" disabled={answerIndex === 0}
+                                        onClick={() => removeAnswer(answerIndex)}
+                                        className="bg-red-500 text-white p-4 rounded-3xl mb-4">
+                                    Remove Answer
+                                </Button>
                             </>
+                        ) : (
+                            <div className="flex flex-col w-full items-center justify-center">
+                                <input
+                                    className="w-full p-2 border border-gray-300 rounded-md mb-4"
+                                    {...register(`questions.${questionIndex}.answers.${answerIndex}`)}
+                                    type="file"
+                                    accept="image/*"
+                                />
 
+                                {watch(`questions.${questionIndex}.answers.${answerIndex}`) instanceof FileList && (
+                                    <img
+                                        className="rounded-2xl hover:scale-105 duration-300 ease-linear"
+                                        src={URL.createObjectURL(watch(`questions.${questionIndex}.answers.${answerIndex}`)[0])}
+                                        alt="Preview"/>
+                                )}
+                                <Button type="button" disabled={answerIndex === 0}
+                                        onClick={() => removeAnswer(answerIndex)}
+                                        className="bg-red-500 text-white font-semibold p-4 rounded-3xl m-4 max-w-[10rem] duration-300 hover:bg-red-600 hover:text-black ease-linear">
+                                    Remove Answer
+                                </Button>
+                            </div>
                         )}
-                        <Button type="button" disabled={answerIndex === 0}
-                                onClick={() => removeAnswer(answerIndex)}
-                                className="bg-red-500 text-white p-4 rounded-3xl mb-4">
-                            Remove Answer
-                        </Button>
                     </div>
                 )
             )}
@@ -318,7 +334,7 @@ export function Question({
 
             {
                 errors.questions?.[questionIndex]?.answers &&
-                <p>{errors.questions[questionIndex]?.answers?.message}</p>
+                <p className="text-red-500">{errors.questions[questionIndex]?.answers?.message}</p>
             }
 
             <label>Correct Answer</label>
@@ -380,7 +396,7 @@ export function Question({
                     {...register(`questions.${questionIndex}.wrongMessage`)}
                     placeholder="Wrong Message"/>
                 {errors.questions?.[questionIndex]?.wrongMessage &&
-                    <p>{errors.questions[questionIndex]?.wrongMessage?.message}</p>}
+                    <p className="text-red-500">{errors.questions[questionIndex]?.wrongMessage?.message}</p>}
             </div>
 
             <div className="mb-4">
@@ -391,7 +407,7 @@ export function Question({
                     className="w-full p-2 border border-gray-300 rounded-md"
                     {...register(`questions.${questionIndex}.explanation`)} placeholder="Explanation"/>
                 {errors.questions?.[questionIndex]?.explanation &&
-                    <p>{errors.questions[questionIndex]?.explanation?.message}</p>}
+                    <p className="text-red-500">{errors.questions[questionIndex]?.explanation?.message}</p>}
             </div>
 
             <div className="mb-4">
@@ -406,7 +422,7 @@ export function Question({
                     })}
                     type="number" placeholder="Points"/>
                 {errors.questions?.[questionIndex]?.points &&
-                    <p>{errors.questions[questionIndex]?.points?.message}</p>}
+                    <p className="text-red-500">{errors.questions[questionIndex]?.points?.message}</p>}
             </div>
             <Button
                 className="rounded-full bg-red-400 hover:bg-red-500 font-semibold hover:text-black duration-300 ease-in drop-shadow shadow-red-400 shadow-2xl"
