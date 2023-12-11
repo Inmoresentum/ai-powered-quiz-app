@@ -14,7 +14,7 @@ import {UserEndpoint} from "@/generated/endpoints";
 import Gender from "@/generated/com/example/application/entities/user/Gender";
 import {ComboBox} from "@hilla/react-components/ComboBox";
 import {NavLink} from "react-router-dom";
-import {UploadUserImage} from "@/custom-apis/FileStorageApis"
+import {UploadUserImage} from "@/custom-apis-service/FileStorageApis"
 import {Loader2} from "lucide-react";
 import {Tooltip, TooltipContent, TooltipProvider, TooltipTrigger} from "@/components/ui/tooltip";
 import {Separator} from "@/components/ui/separator";
