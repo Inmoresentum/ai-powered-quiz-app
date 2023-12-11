@@ -1,8 +1,10 @@
 package com.example.application.service.quiz;
 
+import com.example.application.entities.quiz.Quiz;
 import com.example.application.exceptions.FileContainsHarmFulContentException;
 import com.example.application.exceptions.MinIOFileCreationException;
 import com.example.application.exceptions.MinIOFileNotFoundException;
+import com.example.application.exceptions.QuizNotFoundException;
 import com.example.application.repositories.QuizRepository;
 import com.example.application.service.minio.MinioService;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -32,5 +35,16 @@ public class QuizService {
 
    public byte[] getQuizImage(String imageName) throws MinIOFileNotFoundException {
       return minioService.getObject("/quiz/" + imageName);
+   }
+
+   public List<Quiz> getAllQuizzes() {
+      return quizRepository.findAll();
+   }
+
+   public Quiz getQuiz(Integer quizID) {
+      if (!quizRepository.existsById(quizID)) {
+         throw new QuizNotFoundException("No Quiz with this ID found!");
+      }
+      return quizRepository.findById(quizID).orElseThrow();
    }
 }

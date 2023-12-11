@@ -2,12 +2,17 @@ package com.example.application;
 
 import com.example.application.entities.faq.FAQ;
 import com.example.application.entities.paidplan.PricingPlan;
+import com.example.application.entities.quiz.Difficulty;
+import com.example.application.entities.quiz.Question;
+import com.example.application.entities.quiz.Quiz;
+import com.example.application.entities.quiz.QuizTag;
 import com.example.application.entities.user.Gender;
 import com.example.application.entities.user.PricingPlanTitle;
 import com.example.application.entities.user.Role;
 import com.example.application.entities.user.User;
 import com.example.application.repositories.FAQRepository;
 import com.example.application.repositories.PricingPlanRepository;
+import com.example.application.repositories.QuizRepository;
 import com.example.application.repositories.UserRepository;
 import com.example.application.service.stripe.StripePaymentService;
 import com.vaadin.flow.component.page.AppShellConfigurator;
@@ -28,6 +33,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import static com.example.application.entities.quiz.AnswerSelectionType.MULTIPLE;
+import static com.example.application.entities.quiz.AnswerSelectionType.SINGLE;
+import static com.example.application.entities.quiz.QuestionType.PHOTO;
+import static com.example.application.entities.quiz.QuestionType.TEXT;
+
 /**
  * The entry point of the Spring Boot application.
  * Use the @PWA annotation make the application installable on phones, tablets
@@ -44,7 +54,7 @@ public class Application implements AppShellConfigurator {
     }
 
     @Bean
-    CommandLineRunner commandLineRunner(UserRepository userRepository, PasswordEncoder encoder, FAQRepository faqRepository, PricingPlanRepository pricingPlanRepository, StripePaymentService stripePaymentService) {
+    CommandLineRunner commandLineRunner(UserRepository userRepository, PasswordEncoder encoder, FAQRepository faqRepository, PricingPlanRepository pricingPlanRepository, StripePaymentService stripePaymentService, QuizRepository quizRepository) {
         return args -> {
             var user = User.builder()
                     .accountCreated(LocalDateTime.now())
@@ -52,7 +62,7 @@ public class Application implements AppShellConfigurator {
                     .hashedPassword(encoder.encode("admin"))
                     .name("User")
                     .roles(Set.of(Role.USER))
-                    .accountVerified(false)
+                    .accountVerified(true)
                     .email("user@mail.com")
                     .pricingPlanTitle(PricingPlanTitle.FREE)
                     .agreesWithTermsOfServicesAndPrivacyAndPolicy(true)
@@ -408,9 +418,80 @@ public class Application implements AppShellConfigurator {
                     .currency("usd")
                     .stripePriceKey("price_1OJgEpADj7iOq9PbA5ttuiL1")
                     .frequency("/monthly")
-                .features(List.of("Play Unlimited Quizzes a day", "Create 100 Quizzes per day", "Access Quiz Builder 50 times a day", "Ask 100 Questions to Chat-Bot daily", "Max Allocated Storage 15 GB", "Highest Priority to AI services on demand", "Access to Exclusive beta features"))
+                    .features(List.of("Play Unlimited Quizzes a day", "Create 100 Quizzes per day", "Access Quiz Builder 50 times a day", "Ask 100 Questions to Chat-Bot daily", "Max Allocated Storage 15 GB", "Highest Priority to AI services on demand", "Access to Exclusive beta features"))
                     .build();
             pricingPlanRepository.saveAll(List.of(freePlan, basicPlan, proPlan));
+
+            if (quizRepository.count() == 0) {
+                Question firstQuestion = Question.builder()
+                        .question("How can you access the state of a component" +
+                                " from inside of a member function?")
+                        .questionType(TEXT)
+                        .questionPic("http://localhost:8080/api/v1/storage/public/image/quiz/A")
+                        .answerSelectionType(SINGLE)
+                        .answers(List.of("this.getState()",
+                                "this.prototype.stateValue",
+                                "this.state",
+                                "this.values"))
+                        .correctAnswer(List.of(3))
+                        .messageForIncorrectAnswer("Incorrect Answer. Please try again")
+                        .messageForCorrectAnswer("GG")
+                        .explanation("Well, you know xD")
+                        .point((double) 20)
+                        .build();
+
+                Question secondQuestion = Question.builder()
+                        .question("What are the advantages of React JS?")
+                        .questionType(TEXT)
+                        .questionPic(null)
+                        .answerSelectionType(MULTIPLE)
+                        .answers(List.of(
+                                "React can be used on client and as well as server side too",
+                                "Using React increases readability and makes maintainability easier. Component," +
+                                        " Data patterns improves readability and thus makes it easier for manitaining larger apps",
+                                "React components have lifecycle events that fall into State/Property Updates",
+                                "React can be used with any other framework (Backbone.js, Angular.js) as it is only a view layer"
+                        ))
+                        .correctAnswer(List.of(1, 2, 4))
+                        .messageForIncorrectAnswer("Incorrect Answer. Please try again")
+                        .messageForCorrectAnswer("GG")
+                        .explanation("Well, you know xD")
+                        .point((double) 20)
+                        .build();
+
+                Question thirdQuestion = Question.builder()
+                        .question("Choose the image that looks like **A**")
+                        .questionType(PHOTO)
+                        .questionPic(null)
+                        .answerSelectionType(SINGLE)
+                        .answers(List.of(
+                                "http://localhost:8080/api/v1/storage/public/image/quiz/A",
+                                "http://localhost:8080/api/v1/storage/public/image/quiz/B",
+                                "http://localhost:8080/api/v1/storage/public/image/quiz/C",
+                                "http://localhost:8080/api/v1/storage/public/image/quiz/D"
+                        ))
+                        .correctAnswer(List.of(1))
+                        .messageForIncorrectAnswer("Incorrect Answer. Please try again")
+                        .messageForCorrectAnswer("GG")
+                        .explanation("Well, you know xD")
+                        .point((double) 5)
+                        .build();
+
+                List<Question> questionList = List.of(firstQuestion,
+                        secondQuestion,
+                        thirdQuestion);
+
+                var quiz = Quiz.builder()
+                        .quizTitle("Checking Test Quiz")
+                        .quizSynopsis("Well, I do not want to type anything")
+                        .questions(questionList)
+                        .curQuizTag(QuizTag.CODING)
+                        .difficultyLevel(Difficulty.EASY)
+                        .createdBy(userRepository.findByEmail("user@mail.com").orElseThrow())
+                        .build();
+
+                quizRepository.save(quiz);
+            }
         };
     }
 }
