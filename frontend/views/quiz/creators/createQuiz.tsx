@@ -108,7 +108,7 @@ const CreateQuiz: React.FC = () => {
         handleSubmit,
         control,
         watch,
-        formState: {errors, isSubmitting, isSubmitSuccessful, isLoading}
+        formState: {errors}
     } = useForm<QuizCreatorSchemaType>({
         resolver: zodResolver(quizCreatorSchema),
         defaultValues: {
@@ -152,48 +152,38 @@ const CreateQuiz: React.FC = () => {
         quizCreateRequestBody.quizTags = getQuizTag(formData.quizTags);
         quizCreateRequestBody.difficulty = getQuizDifficulty(formData.difficulty);
 
-       const questionCreatedRequestBody: QuestionCreatedRequestBody[] = [];
-        formData.questions.map((value ) => {
-            const curQuestion: QuestionCreatedRequestBody = {
-                points: value.points,
-                answerType:  value.answerType === "single" ? AnswerSelectionType.SINGLE : AnswerSelectionType.MULTIPLE,
-                explanation: value.explanation,
-                type: value.questionType === "image" ? QuestionType.PHOTO : QuestionType.TEXT,
-                title: value.title,
-                correctMessage: value.correctMessage,
-                wrongMessage: value.wrongMessage
-            };
-            if (value.questionType === "text") {
-                curQuestion.answers = value.answers;
-            }
-            else {
-                const answersAsImageUrl: string[] = [];
-                value.answers.map(async image => {
-                    const imageUrl = await UploadQuizImage(image[0]);
-                    answersAsImageUrl.push(imageUrl)
-                });
-                console.log(answersAsImageUrl);
-                curQuestion.answers = answersAsImageUrl;
-                console.log(curQuestion.answers);
-            }
-            if (value.answerType === "single") {
-                console.log("Correct Answer " + value.correctAnswer)
-                const correctAnswer: number[] = [];
-                correctAnswer.push(parseInt(value.correctAnswer) + 1);
-                curQuestion.correctAnswers = correctAnswer;
-            }
-            else {
-                const indexesOfCorrectAnswers: number[] = [];
-                value.correctAnswers.map((isCorrect, index) => {
-                   if (isCorrect) indexesOfCorrectAnswers.push(index +  1);
-                });
-                curQuestion.correctAnswers = indexesOfCorrectAnswers;
-            }
-            questionCreatedRequestBody.push(curQuestion);
-            console.log(questionCreatedRequestBody);
-        })
-
-        quizCreateRequestBody.questions = questionCreatedRequestBody;
+        quizCreateRequestBody.questions = await Promise.all(
+            formData.questions.map(async (value) => {
+                const curQuestion: QuestionCreatedRequestBody = {
+                    points: value.points,
+                    answerType: value.answerType === "single" ? AnswerSelectionType.SINGLE : AnswerSelectionType.MULTIPLE,
+                    explanation: value.explanation,
+                    type: value.questionType === "image" ? QuestionType.PHOTO : QuestionType.TEXT,
+                    title: value.title,
+                    correctMessage: value.correctMessage,
+                    wrongMessage: value.wrongMessage
+                };
+                if (value.questionType === "text") {
+                    curQuestion.answers = value.answers;
+                }
+                if (value.questionType !== "text") {
+                    const uploadPromises = value.answers.map(curImage => UploadQuizImage(curImage[0]));
+                    curQuestion.answers = await Promise.all(uploadPromises);
+                }
+                if (value.answerType === "single") {
+                    console.log("Correct Answer " + value.correctAnswer)
+                    const correctAnswer: number[] = [];
+                    correctAnswer.push(parseInt(value.correctAnswer) + 1);
+                    curQuestion.correctAnswers = correctAnswer;
+                } else {
+                    const indexesOfCorrectAnswers: number[] = [];
+                    value.correctAnswers.map((isCorrect, index) => {
+                        if (isCorrect) indexesOfCorrectAnswers.push(index + 1);
+                    });
+                    curQuestion.correctAnswers = indexesOfCorrectAnswers;
+                }
+                return curQuestion;
+            }));
         console.log("Checking stuff as you can see xD");
         console.log(quizCreateRequestBody);
         await QuizEndpoint.createQuiz(quizCreateRequestBody);
