@@ -8,6 +8,8 @@ import com.example.application.security.AuthenticatedUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class GlobalLeaderboardService {
@@ -37,5 +39,9 @@ public class GlobalLeaderboardService {
                 .globalRank(GlobalRank.BEGINNER)
                 .build();
         globalLeaderBoardRepository.save(globalLeaderBoard);
+    }
+
+    public List<GlobalLeaderBoard> findAll() {
+        return globalLeaderBoardRepository.findAll();
     }
 }

@@ -23,6 +23,8 @@ import QuizPlayer from "@/views/quiz/play/quizPlayer";
 import PrivacyAndPolicy from "@/views/privacyAndPolicy/privacyAndPolicy";
 import ListOfQuizzes from "@/views/quiz/ListOfQuizzes/listOfQuizzes";
 import TermsAndServices from "@/views/termsOfServices/termsOfServices";
+import {LeaderboardEndpoint} from "@/generated/endpoints";
+import Leaderboard from "@/views/Leaderboard/Leaderboard";
 
 const AboutView = lazy(async () => import('Frontend/views/about/AboutView.js'));
 
@@ -48,6 +50,7 @@ export const routes = protectRoutes([
             {path: '/about', element: <AboutView/>, handle: {title: "About", requiresLogin: false}},
             {path: '/privacy-and-policy', element: <PrivacyAndPolicy/>, handle: {title: "Privacy & Policy", requiresLogin: false}},
             {path: '/terms-of-services', element: <TermsAndServices/>, handle: {title: "Terms Of Services", requiresLogin: false}},
+            {path: '/leader-board', element: <Leaderboard/>, handle: {title: "Leaderboard", requiresLogin: false}},
             {
                 element: <AdminDashboardLayout/>, handle: {requiresLogin: true, rolesAllowed: ["ADMIN"]},
                 children: [

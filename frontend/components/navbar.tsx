@@ -88,7 +88,7 @@ export default function Navbar() {
                         </ul>
                     </div>
                 </li>
-                <NavLink to="/"
+                <NavLink to="/leader-board"
                          className="regular-16 text-gray-50 flexCenter cursor-pointer pb-1.5 transition-all hover:font-bold">
                     Leader Board
                 </NavLink>
