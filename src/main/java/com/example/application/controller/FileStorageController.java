@@ -78,4 +78,9 @@ public class FileStorageController {
                     .body(Map.of("message", "Failed to retrieve the file : " + filename));
         }
     }
+
+    @GetMapping("/getQuiz/{quizId}")
+    public ResponseEntity<?> getQuizById(@PathVariable Integer quizId) {
+        return quizService.getQuizById(quizId);
+    }
 }
