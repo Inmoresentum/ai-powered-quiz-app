@@ -9,7 +9,7 @@ type QuizProps = {
 }
 export default function QuizCard({quiz}: QuizProps) {
     return (
-        <Link to={`http://localhost:3000/quiz/play/${quiz.quizId}`}>
+        <Link to={`http://localhost:8080/quiz/play/${quiz.quizId}`}>
             <div className="quiz-card">
                 <IterationCcw className="bi text-white whatever mix-blend-difference"/>
                 <div className="quiz-card-top">
