@@ -41,7 +41,7 @@ export default function ShowResultCard({QuestionSummary, quizId}: any) {
                                 </svg>
                                 <h3 className="summary-item-title">Reaction</h3>
                             </div>
-                            <p className="summary-score"><span>80</span> / 100</p>
+                            <p className="summary-score"><span>In development</span> / 100</p>
                         </div>
                         <div className="summary-item"
                              data-item-type="accent-2">
@@ -51,9 +51,7 @@ export default function ShowResultCard({QuestionSummary, quizId}: any) {
                                      viewBox="0 0 20 20">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.25"
                                           d="M5.833 11.667a2.5 2.5 0 1 0 .834 4.858"/>
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.25"
-                                          d="M3.553 13.004a3.333 3.333 0 0 1-.728-5.53m.025-.067a2.083 2.083
-                                           0 0 1 2.983-2.824m.199.054A2.083 2.083 0 1 1 10 3.75v12.917a1.667 1.667
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.25" d="M3.553 13.004a3.333 3.333 0 0 1-.728-5.53m.025-.067a2.083 2.083 0 0 1 2.983-2.824m.199.054A2.083 2.083 0 1 1 10 3.75v12.917a1.667 1.667
                                             0 0 1-3.333 0M10 5.833a2.5 2.5 0 0 0 2.5 2.5m1.667 3.334a2.5 2.5 0 1 1-.834 4.858"/>
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.25"
                                           d="M16.447 13.004a3.334 3.334 0 0 0 .728-5.53m-.025-.067a2.083
@@ -62,7 +60,7 @@ export default function ShowResultCard({QuestionSummary, quizId}: any) {
                                 </svg>
                                 <h3 className="summary-item-title">Memory</h3>
                             </div>
-                            <p className="summary-score"><span>92</span> / 100</p>
+                            <p className="summary-score"><span>In Development</span> / 100</p>
                         </div>
                         <div className="summary-item"
                              data-item-type="accent-3">
@@ -76,7 +74,7 @@ export default function ShowResultCard({QuestionSummary, quizId}: any) {
                                 </svg>
                                 <h3 className="summary-item-title">Verbal</h3>
                             </div>
-                            <p className="summary-score"><span>61</span> / 100</p>
+                            <p className="summary-score"><span>In Development</span> / 100</p>
                         </div>
                         <div className="summary-item"
                              data-item-type="accent-4">
@@ -91,7 +89,7 @@ export default function ShowResultCard({QuestionSummary, quizId}: any) {
                                 </svg>
                                 <h3 className="summary-item-title">Visual</h3>
                             </div>
-                            <p className="summary-score"><span>72</span> / 100</p>
+                            <p className="summary-score"><span>In Development</span> / 100</p>
                         </div>
                     </div>
                     <ResultCardContinueButton quizId={quizId} score={QuestionSummary.correctPoints}/>
