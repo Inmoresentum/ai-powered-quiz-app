@@ -1,6 +1,8 @@
 package com.example.application.entities.quiz;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.hibernate.proxy.HibernateProxy;
 
@@ -17,17 +19,32 @@ public class Question {
     @Id
     @GeneratedValue
     private int questionId;
+    @NotEmpty
+    @NotNull
     private String question;
+    @NotNull
     private QuestionType questionType;
     private String questionPic;// it's optional
+    @NotNull
     private AnswerSelectionType answerSelectionType;
     @ElementCollection(fetch = FetchType.EAGER)
+    @NotEmpty
+    @NotNull
     private List<String> answers;
     @ElementCollection(fetch = FetchType.EAGER)
+    @NotEmpty
+    @NotNull
     private List<Integer> correctAnswer;
+    @NotEmpty
+    @NotNull
     private String messageForCorrectAnswer;
+    @NotEmpty
+    @NotNull
     private String messageForIncorrectAnswer;
+    @NotEmpty
+    @NotNull
     private String explanation;
+    @NotNull
     private Double point;
 
     @Override

@@ -5,13 +5,14 @@ import com.example.application.requestbody.QuizCreateRequestBody;
 import com.example.application.service.quiz.QuizService;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 import dev.hilla.Endpoint;
+import jakarta.annotation.security.PermitAll;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
 @Endpoint
 @RequiredArgsConstructor
-@AnonymousAllowed
+@PermitAll
 public class QuizEndpoint {
     private final QuizService quizService;
     public List<Quiz> getAllQuizzes() {
@@ -19,7 +20,7 @@ public class QuizEndpoint {
     }
 
     public void createQuiz(QuizCreateRequestBody quizCreateRequestBody) {
-        System.out.println(quizCreateRequestBody);
+            quizService.createQuiz(quizCreateRequestBody);
     }
 
     public Quiz getQuiz(Integer quizID) {

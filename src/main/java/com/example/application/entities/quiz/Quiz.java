@@ -3,6 +3,8 @@ package com.example.application.entities.quiz;
 
 import com.example.application.entities.user.User;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.hibernate.proxy.HibernateProxy;
 
@@ -24,17 +26,23 @@ public class Quiz {
     @GeneratedValue
     private Integer quizId;
     @Column(nullable = false)
+    @NotNull
     private String quizTitle;
     @Column(nullable = false)
+    @NotNull
     private String quizSynopsis;
     @OneToMany(cascade = CascadeType.PERSIST)
     @ToString.Exclude
+    @NotEmpty
+    @NotNull
     private List<Question> questions;
     private String quizProfilePhotoUrl;
     @Enumerated(EnumType.STRING)
+    @NotNull
     private Difficulty difficultyLevel = EASY;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, name = "cur_quiz_tag")
+    @NotNull
     private QuizTag curQuizTag;
 
     @ManyToOne
