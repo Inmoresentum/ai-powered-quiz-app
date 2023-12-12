@@ -58,7 +58,7 @@ public class QuizService {
               .difficultyLevel(quizCreateRequestBody.getDifficulty())
               .build();
 
-      System.out.println(quiz);
+      quizRepository.save(quiz);
    }
 
    public String saveQuizImageToMinio(MultipartFile image) throws MinIOFileCreationException, FileContainsHarmFulContentException, IOException {
