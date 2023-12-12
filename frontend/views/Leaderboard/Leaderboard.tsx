@@ -9,5 +9,4 @@ export default function Leaderboard() {
             <AutoGrid service={LeaderboardEndpoint} model={GlobalLeaderBoardModel} className="m-2 md:mx-20"/>
         </>
     );
-
 }
