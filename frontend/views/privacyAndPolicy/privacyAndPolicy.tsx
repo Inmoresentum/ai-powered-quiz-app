@@ -1,4 +1,5 @@
 import {useState} from "react";
+import {Helmet} from "react-helmet-async";
 
 const sections = [
     {
@@ -228,7 +229,13 @@ export default function PrivacyAndPolicy() {
 
     return (
         <>
-            <div className="bg-black">
+            <Helmet>
+                <title>
+                    Privacy & Policy
+                </title>
+                <meta name="description" content="See our Privacy & Policy"/>
+            </Helmet>
+            <div className="bg-red-500">
                 <div className="bg-gradient-to-r from-slate-300 to-slate-500 md:mt-[5rem] py-14 md:py-0">
                     <div className="max-w-[1280px] w-full h-screen
                  mx-auto flex flex-col md:flex-row justify-center bg-gradient-to-r from-violet-200 to-pink-200">
