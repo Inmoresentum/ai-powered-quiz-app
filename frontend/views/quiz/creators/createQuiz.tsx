@@ -24,6 +24,9 @@ import AnswerSelectionType from "@/generated/com/example/application/entities/qu
 import QuestionType from "@/generated/com/example/application/entities/quiz/QuestionType";
 import {UploadQuizImage} from "@/custom-apis-service/FileStorageApis";
 import {QuizEndpoint} from "@/generated/endpoints";
+import {Helmet} from "react-helmet-async";
+import {Link, NavLink} from "react-router-dom";
+import {Separator} from "@/components/ui/separator";
 
 const questionSchema = z.object({
     title: z.string().min(1, {message: "Question title is required"}),
@@ -55,49 +58,86 @@ type QuizCreatorSchemaType = z.infer<typeof quizCreatorSchema>;
 
 
 function getQuizTag(value: string): QuizTag | undefined {
-    switch(value) {
-        case "SCIENCE": return QuizTag.SCIENCE;
-        case "ARTS": return QuizTag.ARTS;
-        case "DRAW": return QuizTag.DRAW;
-        case "MATH": return QuizTag.MATH;
-        case "HISTORY": return QuizTag.HISTORY;
-        case "GEOGRAPHY": return QuizTag.GEOGRAPHY;
-        case "LITERATURE": return QuizTag.LITERATURE;
-        case "MUSIC": return QuizTag.MUSIC;
-        case "MOVIES": return QuizTag.MOVIES;
-        case "SPORTS": return QuizTag.SPORTS;
-        case "TECHNOLOGY": return QuizTag.TECHNOLOGY;
-        case "GENERAL_KNOWLEDGE": return QuizTag.GENERAL_KNOWLEDGE;
-        case "TRIVIA": return QuizTag.TRIVIA;
-        case "ANIMALS": return QuizTag.ANIMALS;
-        case "NATURE": return QuizTag.NATURE;
-        case "FOOD_AND_COOKING": return QuizTag.FOOD_AND_COOKING;
-        case "HEALTH_AND_FITNESS": return QuizTag.HEALTH_AND_FITNESS;
-        case "POLITICS": return QuizTag.POLITICS;
-        case "MYTHOLOGY": return QuizTag.MYTHOLOGY;
-        case "LANGUAGE": return QuizTag.LANGUAGE;
-        case "IQ_TEST": return QuizTag.IQ_TEST;
-        case "BRAIN_TEASERS": return QuizTag.BRAIN_TEASERS;
-        case "LOGIC_PUZZLES": return QuizTag.LOGIC_PUZZLES;
-        case "PERSONALITY_TEST": return QuizTag.PERSONALITY_TEST;
-        case "POP_CULTURE": return QuizTag.POP_CULTURE;
-        case "CELEBRITIES": return QuizTag.CELEBRITIES;
-        case "CODING": return QuizTag.CODING;
-        case "PROGRAMMING": return QuizTag.PROGRAMMING;
-        case "FRONTEND": return QuizTag.FRONTEND;
-        case "BACKEND": return QuizTag.BACKEND;
-        default: return undefined;
+    switch (value) {
+        case "SCIENCE":
+            return QuizTag.SCIENCE;
+        case "ARTS":
+            return QuizTag.ARTS;
+        case "DRAW":
+            return QuizTag.DRAW;
+        case "MATH":
+            return QuizTag.MATH;
+        case "HISTORY":
+            return QuizTag.HISTORY;
+        case "GEOGRAPHY":
+            return QuizTag.GEOGRAPHY;
+        case "LITERATURE":
+            return QuizTag.LITERATURE;
+        case "MUSIC":
+            return QuizTag.MUSIC;
+        case "MOVIES":
+            return QuizTag.MOVIES;
+        case "SPORTS":
+            return QuizTag.SPORTS;
+        case "TECHNOLOGY":
+            return QuizTag.TECHNOLOGY;
+        case "GENERAL_KNOWLEDGE":
+            return QuizTag.GENERAL_KNOWLEDGE;
+        case "TRIVIA":
+            return QuizTag.TRIVIA;
+        case "ANIMALS":
+            return QuizTag.ANIMALS;
+        case "NATURE":
+            return QuizTag.NATURE;
+        case "FOOD_AND_COOKING":
+            return QuizTag.FOOD_AND_COOKING;
+        case "HEALTH_AND_FITNESS":
+            return QuizTag.HEALTH_AND_FITNESS;
+        case "POLITICS":
+            return QuizTag.POLITICS;
+        case "MYTHOLOGY":
+            return QuizTag.MYTHOLOGY;
+        case "LANGUAGE":
+            return QuizTag.LANGUAGE;
+        case "IQ_TEST":
+            return QuizTag.IQ_TEST;
+        case "BRAIN_TEASERS":
+            return QuizTag.BRAIN_TEASERS;
+        case "LOGIC_PUZZLES":
+            return QuizTag.LOGIC_PUZZLES;
+        case "PERSONALITY_TEST":
+            return QuizTag.PERSONALITY_TEST;
+        case "POP_CULTURE":
+            return QuizTag.POP_CULTURE;
+        case "CELEBRITIES":
+            return QuizTag.CELEBRITIES;
+        case "CODING":
+            return QuizTag.CODING;
+        case "PROGRAMMING":
+            return QuizTag.PROGRAMMING;
+        case "FRONTEND":
+            return QuizTag.FRONTEND;
+        case "BACKEND":
+            return QuizTag.BACKEND;
+        default:
+            return undefined;
     }
 }
 
 function getQuizDifficulty(value: string): undefined | Difficulty {
-    switch(value) {
-        case "EASY": return Difficulty.EASY;
-        case "NORMAL": return Difficulty.NORMAL;
-        case "MODERATE": return Difficulty.MODERATE;
-        case "HARD": return Difficulty.HARD;
-        case "CRAZY": return Difficulty.CRAZY;
-        default: return undefined;
+    switch (value) {
+        case "EASY":
+            return Difficulty.EASY;
+        case "NORMAL":
+            return Difficulty.NORMAL;
+        case "MODERATE":
+            return Difficulty.MODERATE;
+        case "HARD":
+            return Difficulty.HARD;
+        case "CRAZY":
+            return Difficulty.CRAZY;
+        default:
+            return undefined;
     }
 }
 
@@ -131,6 +171,7 @@ const CreateQuiz: React.FC = () => {
 
     const quizProfileImageFile = watch("quizProfileImage");
     const [isFormSubmitting, setIsFormSubmitting] = useState(false);
+    const [isFormSuccessful, setIsFormSuccessful] = useState(false);
     let quizProfileImageURL: null | string;
     try {
         quizProfileImageURL = quizProfileImageFile ? URL.createObjectURL(quizProfileImageFile[0]) : null;
@@ -147,7 +188,7 @@ const CreateQuiz: React.FC = () => {
         setIsFormSubmitting(true);
         const quizCreateRequestBody: QuizCreateRequestBody = {}
         quizCreateRequestBody.quizTitle = formData.quizTitle;
-        quizCreateRequestBody.quizSynopsis =  formData.quizSynopsis;
+        quizCreateRequestBody.quizSynopsis = formData.quizSynopsis;
         quizCreateRequestBody.quizProfileImage = await UploadQuizImage(formData.quizProfileImage[0]);
         quizCreateRequestBody.quizTags = getQuizTag(formData.quizTags);
         quizCreateRequestBody.difficulty = getQuizDifficulty(formData.difficulty);
@@ -188,10 +229,53 @@ const CreateQuiz: React.FC = () => {
         console.log(quizCreateRequestBody);
         await QuizEndpoint.createQuiz(quizCreateRequestBody);
         setIsFormSubmitting(false);
+        setIsFormSuccessful(true);
     };
+
+    if (isFormSuccessful) {
+        return (
+            <div
+                className="flex flex-col items-center justify-center h-screen bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-rose-400 to-orange-300">
+                <Helmet>
+                    <title>Success</title>
+                    <meta name="description"
+                          content="GG"/>
+                </Helmet>
+
+                <div
+                    className="bg-gray-100 min-w-full rounded-2xl md:min-w-[450px] lg:md:min-w-[550px] flex flex-col shadow-xl items-center justify-center hover:shadow-2xl drop-shadow-2xl duration-300 ease-linear hover:bg-gray-100 md:m-20 md:hover:scale-105">
+                    <Link to="/" className="flex flex-row items-center justify-center">
+                        <img
+                            src="images/ai_quiz_logo.png"
+                            alt="icons/icon.png"
+                            className="w-[110px] h-[110px] rounded-2xl hover:scale-105
+                             hover:brightness-125 hover:contrast-150 hover:saturate-150
+                              transition-all duration-300 ease-in-out m-2 p-2"
+                        />
+                    </Link>
+
+                    <h1 className="font-bold text-3xl font-sans ">
+                        <NavLink to="/">
+                            QuizBOT IQ
+                        </NavLink>
+                    </h1>
+                    <Separator className="my-0.5 bg-pink-400 h-[2px] w-[75%]"/>
+                    <div
+                        className="m-6 text-4xl text-green-500 uppercase bg-gray-300 w-full text-center rounded-full font-sans">
+                        Form Submitted Successfully
+                    </div>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="flex justify-center items-center pt-24 pb-10">
+            <Helmet>
+                <title>Quiz Creation Form</title>
+                <meta name="description"
+                      content="Here users can create quiz fomr"/>
+            </Helmet>
             <form onSubmit={handleSubmit(onSubmit)}
                   className="p-14 bg-gray-100 rounded-2xl shadow-2xl max-w-[680px] w-full hover:bg-white duration-300 ease-linear flex flex-col">
                 <h2 className="text-3xl font-bold mb-4 text-center text-rose-400">Create a Quiz</h2>
