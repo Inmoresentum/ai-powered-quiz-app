@@ -8,13 +8,15 @@ type QuizProps = {
     quiz: Quiz
 }
 export default function QuizCard({quiz}: QuizProps) {
+    console.log(quiz);
+    console.log(quiz.quizProfilePhotoUrl);
     return (
         <Link to={`http://localhost:8080/quiz/play/${quiz.quizId}`}>
             <div className="quiz-card">
                 <IterationCcw className="bi text-white whatever mix-blend-difference"/>
                 <div className="quiz-card-top">
-                    <img src={quiz?.quizProfilePhotoUrl !== null ? quiz.quizProfilePhotoUrl : applogo} alt=""
-                           width="250" height="250"
+                    <img src={quiz.quizProfilePhotoUrl !== null ? quiz.quizProfilePhotoUrl : applogo} className="object-fill" alt=""
+                         width="250" height="250"
                     />
                 </div>
 
@@ -29,21 +31,21 @@ export default function QuizCard({quiz}: QuizProps) {
 
                     <div className="skills-box">
                         <div className="skill">
-                            <IterationCcw  className="bi math"/>
+                            <IterationCcw className="bi math"/>
                             <span className="text">
                             <span>Math</span>
                             <span>General</span>
                         </span>
                         </div>
                         <div className="skill">
-                            <Atom  className="bi physics"/>
+                            <Atom className="bi physics"/>
                             <span className="text">
                             <span>Physics</span>
                             <span>High School</span>
                         </span>
                         </div>
                         <div className="skill">
-                            <UserCog  className="bi physics"/>
+                            <UserCog className="bi physics"/>
                             <span className="text">
                                     <span>BY</span>
                                     <span>{quiz?.createdBy?.username}</span>
