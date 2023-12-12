@@ -4,7 +4,10 @@ import applogo from "../../../../src/main/resources/META-INF/resources/images/ai
 import React from "react";
 import Quiz from "@/generated/com/example/application/entities/quiz/Quiz";
 
-export default function QuizCard(quiz: Quiz) {
+type QuizProps = {
+    quiz: Quiz
+}
+export default function QuizCard({quiz}: QuizProps) {
     return (
         <Link to={`http://localhost:3000/quiz/play/${quiz.quizId}`}>
             <div className="quiz-card">
