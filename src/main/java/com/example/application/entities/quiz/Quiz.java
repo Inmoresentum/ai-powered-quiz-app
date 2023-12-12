@@ -2,6 +2,7 @@ package com.example.application.entities.quiz;
 
 
 import com.example.application.entities.user.User;
+import dev.hilla.Nullable;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -36,6 +37,7 @@ public class Quiz {
     @NotEmpty
     @NotNull
     private List<Question> questions;
+    @Nullable
     private String quizProfilePhotoUrl;
     @Enumerated(EnumType.STRING)
     @NotNull

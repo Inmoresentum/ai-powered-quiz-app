@@ -1,5 +1,6 @@
 package com.example.application.entities.quiz;
 
+import dev.hilla.Nullable;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -24,6 +25,7 @@ public class Question {
     private String question;
     @NotNull
     private QuestionType questionType;
+    @Nullable
     private String questionPic;// it's optional
     @NotNull
     private AnswerSelectionType answerSelectionType;
