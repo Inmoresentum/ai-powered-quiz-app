@@ -3,10 +3,16 @@ import {AutoCrud} from "@hilla/react-crud";
 import FAQModel from "@/generated/com/example/application/entities/faq/FAQModel";
 import React from "react";
 import {TextArea} from "@hilla/react-components/TextArea";
+import {Helmet} from "react-helmet-async";
 
 export default function FaqOperations() {
     return (
         <div className="flex items-center justify-center h-[1080px] w-full">
+            <Helmet>
+                <title>FAQ Operations</title>
+                <meta name="description"
+                      content="FAQ Operations For Admins"/>
+            </Helmet>
             <AutoCrud service={FAQAdminEndpoint} model={FAQModel} className="h-full shadow-2xl rounded-md max-w-[1280px] w-full"
                       formProps={{
                           formLayoutProps: {

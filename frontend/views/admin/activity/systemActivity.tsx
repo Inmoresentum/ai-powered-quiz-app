@@ -6,6 +6,7 @@ export default function SystemActivity() {
     const quizQuery = useQuery({queryKey: ['all-quiz-count'], queryFn: StatEndpoint.getTotalNumberOfQuizzes})
     return (
         <div className="grid lg:grid-cols-5 gap-4 p-4">
+
             <div className="lg:col-span-2 col-span-1 bg-white flex justify-between w-full border  drop-shadow-xl shadow-lg shadow-blue-300
             p-4 rounded-lg hover:shadow-2xl duration-300 ease-in">
                 <div className="flex flex-col w-full pb-4">
