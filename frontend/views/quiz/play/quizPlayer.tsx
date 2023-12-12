@@ -1,12 +1,12 @@
 import Quiz from "@/components/quiz-components/core-starter/Quiz";
 import {useParams} from "react-router-dom";
 import {useQuery} from "react-query";
-import {QuizEndpoint} from "@/generated/endpoints";
+import {getQuizByIDViaSerialization} from "@/custom-apis-service/FileStorageApis";
 
 export default function QuizPlayer() {
     const param = useParams();
     const quizId = parseInt(param.id as string);
-    const query = useQuery({queryKey: ['quiz', param.id], queryFn: () => QuizEndpoint.getQuiz(quizId)})
+    const query = useQuery({queryKey: ['quiz', param.id], queryFn: () => getQuizByIDViaSerialization(quizId)})
     if (query.status === "loading") return <div>Loading...</div>
     console.log(query.data);
     return (

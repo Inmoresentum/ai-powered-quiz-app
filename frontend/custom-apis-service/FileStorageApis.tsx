@@ -43,3 +43,17 @@ export async function UploadQuizImage(file: File): Promise<string> {
         throw error;
     }
 }
+export async function getQuizByIDViaSerialization(Id: number): Promise<string> {
+    try {
+        const response = await axios.get(`http://localhost:8080/api/v2/storage/getQuiz/${Id}`)
+
+        if (response.status === 200) {
+            return response.data.quiz;
+        } else {
+            throw new Error(`Unexpected response status: ${response.status}`);
+        }
+    } catch (error) {
+        console.error('Failed to get the Quiz with this id ', error);
+        throw error;
+    }
+}
