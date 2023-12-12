@@ -1,9 +1,9 @@
-import {NavLink, useNavigate} from "react-router-dom";
+import {Link, NavLink, useNavigate} from "react-router-dom";
 // @ts-ignore
 import {HashLink} from "react-router-hash-link";
 import {Button} from "@/components/ui/button";
 import {useAuth} from "@/util/auth";
-import {MenuIcon, X} from "lucide-react";
+import {ChevronUp, MenuIcon, X} from "lucide-react";
 import {useEffect, useState} from "react";
 import {motion} from "framer-motion";
 import Role from "@/generated/com/example/application/entities/user/Role";
@@ -11,7 +11,6 @@ import Role from "@/generated/com/example/application/entities/user/Role";
 export default function Navbar() {
     const {state, logout} = useAuth();
     const navigator = useNavigate();
-
     const [isOpen, setIsOpen] = useState(false);
     const [prevScrollPos, setPrevScrollPos] = useState(0);
     const [visible, setVisible] = useState(true);
@@ -59,10 +58,36 @@ export default function Navbar() {
                           className="regular-16 text-gray-50 flexCenter cursor-pointer pb-1.5 transition-all hover:font-bold">
                     Pricing
                 </HashLink>
-                <NavLink to="/"
-                         className="regular-16 text-gray-50 flexCenter cursor-pointer pb-1.5 transition-all hover:font-bold">
-                    Quizzes
-                </NavLink>
+                <li className="p-4 hover:border-b rounded-full hover:text-black active:bg-amber-300 hover:bg-orange-300 transition duration-700 ease-in-out relative group">
+                    <div className="flex items-center group regular-16 text-gray-50 flexCenter cursor-pointer pb-1.5 transition-all hover:font-bold">
+                        QUIZZES
+                        <ChevronUp size={24} className="transform group-hover:rotate-180 duration-300 ease-in"/>
+                    </div>
+
+                    <div
+                        className="absolute mt-2 top-full left-1/2 transform -translate-x-1/2 w-64 bg-white p-2 rounded-xl shadow-lg hidden group-hover:block transition-all duration-300 ease-in-out -translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100">
+                        <div
+                            className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-full w-0 h-0 border-l-8 border-r-8 border-b-8 border-transparent border-b-white"></div>
+                        <h3 className="font-bold text-lg mb-4 text-black text-center">
+                            ANYTHING IN MIND
+                        </h3>
+                        <ul className="space-y-2">
+                            <li className="py-1 px-4 rounded-full bg-gray-500 hover:bg-gray-700 cursor-pointer text-center">
+                                <Link to="/quiz/list" className="text-white hover:text-gray-200">
+                                    ALL QUIZZES
+                                </Link>
+                            </li>
+
+                            {state.user &&
+                                <li className="py-1 px-4 rounded-full bg-gray-500 text-md hover:text-red-400 hover:bg-gray-700 text-center">
+                                    <Link to="/quiz/create-quiz" className="text-white hover:text-gray-200">
+                                        CREATE QUIZ
+                                    </Link>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </li>
                 <NavLink to="/"
                          className="regular-16 text-gray-50 flexCenter cursor-pointer pb-1.5 transition-all hover:font-bold">
                     Leader Board
@@ -128,5 +153,5 @@ export default function Navbar() {
                 {isOpen ? <X size={32}/> : <MenuIcon size={32}/>}
             </div>
         </nav>
-    )
+    );
 }
