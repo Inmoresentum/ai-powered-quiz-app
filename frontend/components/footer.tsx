@@ -80,8 +80,8 @@ export default function Footer() {
                         <h6 className='font-medium text-gray-400'>Legal</h6>
                         <ul>
                             <li className='py-2 text-sm'>Claim</li>
-                            <li className='py-2 text-sm'><a href="#">Policy</a></li>
-                            <li className='py-2 text-sm'><a href="#">Terms</a></li>
+                            <li className='py-2 text-sm'><Link to="/privacy-and-policy">Policy</Link></li>
+                            <li className='py-2 text-sm'><Link to="/terms-of-services">Terms</Link></li>
                         </ul>
                     </div>
                 </div>

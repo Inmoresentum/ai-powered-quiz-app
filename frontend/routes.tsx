@@ -20,6 +20,9 @@ import QuizOperations from "@/views/admin/quizOperations/quizOperations";
 import PaymentSuccess from "@/views/payment/success";
 import PaymentCancel from "@/views/payment/cancel";
 import QuizPlayer from "@/views/quiz/play/quizPlayer";
+import PrivacyAndPolicy from "@/views/privacyAndPolicy/privacyAndPolicy";
+import ListOfQuizzes from "@/views/quiz/ListOfQuizzes/listOfQuizzes";
+import TermsAndServices from "@/views/termsOfServices/termsOfServices";
 
 const AboutView = lazy(async () => import('Frontend/views/about/AboutView.js'));
 
@@ -30,16 +33,21 @@ export const routes = protectRoutes([
         children: [
             {path: "/", element: <HomePage/>, handle: {title: "Home QuizBotIQ", requiresLogin: false}},
             {path: "/allfaqs", element: <AllFaqs/>, handle: {title: "Home QuizBotIQ", requiresLogin: false}},
-            // todo: Make so only logged in in  users can access "/quiz/create-quiz" this
             {
                 path: "/quiz/create-quiz", element:
-                    <CreateQuiz/>, handle: {title: "Quiz Creation Page", requiresLogin: false}
+                    <CreateQuiz/>, handle: {title: "Quiz Creation Page", requiresLogin: true}
             },
             {
-                path: "/quiz/play", element:
-                    <QuizPlayer/>, handle: {title: "Dynamic Title", requiresLogin: false}
+                path: "/quiz/play/:id", element:
+                    <QuizPlayer/>, handle: {title: "Dynamic Title", requiresLogin: true}
+            },
+            {
+                path: "/quiz/list", element:
+                    <ListOfQuizzes/>, handle: {title: "Quizzes", requiresLogin: false}
             },
             {path: '/about', element: <AboutView/>, handle: {title: "About", requiresLogin: false}},
+            {path: '/privacy-and-policy', element: <PrivacyAndPolicy/>, handle: {title: "Privacy & Policy", requiresLogin: false}},
+            {path: '/terms-of-services', element: <TermsAndServices/>, handle: {title: "Terms Of Services", requiresLogin: false}},
             {
                 element: <AdminDashboardLayout/>, handle: {requiresLogin: true, rolesAllowed: ["ADMIN"]},
                 children: [
