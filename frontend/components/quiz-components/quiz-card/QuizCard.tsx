@@ -2,24 +2,25 @@ import {Link} from "react-router-dom";
 import {Atom, IterationCcw, UserCog} from "lucide-react";
 import applogo from "../../../../src/main/resources/META-INF/resources/images/ai_quiz_logo.png"
 import React from "react";
+import Quiz from "@/generated/com/example/application/entities/quiz/Quiz";
 
-export default function QuizCard(quizInfo: any) {
+export default function QuizCard(quiz: Quiz) {
     return (
-        <Link to={`http://localhost:3000/quiz/play/${quizInfo.quizId}`}>
+        <Link to={`http://localhost:3000/quiz/play/${quiz.quizId}`}>
             <div className="quiz-card">
                 <IterationCcw className="bi text-white whatever mix-blend-difference"/>
                 <div className="quiz-card-top">
-                    <img src={quizInfo?.quizProfilePhotoUrl !== null ? quizInfo.quizProfilePhotoUrl : applogo} alt=""
+                    <img src={quiz?.quizProfilePhotoUrl !== null ? quiz.quizProfilePhotoUrl : applogo} alt=""
                            width="250" height="250"
                     />
                 </div>
 
                 <div className="quiz-card-body">
                     <h4 className="title">
-                        {quizInfo?.quizTitle ? quizInfo?.quizTitle : "SOME VERY COOL TEXT HERE IS GOING"}
+                        {quiz?.quizTitle ? quiz?.quizTitle : "SOME VERY COOL TEXT HERE IS GOING"}
                     </h4>
                     <p>
-                        {quizInfo?.quizSynopsis ? quizInfo?.quizSynopsis :
+                        {quiz?.quizSynopsis ? quiz?.quizSynopsis :
                             "Whatever the hell that you thinking is correct brother"}
                     </p>
 
@@ -42,7 +43,7 @@ export default function QuizCard(quizInfo: any) {
                             <UserCog  className="bi physics"/>
                             <span className="text">
                                     <span>BY</span>
-                                    <span>{quizInfo?.createdByLastname}</span>
+                                    <span>{quiz?.createdBy?.username}</span>
                                 </span>
                         </div>
                     </div>
