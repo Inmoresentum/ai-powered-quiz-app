@@ -1,6 +1,6 @@
 <h1 align="center">AI Powered Quiz Application</h1>
 
-Contains my CSE310 project
+Contains my CSE310 project that I did a while ago.
 
 ## Running the application
 
@@ -10,6 +10,8 @@ http://localhost:8080 in your browser.
 
 You can also import the project to your IDE of choice as you would with any
 Maven project.
+
+Todo: Add instructions how to setup MariaDB, MinIO, ClamAV, OpenAI API Key ect.
 
 ## Deploying to Production
 
