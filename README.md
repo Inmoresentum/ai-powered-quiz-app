@@ -23,3 +23,7 @@ ready to be deployed. The file can be found in the `target` folder after the bui
 Once the JAR file is built, you can run it using
 `java -jar target/myapp-1.0-SNAPSHOT.jar` (NOTE, replace
 `myapp-1.0-SNAPSHOT.jar` with the name of your jar).
+
+<p align="center">Copyright &copy; 2023-present 
+   <a href="https://github.com/Inmoresentum" target="_blank">Inmoresentum</a>
+</p>
