@@ -1,5 +1,7 @@
-<h1 align="center">AI Powered Quiz Application</h1>
-
+<div align="center">
+    <img src="src/main/resources/META-INF/resources/images/ai_quiz_logo.png" width="180px" alt="ggwp">
+    <h1 align="center">AI Powered Quiz Application</h1>
+</div>
 <div>
 </div>
 
